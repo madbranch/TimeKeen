@@ -26,12 +26,17 @@ struct CurrentTimeEntryView: View {
   @State private var clockInState: ClockInState = .ClockedOut
   @State private var clockInDate = Date()
   @State private var clockOutDate = Date()
+  @State private var minClockOutDate = Date()
+  private let dateFormat: DateFormatter
   
   init(viewModel: CurrentTimeEntryViewModel) {
     self.viewModel = viewModel
+    self.dateFormat = DateFormatter()
+    dateFormat.dateFormat = "HH:mm"
   }
   
   private func startClockIn() {
+    clockInDate = Date()
     clockInState = .ClockingIn
   }
   
@@ -41,69 +46,39 @@ struct CurrentTimeEntryView: View {
   }
   
   private func startClockOut() {
+    guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: clockInDate) else {
+      return
+    }
+    minClockOutDate = newDate
+    clockOutDate = newDate
     clockInState = .ClockingOut
   }
   
   private func commitClockOut() {
-    let clockOutResult: Result<TimeEntry, ClockOutError> = viewModel.clockOut(at: clockOutDate)
-    
-    switch (clockOutResult) {
-    case .success(let entry):
-      print(entry)
-    case .failure(let error):
-      print(error)
-    }
-    
+    _ = viewModel.clockOut(at: clockOutDate)
     clockInState = .ClockedOut
   }
   
   var body: some View {
-    NavigationView {
-      VStack {
-        switch clockInState {
-        case .ClockedOut:
-          Button("Clock In...", action: startClockIn)
-            .padding()
-            .buttonStyle(ClockInButtonStyle())
-        case .ClockingIn:
-          DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
-            .datePickerStyle(.compact)
-          Button("OK", action: commitClockIn)
-        case .ClockedIn:
-          Button("Clock Out...", action: startClockOut)
-            .padding()
-            .buttonStyle(ClockInButtonStyle())
-        case .ClockingOut:
-          DatePicker("At", selection: $clockOutDate, displayedComponents: [.date, .hourAndMinute])
-            .datePickerStyle(.compact)
-          Button("OK", action: commitClockOut)
-        }
-      }
-      .navigationTitle("Time Keen")
-      .toolbar {
-        ToolbarItem(placement: .bottomBar) {
-          Button {
-          } label: {
-            Image(systemName: "gear")
-          }
-        }
-        ToolbarItem(placement: .status) {
-          Button {
-          } label: {
-            Image(systemName: "plus")
-          }
-        }
-        ToolbarItem(placement: .bottomBar) {
-          Button {
-          } label: {
-            Image(systemName: "list.bullet")
-          }
-        }
-      }
-    }
-    .padding()
-    .onAppear {
-      UIDatePicker.appearance().minuteInterval = 15
+    switch clockInState {
+    case .ClockedOut:
+      Text(" ")
+      Button("Clock In...", action: startClockIn)
+        .padding()
+        .buttonStyle(ClockInButtonStyle())
+    case .ClockingIn:
+      DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
+        .datePickerStyle(.compact)
+      Button("OK", action: commitClockIn)
+    case .ClockedIn:
+      Text("Clocked in at \(self.dateFormat.string(from: clockInDate))")
+      Button("Clock Out...", action: startClockOut)
+        .padding()
+        .buttonStyle(ClockInButtonStyle())
+    case .ClockingOut:
+      DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
+        .datePickerStyle(.compact)
+      Button("OK", action: commitClockOut)
     }
   }
 }

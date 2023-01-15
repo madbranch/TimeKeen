@@ -6,7 +6,10 @@ struct TimeKeenApp: App {
   
   var body: some Scene {
     WindowGroup {
-      CurrentTimeEntryView(viewModel: CurrentTimeEntryViewModel(context: persistenceController.container.viewContext))
+      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+      let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel)
+      
+      ContentView(viewModel: viewModel)
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
     }
   }
