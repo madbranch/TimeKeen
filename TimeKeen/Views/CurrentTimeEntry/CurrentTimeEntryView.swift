@@ -60,25 +60,28 @@ struct CurrentTimeEntryView: View {
   }
   
   var body: some View {
-    switch clockInState {
-    case .ClockedOut:
-      Text(" ")
-      Button("Clock In...", action: startClockIn)
-        .padding()
-        .buttonStyle(ClockInButtonStyle())
-    case .ClockingIn:
-      DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
-        .datePickerStyle(.compact)
-      Button("OK", action: commitClockIn)
-    case .ClockedIn:
-      Text("Clocked in at \(self.dateFormat.string(from: clockInDate))")
-      Button("Clock Out...", action: startClockOut)
-        .padding()
-        .buttonStyle(ClockInButtonStyle())
-    case .ClockingOut:
-      DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
-        .datePickerStyle(.compact)
-      Button("OK", action: commitClockOut)
+    VStack {
+      Spacer()
+      switch clockInState {
+      case .ClockedOut:
+        Text(" ")
+        Button("Clock In...", action: startClockIn)
+          .padding()
+          .buttonStyle(ClockInButtonStyle())
+      case .ClockingIn:
+        DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
+          .datePickerStyle(.compact)
+        Button("OK", action: commitClockIn)
+      case .ClockedIn:
+        Text("Clocked in at \(self.dateFormat.string(from: clockInDate))")
+        Button("Clock Out...", action: startClockOut)
+          .padding()
+          .buttonStyle(ClockInButtonStyle())
+      case .ClockingOut:
+        DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
+          .datePickerStyle(.compact)
+        Button("OK", action: commitClockOut)
+      }
     }
   }
 }

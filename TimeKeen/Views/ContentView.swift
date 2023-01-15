@@ -10,30 +10,28 @@ struct ContentView: View {
   
   var body: some View {
     NavigationView {
-      VStack {
-        CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
-      }
-      .navigationTitle("Time Keen")
-      .toolbar {
-        ToolbarItem(placement: .bottomBar) {
-          Button {
-          } label: {
-            Image(systemName: "gear")
+      CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
+        .navigationTitle("Time Keen")
+        .toolbar {
+          ToolbarItem(placement: .bottomBar) {
+            Button {
+            } label: {
+              Image(systemName: "gear")
+            }
+          }
+          ToolbarItem(placement: .status) {
+            Button {
+            } label: {
+              Image(systemName: "plus")
+            }
+          }
+          ToolbarItem(placement: .bottomBar) {
+            Button {
+            } label: {
+              Image(systemName: "list.bullet")
+            }
           }
         }
-        ToolbarItem(placement: .status) {
-          Button {
-          } label: {
-            Image(systemName: "plus")
-          }
-        }
-        ToolbarItem(placement: .bottomBar) {
-          Button {
-          } label: {
-            Image(systemName: "list.bullet")
-          }
-        }
-      }
     }
     .padding()
     .onAppear {
