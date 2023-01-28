@@ -27,7 +27,9 @@ struct CurrentTimeEntryView: View {
   @State private var clockInDate = Date()
   @State private var clockOutDate = Date()
   @State private var minClockOutDate = Date()
+  @State private var clockInDuration: String = "00:00"
   private let dateFormat: DateFormatter
+  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
   init(viewModel: CurrentTimeEntryViewModel) {
     self.viewModel = viewModel
@@ -59,6 +61,16 @@ struct CurrentTimeEntryView: View {
     clockInState = .ClockedOut
   }
   
+  private func updateClockInDuration(input: Date) {
+    let components = Calendar.current.dateComponents([.hour, .minute], from: clockInDate, to: input)
+    
+    if let hour = components.hour, let minute = components.minute  {
+      clockInDuration = "\(String(format: "%02d", hour)):\(String(format: "%02d", minute))"
+    } else {
+      clockInDuration = "00:00"
+    }
+  }
+  
   var body: some View {
     VStack {
       Spacer()
@@ -66,21 +78,42 @@ struct CurrentTimeEntryView: View {
       case .ClockedOut:
         Text(" ")
         Button("Clock In...", action: startClockIn)
+          .buttonStyle(.borderedProminent)
+          .controlSize(.large)
           .padding()
-          .buttonStyle(ClockInButtonStyle())
       case .ClockingIn:
         DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
-        Button("OK", action: commitClockIn)
-      case .ClockedIn:
-        Text("Clocked in at \(self.dateFormat.string(from: clockInDate))")
-        Button("Clock Out...", action: startClockOut)
           .padding()
-          .buttonStyle(ClockInButtonStyle())
+        Button("OK", action: commitClockIn)
+          .buttonStyle(.borderedProminent)
+          .controlSize(.large)
+          .padding()
+      case .ClockedIn:
+        Text(clockInDuration)
+          .onAppear { updateClockInDuration(input: Date.now) }
+          .onReceive(timer, perform: updateClockInDuration)
+          .font(.system(size: 1000))
+          .scaledToFit()
+          .minimumScaleFactor(0.01)
+          .lineLimit(1)
+        Spacer()
+        Text("Clocked in at \(self.dateFormat.string(from: clockInDate))")
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .padding()
+        Button("Clock Out...", action: startClockOut)
+          .buttonStyle(.borderedProminent)
+          .controlSize(.large)
+          .padding()
       case .ClockingOut:
         DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
+          .padding()
         Button("OK", action: commitClockOut)
+          .buttonStyle(.borderedProminent)
+          .controlSize(.large)
+          .padding()
       }
     }
   }
