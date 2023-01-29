@@ -11,58 +11,24 @@ struct ClockInButtonStyle: ButtonStyle {
   }
 }
 
-enum ClockInState {
-  case ClockedOut
-  case ClockingIn
-  case ClockedIn
-  case ClockingOut
-}
-
 struct CurrentTimeEntryView: View {
   @Environment(\.managedObjectContext) private var viewContext
   
   @ObservedObject var viewModel: CurrentTimeEntryViewModel
-  
-  @State private var clockInState: ClockInState = .ClockedOut
-  @State private var clockInDate = Date()
-  @State private var clockOutDate = Date()
-  @State private var minClockOutDate = Date()
+
   @State private var clockInDuration: String = "00:00"
+
   private let dateFormat: DateFormatter
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-  
+
   init(viewModel: CurrentTimeEntryViewModel) {
     self.viewModel = viewModel
-    self.dateFormat = DateFormatter()
+    dateFormat = DateFormatter()
     dateFormat.dateFormat = "HH:mm"
   }
   
-  private func startClockIn() {
-    clockInDate = Date()
-    clockInState = .ClockingIn
-  }
-  
-  private func commitClockIn() {
-    viewModel.start = clockInDate
-    clockInState = .ClockedIn
-  }
-  
-  private func startClockOut() {
-    guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: clockInDate) else {
-      return
-    }
-    minClockOutDate = newDate
-    clockOutDate = newDate
-    clockInState = .ClockingOut
-  }
-  
-  private func commitClockOut() {
-    _ = viewModel.clockOut(at: clockOutDate)
-    clockInState = .ClockedOut
-  }
-  
   private func updateClockInDuration(input: Date) {
-    let components = Calendar.current.dateComponents([.hour, .minute], from: clockInDate, to: input)
+    let components = Calendar.current.dateComponents([.hour, .minute], from: viewModel.clockInDate, to: input)
     
     if let hour = components.hour, let minute = components.minute  {
       clockInDuration = "\(String(format: "%02d", hour)):\(String(format: "%02d", minute))"
@@ -74,18 +40,18 @@ struct CurrentTimeEntryView: View {
   var body: some View {
     VStack {
       Spacer()
-      switch clockInState {
+      switch viewModel.clockInState {
       case .ClockedOut:
         Text(" ")
-        Button("Clock In...", action: startClockIn)
+        Button("Clock In...", action: viewModel.startClockIn)
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
       case .ClockingIn:
-        DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
+        DatePicker("At", selection: $viewModel.clockInDate, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("OK", action: commitClockIn)
+        Button("OK", action: viewModel.commitClockIn)
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
@@ -98,19 +64,19 @@ struct CurrentTimeEntryView: View {
           .minimumScaleFactor(0.01)
           .lineLimit(1)
         Spacer()
-        Text("Clocked in at \(self.dateFormat.string(from: clockInDate))")
+        Text("Clocked in at \(self.dateFormat.string(from: viewModel.clockInDate))")
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
         .padding()
-        Button("Clock Out...", action: startClockOut)
+        Button("Clock Out...", action: viewModel.startClockOut)
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
       case .ClockingOut:
-        DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
+        DatePicker("At", selection: $viewModel.clockOutDate, in: viewModel.minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("OK", action: commitClockOut)
+        Button("OK", action: viewModel.commitClockOut)
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()

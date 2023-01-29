@@ -7,29 +7,30 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
   func test_Init_WithDefault_ShouldNotBeStarted() throws {
     let persistenceController = PersistenceController(inMemory: true)
     let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
-    XCTAssertNil(currentTimeEntry.start)
+    XCTAssertEqual(ClockInState.ClockedOut, currentTimeEntry.clockInState)
   }
   
   func test_SetStartWithValidDate_ShouldContainSetValue() throws {
     let persistenceController = PersistenceController(inMemory: true)
     let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
     let date = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
-    currentTimeEntry.start = date
-    XCTAssertEqual(date, currentTimeEntry.start)
+    currentTimeEntry.clockInDate = date
+    XCTAssertEqual(date, currentTimeEntry.clockInDate)
   }
   
   func test_ClockOut_WithStartNil_ShouldReturnNotStarted() throws {
     let persistenceController = PersistenceController(inMemory: true)
     let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
     let result: Result<TimeEntry, ClockOutError> = currentTimeEntry.clockOut(at: CurrentTimeEntryViewModelTests.createSomeValidStartDate())
-    XCTAssertEqual(.failure(ClockOutError.notStarted), result)
+    XCTAssertEqual(.failure(ClockOutError.notClockingOut), result)
   }
   
   func test_ClockOut_WithEndEqualToStart_ShouldReturnStartAndEndEqualError() throws {
     let persistenceController = PersistenceController(inMemory: true)
     let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
     let start = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
-    currentTimeEntry.start = start
+    currentTimeEntry.clockInDate = start
+    currentTimeEntry.startClockOut()
     let end = start
     XCTAssertEqual(.failure(.startAndEndEqual), currentTimeEntry.clockOut(at: end))
   }
@@ -38,10 +39,11 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     let persistenceController = PersistenceController(inMemory: true)
     let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
     let start = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
-    currentTimeEntry.start = start
+    currentTimeEntry.clockInDate = start
+    currentTimeEntry.startClockOut()
     let end = CurrentTimeEntryViewModelTests.createSomeValidEndDate()
     XCTAssertNoThrow(try currentTimeEntry.clockOut(at: end).get())
-    XCTAssertNil(currentTimeEntry.start)
+    XCTAssertEqual(ClockInState.ClockedOut, currentTimeEntry.clockInState)
   }
   
   private static func createSomeValidStartDate() -> Date {

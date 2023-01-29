@@ -1,4 +1,4 @@
 enum ClockOutError: Error {
-  case notStarted
+  case notClockingOut
   case startAndEndEqual
 }
