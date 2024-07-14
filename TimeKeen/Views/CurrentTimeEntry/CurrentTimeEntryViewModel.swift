@@ -1,5 +1,5 @@
 import Foundation
-import CoreData
+import SwiftData
 
 final class CurrentTimeEntryViewModel: ObservableObject {
   @Published var clockInDate = Date()
@@ -7,9 +7,9 @@ final class CurrentTimeEntryViewModel: ObservableObject {
   @Published var clockOutDate = Date()
   @Published var minClockOutDate = Date()
 
-  private var context: NSManagedObjectContext
+  private var context: ModelContext
   
-  init(context: NSManagedObjectContext, start: Date? = nil) {
+  init(context: ModelContext, start: Date? = nil) {
     self.context = context
     
     if let clockInDate = start {
@@ -50,13 +50,13 @@ final class CurrentTimeEntryViewModel: ObservableObject {
       return .failure(.startAndEndEqual)
     }
     
-    let entry = TimeEntry(context: context)
-    entry.start = clockInDate
-    entry.end = end
+    let timeEntry = TimeEntry(from: clockInDate, to: end)
+    
+    context.insert(timeEntry)
 
     clockInState = .ClockedOut
     UserDefaults.standard.removeObject(forKey: "ClockInDate")
 
-    return .success(entry)
+    return .success(timeEntry)
   }
 }

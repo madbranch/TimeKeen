@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-  @Environment(\.managedObjectContext) private var viewContext
   @ObservedObject var viewModel: ContentViewModel
   
   init(viewModel: ContentViewModel) {
@@ -20,7 +19,8 @@ struct ContentView: View {
             }
           }
           ToolbarItem(placement: .bottomBar) {
-            Button {
+            NavigationLink {
+              TimePeriodsView(viewModel: viewModel.timePeriodsViewModel)
             } label: {
               Image(systemName: "list.bullet")
             }
@@ -31,15 +31,5 @@ struct ContentView: View {
     .onAppear {
       UIDatePicker.appearance().minuteInterval = 15
     }
-  }
-}
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
-    let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel)
-    ContentView(viewModel: viewModel)
-      .environment(\.managedObjectContext, persistenceController.container.viewContext)
   }
 }

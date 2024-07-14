@@ -72,11 +72,3 @@ struct CurrentTimeEntryView: View {
     }
   }
 }
-
-struct CurrentTimeEntryView_Previews: PreviewProvider {
-  static var previews: some View {
-    let persistenceController = PersistenceController(inMemory: true)
-    CurrentTimeEntryView(viewModel: CurrentTimeEntryViewModel(context: persistenceController.container.viewContext))
-      .environment(\.managedObjectContext, persistenceController.container.viewContext)
-  }
-}

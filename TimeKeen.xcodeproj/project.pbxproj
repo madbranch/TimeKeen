@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		662294AC2C43F840005707D1 /* TimeEntryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294AB2C43F840005707D1 /* TimeEntryRow.swift */; };
+		662294AE2C43FAA9005707D1 /* TimeEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294AD2C43FAA9005707D1 /* TimeEntryViewModel.swift */; };
+		662294B02C440196005707D1 /* TimeEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294AF2C440196005707D1 /* TimeEntryExtension.swift */; };
+		662294B22C4466B1005707D1 /* TimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B12C4466B1005707D1 /* TimeEntry.swift */; };
 		6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125129607279007A5343 /* CurrentTimeEntryView.swift */; };
 		6629125429607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125329607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift */; };
 		6629125629607CB4007A5343 /* CurrentTimeEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125529607CB4007A5343 /* CurrentTimeEntryViewModel.swift */; };
@@ -17,7 +21,6 @@
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
 		6693597429606A3A00DEDD35 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693597329606A3A00DEDD35 /* PersistenceController.swift */; };
-		6693597729606A3A00DEDD35 /* TimeKeen.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6693597529606A3A00DEDD35 /* TimeKeen.xcdatamodeld */; };
 		6693598229606A3A00DEDD35 /* TimeKeenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693598129606A3A00DEDD35 /* TimeKeenTests.swift */; };
 		6693598C29606A3A00DEDD35 /* TimeKeenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693598B29606A3A00DEDD35 /* TimeKeenUITests.swift */; };
 		6693598E29606A3A00DEDD35 /* TimeKeenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693598D29606A3A00DEDD35 /* TimeKeenUITestsLaunchTests.swift */; };
@@ -46,6 +49,10 @@
 
 /* Begin PBXFileReference section */
 		662294AA2C43DC98005707D1 /* TimeKeen.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TimeKeen.xctestplan; sourceTree = "<group>"; };
+		662294AB2C43F840005707D1 /* TimeEntryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryRow.swift; sourceTree = "<group>"; };
+		662294AD2C43FAA9005707D1 /* TimeEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryViewModel.swift; sourceTree = "<group>"; };
+		662294AF2C440196005707D1 /* TimeEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryExtension.swift; sourceTree = "<group>"; };
+		662294B12C4466B1005707D1 /* TimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntry.swift; sourceTree = "<group>"; };
 		6629125129607279007A5343 /* CurrentTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryView.swift; sourceTree = "<group>"; };
 		6629125329607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryViewModelTests.swift; sourceTree = "<group>"; };
 		6629125529607CB4007A5343 /* CurrentTimeEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryViewModel.swift; sourceTree = "<group>"; };
@@ -57,7 +64,6 @@
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6693597129606A3A00DEDD35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6693597329606A3A00DEDD35 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		6693597629606A3A00DEDD35 /* TimeKeen.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeKeen.xcdatamodel; sourceTree = "<group>"; };
 		6693597829606A3A00DEDD35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6693597D29606A3A00DEDD35 /* TimeKeenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeKeenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693598129606A3A00DEDD35 /* TimeKeenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenTests.swift; sourceTree = "<group>"; };
@@ -146,8 +152,9 @@
 				6693597829606A3A00DEDD35 /* Info.plist */,
 				6693597329606A3A00DEDD35 /* PersistenceController.swift */,
 				6693597029606A3A00DEDD35 /* Preview Content */,
-				6693597529606A3A00DEDD35 /* TimeKeen.xcdatamodeld */,
 				6693596A29606A3900DEDD35 /* TimeKeenApp.swift */,
+				662294AF2C440196005707D1 /* TimeEntryExtension.swift */,
+				662294B12C4466B1005707D1 /* TimeEntry.swift */,
 			);
 			path = TimeKeen;
 			sourceTree = "<group>";
@@ -181,9 +188,11 @@
 		669393E52990641100CC661C /* TimePeriods */ = {
 			isa = PBXGroup;
 			children = (
+				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
 				669393E62990642700CC661C /* TimePeriodsViewModel.swift */,
 				669393E82990643400CC661C /* TimePeriodsView.swift */,
 				669393EA299067B800CC661C /* TimePeriod.swift */,
+				662294AD2C43FAA9005707D1 /* TimeEntryViewModel.swift */,
 			);
 			path = TimePeriods;
 			sourceTree = "<group>";
@@ -323,13 +332,16 @@
 				6693597429606A3A00DEDD35 /* PersistenceController.swift in Sources */,
 				6629125629607CB4007A5343 /* CurrentTimeEntryViewModel.swift in Sources */,
 				662D07452974210B002083F6 /* ContentView.swift in Sources */,
+				662294B22C4466B1005707D1 /* TimeEntry.swift in Sources */,
 				669393EB299067B800CC661C /* TimePeriod.swift in Sources */,
 				669393E72990642700CC661C /* TimePeriodsViewModel.swift in Sources */,
 				662912592961A798007A5343 /* ClockOutError.swift in Sources */,
 				6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */,
 				669393E42986B2BD00CC661C /* ClockInState.swift in Sources */,
 				6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */,
-				6693597729606A3A00DEDD35 /* TimeKeen.xcdatamodeld in Sources */,
+				662294AC2C43F840005707D1 /* TimeEntryRow.swift in Sources */,
+				662294AE2C43FAA9005707D1 /* TimeEntryViewModel.swift in Sources */,
+				662294B02C440196005707D1 /* TimeEntryExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,19 +709,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		6693597529606A3A00DEDD35 /* TimeKeen.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				6693597629606A3A00DEDD35 /* TimeKeen.xcdatamodel */,
-			);
-			currentVersion = 6693597629606A3A00DEDD35 /* TimeKeen.xcdatamodel */;
-			path = TimeKeen.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 6693595F29606A3900DEDD35 /* Project object */;
 }

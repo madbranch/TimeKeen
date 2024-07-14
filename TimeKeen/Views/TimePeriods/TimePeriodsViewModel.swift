@@ -1,18 +1,22 @@
 import Foundation
 import SwiftUI
-import CoreData
+import SwiftData
 
 final class TimePeriodsViewModel: ObservableObject {
-  private var context: NSManagedObjectContext
-  @FetchRequest(fetchRequest: requestEntries) private var entries: FetchedResults<TimeEntry>
+  private var context: ModelContext
+  @Published var timeEntries = [TimeEntry]()
 
-  init(context: NSManagedObjectContext) throws {
+  init(context: ModelContext) {
     self.context = context
   }
-
-  static let requestEntries: NSFetchRequest = {
-    let request = TimeEntry.fetchRequest()
-    request.sortDescriptors = [NSSortDescriptor(key: "start", ascending: false)]
-    return request
-  }()
+  
+  func fetchData()
+  {
+    do {
+      let descriptor = FetchDescriptor<TimeEntry>(sortBy: [SortDescriptor(\.start)])
+      timeEntries = try context.fetch(descriptor)
+    } catch {
+      print("Fetch failed")
+    }
+  }
 }
