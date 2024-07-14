@@ -1,16 +1,5 @@
 import SwiftUI
 
-struct ClockInButtonStyle: ButtonStyle {
-  func makeBody(configuration: Self.Configuration) -> some View {
-    configuration.label
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .foregroundColor(.primary)
-      .background(Color(UIColor.tintColor))
-      .clipShape(Circle())
-      .shadow(radius: 10)
-  }
-}
-
 struct CurrentTimeEntryView: View {
   @Environment(\.managedObjectContext) private var viewContext
   
