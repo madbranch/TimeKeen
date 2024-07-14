@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "79990C21-C1B1-463C-A572-9ED2847765F2",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:TimeKeen.xcodeproj",
+      "identifier" : "6693596629606A3900DEDD35",
+      "name" : "TimeKeen"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TimeKeen.xcodeproj",
+        "identifier" : "6693597C29606A3A00DEDD35",
+        "name" : "TimeKeenTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TimeKeen.xcodeproj",
+        "identifier" : "6693598629606A3A00DEDD35",
+        "name" : "TimeKeenUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

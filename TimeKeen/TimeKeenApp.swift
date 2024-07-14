@@ -6,7 +6,9 @@ struct TimeKeenApp: App {
   
   var body: some Scene {
     WindowGroup {
-      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext, start: UserDefaults.standard.object(forKey: "ClockInDate") as? Date)
+      let context = persistenceController.container.viewContext
+      let start = UserDefaults.standard.object(forKey: "ClockInDate") as? Date
+      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, start: start)
       let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel)
       
       ContentView(viewModel: viewModel)

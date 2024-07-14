@@ -18,6 +18,23 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     XCTAssertEqual(date, currentTimeEntry.clockInDate)
   }
   
+  func test_StartClockIn_StateShouldBeClockingIn() throws {
+    let persistenceController = PersistenceController(inMemory: true)
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    currentTimeEntry.startClockIn()
+    XCTAssertEqual(ClockInState.ClockingIn, currentTimeEntry.clockInState)
+  }
+  
+  func test_CommitClockIn_ShouldBeClockedIn() throws {
+    let persistenceController = PersistenceController(inMemory: true)
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let date = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
+    currentTimeEntry.clockInDate = date
+    currentTimeEntry.commitClockIn()
+    XCTAssertEqual(ClockInState.ClockedIn, currentTimeEntry.clockInState)
+    XCTAssertEqual(date, UserDefaults.standard.object(forKey: "ClockInDate") as? Date)
+  }
+  
   func test_ClockOut_WithStartNil_ShouldReturnNotStarted() throws {
     let persistenceController = PersistenceController(inMemory: true)
     let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)

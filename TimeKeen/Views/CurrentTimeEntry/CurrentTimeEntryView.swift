@@ -42,7 +42,6 @@ struct CurrentTimeEntryView: View {
       Spacer()
       switch viewModel.clockInState {
       case .ClockedOut:
-        Text(" ")
         Button("Clock In...", action: viewModel.startClockIn)
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
@@ -51,7 +50,7 @@ struct CurrentTimeEntryView: View {
         DatePicker("At", selection: $viewModel.clockInDate, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("OK", action: viewModel.commitClockIn)
+        Button("Clock In at \(self.dateFormat.string(from: viewModel.clockInDate))", action: viewModel.commitClockIn)
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
@@ -76,7 +75,7 @@ struct CurrentTimeEntryView: View {
         DatePicker("At", selection: $viewModel.clockOutDate, in: viewModel.minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("OK", action: viewModel.commitClockOut)
+        Button("Clock Out at \(self.dateFormat.string(from: viewModel.clockOutDate))", action: viewModel.commitClockOut)
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()

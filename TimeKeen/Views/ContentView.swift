@@ -19,12 +19,6 @@ struct ContentView: View {
               Image(systemName: "gear")
             }
           }
-          ToolbarItem(placement: .status) {
-            Button {
-            } label: {
-              Image(systemName: "plus")
-            }
-          }
           ToolbarItem(placement: .bottomBar) {
             Button {
             } label: {
