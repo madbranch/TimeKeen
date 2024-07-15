@@ -1,33 +1,37 @@
 import XCTest
-import CoreData
+import SwiftData
 @testable import TimeKeen
 
 final class CurrentTimeEntryViewModelTests: XCTestCase {
   
+  @MainActor
   func test_Init_WithDefault_ShouldNotBeStarted() throws {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let container = try createContainer()
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
     XCTAssertEqual(ClockInState.ClockedOut, currentTimeEntry.clockInState)
   }
   
+  @MainActor
   func test_SetStartWithValidDate_ShouldContainSetValue() throws {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let container = try createContainer()
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
     let date = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     currentTimeEntry.clockInDate = date
     XCTAssertEqual(date, currentTimeEntry.clockInDate)
   }
   
+  @MainActor
   func test_StartClockIn_StateShouldBeClockingIn() throws {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let container = try createContainer()
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
     currentTimeEntry.startClockIn()
     XCTAssertEqual(ClockInState.ClockingIn, currentTimeEntry.clockInState)
   }
   
+  @MainActor
   func test_CommitClockIn_ShouldBeClockedIn() throws {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let container = try createContainer()
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
     let date = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     currentTimeEntry.clockInDate = date
     currentTimeEntry.commitClockIn()
@@ -35,16 +39,18 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     XCTAssertEqual(date, UserDefaults.standard.object(forKey: "ClockInDate") as? Date)
   }
   
+  @MainActor
   func test_ClockOut_WithStartNil_ShouldReturnNotStarted() throws {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let container = try createContainer()
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
     let result: Result<TimeEntry, ClockOutError> = currentTimeEntry.clockOut(at: CurrentTimeEntryViewModelTests.createSomeValidStartDate())
     XCTAssertEqual(.failure(ClockOutError.notClockingOut), result)
   }
   
+  @MainActor
   func test_ClockOut_WithEndEqualToStart_ShouldReturnStartAndEndEqualError() throws {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let container = try createContainer()
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
     let start = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     currentTimeEntry.clockInDate = start
     currentTimeEntry.startClockOut()
@@ -52,9 +58,10 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     XCTAssertEqual(.failure(.startAndEndEqual), currentTimeEntry.clockOut(at: end))
   }
   
+  @MainActor
   func test_ClockOut_WithValidStart_ShouldReturnTimeEntryAndStartShouldBeNil() throws {
-    let persistenceController = PersistenceController(inMemory: true)
-    let currentTimeEntry = CurrentTimeEntryViewModel(context: persistenceController.container.viewContext)
+    let container = try createContainer()
+    let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
     let start = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     currentTimeEntry.clockInDate = start
     currentTimeEntry.startClockOut()
@@ -85,5 +92,10 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     dateComponents.minute = 45
     let calendar = Calendar(identifier: .gregorian)
     return calendar.date(from: dateComponents)!
+  }
+  
+  private func createContainer() throws -> ModelContainer {
+    let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+    return try ModelContainer(for: TimeEntry.self, configurations: configuration )
   }
 }
