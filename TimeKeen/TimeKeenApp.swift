@@ -17,7 +17,7 @@ struct TimeKeenApp: App {
     WindowGroup {
       let start = UserDefaults.standard.object(forKey: "ClockInDate") as? Date
       let context = container.mainContext
-      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, start: start)
+      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, clockedInAt: start)
       let timePeriodsViewModel = TimePeriodsViewModel(context: context)
       let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, timePeriodsViewModel: timePeriodsViewModel)
 

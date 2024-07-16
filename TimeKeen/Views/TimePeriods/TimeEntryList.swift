@@ -1,10 +1,10 @@
 import SwiftUI
 import CoreData
 
-struct TimePeriodsView : View {
-  @ObservedObject var viewModel: TimePeriodsViewModel
+struct TimeEntryList : View {
+  @ObservedObject var viewModel: TimeEntryListViewModel
   
-  init(viewModel: TimePeriodsViewModel) {
+  init(viewModel: TimeEntryListViewModel) {
     self.viewModel = viewModel
   }
   

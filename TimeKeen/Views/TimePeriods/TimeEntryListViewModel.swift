@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-final class TimePeriodsViewModel: ObservableObject {
+final class TimeEntryListViewModel: ObservableObject {
   private var context: ModelContext
   @Published var timeEntries = [TimeEntry]()
 
