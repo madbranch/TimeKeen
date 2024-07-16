@@ -13,7 +13,7 @@ final class TimeEntryListViewModel: ObservableObject {
   func fetchData()
   {
     do {
-      let descriptor = FetchDescriptor<TimeEntry>(sortBy: [SortDescriptor(\.start)])
+      let descriptor = FetchDescriptor<TimeEntry>(sortBy: [SortDescriptor(\.start, order: .reverse)])
       timeEntries = try context.fetch(descriptor)
     } catch {
       print("Fetch failed")
