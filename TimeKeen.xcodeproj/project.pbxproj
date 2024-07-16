@@ -25,8 +25,8 @@
 		6693598C29606A3A00DEDD35 /* TimeKeenUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693598B29606A3A00DEDD35 /* TimeKeenUITests.swift */; };
 		6693598E29606A3A00DEDD35 /* TimeKeenUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693598D29606A3A00DEDD35 /* TimeKeenUITestsLaunchTests.swift */; };
 		669393E42986B2BD00CC661C /* ClockInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E32986B2BD00CC661C /* ClockInState.swift */; };
-		669393E72990642700CC661C /* TimePeriodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E62990642700CC661C /* TimePeriodsViewModel.swift */; };
-		669393E92990643400CC661C /* TimePeriodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E82990643400CC661C /* TimePeriodsView.swift */; };
+		669393E72990642700CC661C /* TimeEntryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E62990642700CC661C /* TimeEntryListViewModel.swift */; };
+		669393E92990643400CC661C /* TimeEntryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E82990643400CC661C /* TimeEntryList.swift */; };
 		669393EB299067B800CC661C /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393EA299067B800CC661C /* TimePeriod.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,8 +71,8 @@
 		6693598B29606A3A00DEDD35 /* TimeKeenUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenUITests.swift; sourceTree = "<group>"; };
 		6693598D29606A3A00DEDD35 /* TimeKeenUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		669393E32986B2BD00CC661C /* ClockInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockInState.swift; sourceTree = "<group>"; };
-		669393E62990642700CC661C /* TimePeriodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriodsViewModel.swift; sourceTree = "<group>"; };
-		669393E82990643400CC661C /* TimePeriodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriodsView.swift; sourceTree = "<group>"; };
+		669393E62990642700CC661C /* TimeEntryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryListViewModel.swift; sourceTree = "<group>"; };
+		669393E82990643400CC661C /* TimeEntryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryList.swift; sourceTree = "<group>"; };
 		669393EA299067B800CC661C /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,8 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
-				669393E62990642700CC661C /* TimePeriodsViewModel.swift */,
-				669393E82990643400CC661C /* TimePeriodsView.swift */,
+				669393E62990642700CC661C /* TimeEntryListViewModel.swift */,
+				669393E82990643400CC661C /* TimeEntryList.swift */,
 				669393EA299067B800CC661C /* TimePeriod.swift */,
 				662294AD2C43FAA9005707D1 /* TimeEntryViewModel.swift */,
 			);
@@ -328,13 +328,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				662D0747297421D7002083F6 /* ContentViewModel.swift in Sources */,
-				669393E92990643400CC661C /* TimePeriodsView.swift in Sources */,
+				669393E92990643400CC661C /* TimeEntryList.swift in Sources */,
 				6693597429606A3A00DEDD35 /* PersistenceController.swift in Sources */,
 				6629125629607CB4007A5343 /* CurrentTimeEntryViewModel.swift in Sources */,
 				662D07452974210B002083F6 /* ContentView.swift in Sources */,
 				662294B22C4466B1005707D1 /* TimeEntry.swift in Sources */,
 				669393EB299067B800CC661C /* TimePeriod.swift in Sources */,
-				669393E72990642700CC661C /* TimePeriodsViewModel.swift in Sources */,
+				669393E72990642700CC661C /* TimeEntryListViewModel.swift in Sources */,
 				662912592961A798007A5343 /* ClockOutError.swift in Sources */,
 				6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */,
 				669393E42986B2BD00CC661C /* ClockInState.swift in Sources */,

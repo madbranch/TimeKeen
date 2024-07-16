@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TimeEntryRow : View {
+  @Environment(\.modelContext) private var context
   var timeEntry: TimeEntry
   private let dateFormat: DateFormatter
   
@@ -15,6 +16,11 @@ struct TimeEntryRow : View {
       Text("\(self.dateFormat.string(from: timeEntry.start)) - \(self.dateFormat.string(from: timeEntry.end))")
       Spacer()
       Text(timeEntry.duration)
+    }
+    .swipeActions {
+      Button("Delete", systemImage: "trash", role: .destructive) {
+        context.delete(timeEntry)
+      }
     }
   }
 }

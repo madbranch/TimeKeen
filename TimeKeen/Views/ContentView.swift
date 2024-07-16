@@ -20,7 +20,7 @@ struct ContentView: View {
           }
           ToolbarItem(placement: .bottomBar) {
             NavigationLink {
-              TimePeriodsView(viewModel: viewModel.timePeriodsViewModel)
+              TimeEntryList(viewModel: viewModel.timeEntryListViewModel)
             } label: {
               Image(systemName: "list.bullet")
             }
