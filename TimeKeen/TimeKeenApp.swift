@@ -18,8 +18,8 @@ struct TimeKeenApp: App {
       let start = UserDefaults.standard.object(forKey: "ClockInDate") as? Date
       let context = container.mainContext
       let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, clockedInAt: start)
-      let timeEntryListViewModel = TimeEntryListViewModel(context: context)
-      let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, timeEntryListViewModel: timeEntryListViewModel)
+      let payPeriodListViewModel = PayPeriodListViewModel(context: context)
+      let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, payPeriodListViewModel: payPeriodListViewModel)
 
       ContentView(viewModel: viewModel )
         .modelContainer(for: [

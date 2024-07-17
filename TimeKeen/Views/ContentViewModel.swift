@@ -2,10 +2,10 @@ import Foundation
 
 final class ContentViewModel: ObservableObject {
   @Published var currentTimeEntryViewModel: CurrentTimeEntryViewModel
-  @Published var timeEntryListViewModel: TimeEntryListViewModel
+  @Published var payPeriodListViewModel: PayPeriodListViewModel
   
-  init(currentTimeEntryViewModel: CurrentTimeEntryViewModel, timeEntryListViewModel: TimeEntryListViewModel) {
+  init(currentTimeEntryViewModel: CurrentTimeEntryViewModel, payPeriodListViewModel: PayPeriodListViewModel) {
     self.currentTimeEntryViewModel = currentTimeEntryViewModel
-    self.timeEntryListViewModel = timeEntryListViewModel
+    self.payPeriodListViewModel = payPeriodListViewModel
   }
 }

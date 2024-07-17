@@ -20,7 +20,10 @@ struct ContentView: View {
           }
           ToolbarItem(placement: .bottomBar) {
             NavigationLink {
-              TimeEntryList(viewModel: viewModel.timeEntryListViewModel)
+              NavigationView {
+                PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
+              }
+              .navigationTitle("Pay Periods")
             } label: {
               Image(systemName: "list.bullet")
             }

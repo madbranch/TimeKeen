@@ -1,5 +1,4 @@
 import SwiftUI
-import CoreData
 
 struct TimeEntryList : View {
   @ObservedObject var viewModel: TimeEntryListViewModel
@@ -13,7 +12,7 @@ struct TimeEntryList : View {
       List(viewModel.timeEntries) { timeEntry in
         TimeEntryRow(timeEntry: timeEntry)
       }
-      .onAppear(perform: self.viewModel.fetchData)
+      .onAppear(perform: self.viewModel.computeProperties)
       .navigationTitle("Time Entries")
     }
   }

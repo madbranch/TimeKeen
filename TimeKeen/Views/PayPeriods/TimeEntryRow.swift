@@ -4,7 +4,8 @@ struct TimeEntryRow : View {
   @Environment(\.modelContext) private var context
   var timeEntry: TimeEntry
   private let dateFormat: DateFormatter
-  
+  private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
+
   init(timeEntry: TimeEntry) {
     self.timeEntry = timeEntry
     dateFormat = DateFormatter()
@@ -15,7 +16,7 @@ struct TimeEntryRow : View {
     HStack {
       Text("\(self.dateFormat.string(from: timeEntry.start)) - \(self.dateFormat.string(from: timeEntry.end))")
       Spacer()
-      Text(timeEntry.duration)
+      Text(timeEntry.duration.formatted(TimeEntryRow.durationStyle))
     }
     .swipeActions {
       Button("Delete", systemImage: "trash", role: .destructive) {

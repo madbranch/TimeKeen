@@ -5,7 +5,7 @@ struct CurrentTimeEntryView: View {
   
   @ObservedObject var viewModel: CurrentTimeEntryViewModel
   
-  @State private var clockInDuration: String = "00:00"
+  @State private var clockInDuration: Duration = .zero
   
   @State private var isClockingIn = false
   @State private var isClockingOut = false
@@ -15,6 +15,8 @@ struct CurrentTimeEntryView: View {
   
   private let dateFormat: DateFormatter
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+  
+  private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
   
   init(viewModel: CurrentTimeEntryViewModel) {
     self.viewModel = viewModel
@@ -26,9 +28,9 @@ struct CurrentTimeEntryView: View {
     let components = Calendar.current.dateComponents([.hour, .minute], from: viewModel.clockInDate, to: input)
     
     if let hour = components.hour, let minute = components.minute  {
-      clockInDuration = "\(String(format: "%02d", hour)):\(String(format: "%02d", minute))"
+      clockInDuration = .seconds(hour * 60 * 60 + minute * 60)
     } else {
-      clockInDuration = "00:00"
+      clockInDuration = .zero
     }
   }
   
@@ -49,7 +51,7 @@ struct CurrentTimeEntryView: View {
         .controlSize(.large)
         .padding()
       case .ClockedIn:
-        Text(clockInDuration)
+        Text(clockInDuration.formatted(CurrentTimeEntryView.durationStyle))
           .onAppear { updateClockInDuration(input: Date.now) }
           .onReceive(timer, perform: updateClockInDuration)
           .font(.system(size: 1000))
