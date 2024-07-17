@@ -8,7 +8,7 @@ struct ContentView: View {
   }
   
   var body: some View {
-    NavigationView {
+    NavigationStack {
       CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
         .navigationTitle("Time Keen")
         .toolbar {
@@ -20,10 +20,7 @@ struct ContentView: View {
           }
           ToolbarItem(placement: .bottomBar) {
             NavigationLink {
-              NavigationView {
-                PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
-              }
-              .navigationTitle("Pay Periods")
+              PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
             } label: {
               Image(systemName: "list.bullet")
             }

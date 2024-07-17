@@ -14,6 +14,7 @@
 		662294B62C4678FC005707D1 /* PayPeriodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B52C4678FC005707D1 /* PayPeriodViewModel.swift */; };
 		662294B92C46874F005707D1 /* PayPeriodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B82C46874F005707D1 /* PayPeriodList.swift */; };
 		662294BB2C47DCB8005707D1 /* PayPeriodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */; };
+		662294BD2C47E904005707D1 /* PayPeriodDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294BC2C47E904005707D1 /* PayPeriodDetails.swift */; };
 		6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125129607279007A5343 /* CurrentTimeEntryView.swift */; };
 		6629125429607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125329607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift */; };
 		6629125629607CB4007A5343 /* CurrentTimeEntryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125529607CB4007A5343 /* CurrentTimeEntryViewModel.swift */; };
@@ -58,6 +59,7 @@
 		662294B52C4678FC005707D1 /* PayPeriodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodViewModel.swift; sourceTree = "<group>"; };
 		662294B82C46874F005707D1 /* PayPeriodList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodList.swift; sourceTree = "<group>"; };
 		662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodRow.swift; sourceTree = "<group>"; };
+		662294BC2C47E904005707D1 /* PayPeriodDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodDetails.swift; sourceTree = "<group>"; };
 		6629125129607279007A5343 /* CurrentTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryView.swift; sourceTree = "<group>"; };
 		6629125329607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryViewModelTests.swift; sourceTree = "<group>"; };
 		6629125529607CB4007A5343 /* CurrentTimeEntryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryViewModel.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		669393E52990641100CC661C /* PayPeriods */ = {
 			isa = PBXGroup;
 			children = (
+				662294BC2C47E904005707D1 /* PayPeriodDetails.swift */,
 				662294B82C46874F005707D1 /* PayPeriodList.swift */,
 				662294B32C4677B8005707D1 /* PayPeriodListViewModel.swift */,
 				662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */,
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				662294BD2C47E904005707D1 /* PayPeriodDetails.swift in Sources */,
 				662D0747297421D7002083F6 /* ContentViewModel.swift in Sources */,
 				669393E92990643400CC661C /* TimeEntryList.swift in Sources */,
 				6693597429606A3A00DEDD35 /* PersistenceController.swift in Sources */,
