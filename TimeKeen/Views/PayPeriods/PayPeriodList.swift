@@ -9,11 +9,12 @@ struct PayPeriodList: View {
   
   var body: some View {
     List(viewModel.payPeriods) { payPeriod in
-      NavigationLink {
-        PayPeriodDetails(viewModel: payPeriod)
-      } label: {
+      NavigationLink(value: payPeriod) {
         PayPeriodRow(viewModel: payPeriod)
       }
+    }
+    .navigationDestination(for: PayPeriodViewModel.self) { payPeriod in
+      PayPeriodDetails(viewModel: payPeriod)
     }
     .navigationTitle("Pay Periods")
     .onAppear(perform: viewModel.fetchData)

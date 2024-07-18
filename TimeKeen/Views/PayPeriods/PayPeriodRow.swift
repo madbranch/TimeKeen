@@ -8,8 +8,8 @@ struct PayPeriodRow: View {
   init(viewModel: PayPeriodViewModel) {
     self.viewModel = viewModel
     dateFormat = DateFormatter()
-    dateFormat.dateStyle = .medium
-    dateFormat.timeStyle = .none
+    dateFormat.locale = Locale.current
+    dateFormat.setLocalizedDateFormatFromTemplate("MMM d")
   }
   
   var body: some View {

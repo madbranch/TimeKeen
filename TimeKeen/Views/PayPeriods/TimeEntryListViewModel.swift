@@ -2,7 +2,15 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-final class TimeEntryListViewModel: ObservableObject, Identifiable {
+final class TimeEntryListViewModel: ObservableObject, Identifiable, Hashable {
+  static func == (lhs: TimeEntryListViewModel, rhs: TimeEntryListViewModel) -> Bool {
+    return lhs.timeEntries == rhs.timeEntries
+  }
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(timeEntries)
+  }
+  
   private var context: ModelContext
   @Published var timeEntries = [TimeEntry]()
   @Published var duration: Duration = .zero

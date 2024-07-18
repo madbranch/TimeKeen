@@ -1,27 +1,37 @@
 import SwiftUI
 
 struct ContentView: View {
-  @ObservedObject var viewModel: ContentViewModel
+  var viewModel: ContentViewModel
+  @State private var path = [PayPeriodViewModel]()
+  @State private var selectedTab = 0
   
   init(viewModel: ContentViewModel) {
     self.viewModel = viewModel
   }
   
   var body: some View {
-    TabView {
+    TabView(selection: $selectedTab) {
       CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
         .tabItem {
           Label("Clock-In", systemImage: "clock")
         }
+        .tag(0)
       Text("omg settings")
         .tabItem {
           Label("Settings", systemImage: "gear")
         }
-      NavigationStack {
+        .tag(1)
+      NavigationStack(path: $path) {
         PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
       }
-      .tabItem {
-        Label("Pay Periods", systemImage: "list.bullet")
+        .tabItem {
+          Label("Pay Periods", systemImage: "list.bullet")
+        }
+        .tag(2)
+    }
+    .onChange(of: selectedTab) { oldValue, newValue in
+      if oldValue == 2 {
+        path = [PayPeriodViewModel]()
       }
     }
     .onAppear {
