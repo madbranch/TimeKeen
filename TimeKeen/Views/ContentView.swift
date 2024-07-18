@@ -8,26 +8,22 @@ struct ContentView: View {
   }
   
   var body: some View {
-    NavigationStack {
+    TabView {
       CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
-        .navigationTitle("Time Keen")
-        .toolbar {
-          ToolbarItem(placement: .bottomBar) {
-            Button {
-            } label: {
-              Image(systemName: "gear")
-            }
-          }
-          ToolbarItem(placement: .bottomBar) {
-            NavigationLink {
-              PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
-            } label: {
-              Image(systemName: "list.bullet")
-            }
-          }
+        .tabItem {
+          Label("Clock-In", systemImage: "clock")
         }
+      Text("omg settings")
+        .tabItem {
+          Label("Settings", systemImage: "gear")
+        }
+      NavigationStack {
+        PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
+      }
+      .tabItem {
+        Label("Pay Periods", systemImage: "list.bullet")
+      }
     }
-    .padding()
     .onAppear {
       UIDatePicker.appearance().minuteInterval = 15
     }
