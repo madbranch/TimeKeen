@@ -11,6 +11,7 @@ struct TimeEntryList: View {
     ForEach(viewModel.timeEntries) { timeEntry in
       TimeEntryRow(timeEntry: timeEntry)
     }
+    .onDelete(perform: viewModel.deleteTimeEntries)
     .onAppear(perform: viewModel.computeProperties)
   }
 }

@@ -24,4 +24,12 @@ final class TimeEntryListViewModel: ObservableObject, Identifiable, Hashable {
   {
     duration = timeEntries.reduce(Duration.zero, { result, timeEntry in result + timeEntry.duration })
   }
+  
+  func deleteTimeEntries(at offsets: IndexSet) {
+    for index in offsets {
+      context.delete(timeEntries[index])
+    }
+    timeEntries.remove(atOffsets: offsets)
+    computeProperties()
+  }
 }
