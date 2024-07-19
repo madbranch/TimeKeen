@@ -45,6 +45,7 @@ struct CurrentTimeEntryView: View {
           Text("Clock In...")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
+            .font(.largeTitle)
         }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
