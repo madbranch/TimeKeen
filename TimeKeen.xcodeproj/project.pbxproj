@@ -198,16 +198,16 @@
 		669393E52990641100CC661C /* PayPeriods */ = {
 			isa = PBXGroup;
 			children = (
+				662294BE2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift */,
 				662294BC2C47E904005707D1 /* PayPeriodDetails.swift */,
 				662294B82C46874F005707D1 /* PayPeriodList.swift */,
 				662294B32C4677B8005707D1 /* PayPeriodListViewModel.swift */,
 				662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */,
+				66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */,
 				662294B52C4678FC005707D1 /* PayPeriodViewModel.swift */,
+				66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */,
 				669393E62990642700CC661C /* TimeEntryListViewModel.swift */,
 				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
-				662294BE2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift */,
-				66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */,
-				66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */,
 			);
 			path = PayPeriods;
 			sourceTree = "<group>";
