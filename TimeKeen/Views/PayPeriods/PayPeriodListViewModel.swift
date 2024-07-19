@@ -10,7 +10,7 @@ final class PayPeriodListViewModel: ObservableObject {
     self.context = context
   }
   
-  func fetchData() {
+  func fetchTimeEntries() {
     do {
       let descriptor = FetchDescriptor<TimeEntry>(sortBy: [SortDescriptor(\.start, order: .reverse)])
       let allTimeEntries = try context.fetch(descriptor)

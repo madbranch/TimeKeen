@@ -13,12 +13,7 @@ struct PayPeriodDetails: View {
 
   var body: some View {
     List(viewModel.dailyTimeEntryLists) { dailyTimeEntryList in
-      Section(header: DailyTimeEntryListSectionHeader(viewModel: dailyTimeEntryList)) {
-        ForEach(dailyTimeEntryList.timeEntries) { timeEntry in
-          TimeEntryRow(timeEntry: timeEntry)
-        }
-        .onAppear(perform: dailyTimeEntryList.computeProperties)
-      }
+      PayPeriodSection(viewModel: dailyTimeEntryList)
     }
     .navigationTitle("\(dateFormat.string(from: viewModel.payPeriodStart)) - \(dateFormat.string(from: viewModel.payPeriodEnd))")
   }

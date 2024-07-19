@@ -21,10 +21,7 @@ struct TimeKeenApp: App {
       let payPeriodListViewModel = PayPeriodListViewModel(context: context)
       let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, payPeriodListViewModel: payPeriodListViewModel)
 
-      ContentView(viewModel: viewModel )
-        .modelContainer(for: [
-          TimeEntry.self
-        ])
+      ContentView(viewModel: viewModel)
     }
   }
 }

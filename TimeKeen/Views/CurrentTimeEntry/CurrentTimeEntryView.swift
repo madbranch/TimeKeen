@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct CurrentTimeEntryView: View {
-  @Environment(\.managedObjectContext) private var viewContext
-  
   @ObservedObject var viewModel: CurrentTimeEntryViewModel
   
   @State private var clockInDuration: Duration = .zero
