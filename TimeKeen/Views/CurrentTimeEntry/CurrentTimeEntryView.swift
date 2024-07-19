@@ -34,23 +34,24 @@ struct CurrentTimeEntryView: View {
     }
   }
   
-  func didDismiss() {
-    
-  }
-  
   var body: some View {
     VStack {
-      Spacer()
       switch viewModel.clockInState {
       case .ClockedOut:
-        Button("Clock In...", action: {
+        Button {
           clockInDate = Date()
           isClockingIn = true
-        })
+        } label: {
+          Text("Clock In...")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding()
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
+        .clipShape(Circle())
         .padding()
       case .ClockedIn:
+        Spacer()
         Text(clockInDuration.formatted(CurrentTimeEntryView.durationStyle))
           .onAppear { updateClockInDuration(input: Date.now) }
           .onReceive(timer, perform: updateClockInDuration)
@@ -77,7 +78,7 @@ struct CurrentTimeEntryView: View {
         .padding()
       }
     }
-    .sheet(isPresented: $isClockingIn, onDismiss: didDismiss) {
+    .sheet(isPresented: $isClockingIn) {
       VStack {
         DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
@@ -94,7 +95,7 @@ struct CurrentTimeEntryView: View {
         .fraction(0.2)
       ])
     }
-    .sheet(isPresented: $isClockingOut, onDismiss: didDismiss) {
+    .sheet(isPresented: $isClockingOut) {
       VStack {
         DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
