@@ -7,8 +7,8 @@ struct CurrentTimeEntryView: View {
   
   @State private var isClockingIn = false
   @State private var isClockingOut = false
-  @State private var clockInDate = Date()
-  @State private var clockOutDate = Date()
+  @State private var clockInDate = CurrentTimeEntryView.getRoundedDate()
+  @State private var clockOutDate = CurrentTimeEntryView.getRoundedDate()
   @State private var minClockOutDate = Date()
   
   private let dateFormat: DateFormatter
@@ -32,12 +32,25 @@ struct CurrentTimeEntryView: View {
     }
   }
   
+  private static func getRoundedDate() -> Date {
+    let date = Date()
+    let components = Calendar.current.dateComponents([.minute], from: date)
+    
+    guard let minute = components.minute else {
+      return date
+    }
+    
+    let roundedMinutes = Int((Double(minute) / 15.0).rounded(.toNearestOrAwayFromZero) * 15.0)
+    
+    return Calendar.current.date(bySetting: .minute, value: roundedMinutes, of: date) ?? date
+  }
+  
   var body: some View {
     VStack {
       switch viewModel.clockInState {
       case .ClockedOut:
         Button {
-          clockInDate = Date()
+          clockInDate = CurrentTimeEntryView.getRoundedDate()
           isClockingIn = true
         } label: {
           Text("Clock In...")
