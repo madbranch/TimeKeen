@@ -9,10 +9,10 @@ struct TimeEntryDetails: View {
   
   var body: some View {
     VStack {
-      DatePicker("Clocked In At", selection: $viewModel.timeEntry.start, displayedComponents: [.date, .hourAndMinute])
+      DatePicker("Clocked In At", selection: $viewModel.timeEntry.start, in: ...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
         .datePickerStyle(.compact)
         .padding()
-      DatePicker("Clocked Out At", selection: $viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+      DatePicker("Clocked Out At", selection: $viewModel.timeEntry.end, in: viewModel.timeEntry.start..., displayedComponents: [.date, .hourAndMinute])
         .datePickerStyle(.compact)
         .padding()
       Spacer()
