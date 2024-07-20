@@ -43,7 +43,7 @@ final class PayPeriodListViewModel: ObservableObject {
         newTimeEntryLists.reserveCapacity(timeEntriesPerDay.count)
         
         for timeEntriesDay in timeEntriesPerDay.keys.sorted().reversed() {
-          let dailyTimeEntries = timeEntriesPerDay[timeEntriesDay]!
+          let dailyTimeEntries = timeEntriesPerDay[timeEntriesDay]!.map { TimeEntryViewModel(context: context, timeEntry: $0 ) }
           
           newTimeEntryLists.append(TimeEntryListViewModel(timeEntries: dailyTimeEntries, context: self.context))
         }

@@ -33,7 +33,7 @@ final class PayPeriodViewModel: ObservableObject, Identifiable, Hashable {
       nbEntries += dailyTimeEntryList.timeEntries.count
       
       for timeEntry in dailyTimeEntryList.timeEntries {
-        duration = .seconds(duration.components.seconds + timeEntry.duration.components.seconds)
+        duration = .seconds(duration.components.seconds + timeEntry.timeEntry.duration.components.seconds)
       }
     }
     

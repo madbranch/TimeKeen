@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
   var viewModel: ContentViewModel
-  @State private var path = [PayPeriodViewModel]()
+  @State private var path: NavigationPath = .init()
   @State private var selectedTab = 0
   
   init(viewModel: ContentViewModel) {
@@ -31,7 +31,7 @@ struct ContentView: View {
     }
     .onChange(of: selectedTab) { oldValue, newValue in
       if oldValue == 2 {
-        path = [PayPeriodViewModel]()
+        path = .init()
       }
     }
     .onAppear {
