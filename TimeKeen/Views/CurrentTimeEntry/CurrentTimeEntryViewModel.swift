@@ -1,11 +1,6 @@
 import Foundation
 import SwiftData
 
-struct BreakItem: Codable {
-  let start: Date
-  let end: Date
-}
-
 final class CurrentTimeEntryViewModel: ObservableObject {
   @Published var clockInDate = Date()
   @Published var clockInState: ClockInState = .clockedOut
