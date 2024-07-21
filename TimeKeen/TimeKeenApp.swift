@@ -13,11 +13,25 @@ struct TimeKeenApp: App {
     }
   }
   
+  private static func getBreaks() -> [BreakItem]? {
+    guard let data = UserDefaults.standard.object(forKey: "Breaks") as? Data else {
+      return nil
+    }
+    
+    guard let breaks = try? JSONDecoder().decode([BreakItem].self, from: data) else {
+      return nil
+    }
+    
+    return breaks
+  }
+  
   var body: some Scene {
     WindowGroup {
       let start = UserDefaults.standard.object(forKey: "ClockInDate") as? Date
+      let breakStart = UserDefaults.standard.object(forKey: "BreakStart") as? Date
+      let breaks = TimeKeenApp.getBreaks()
       let context = container.mainContext
-      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, clockedInAt: start)
+      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, clockedInAt: start, startedBreakAt: breakStart, withBreaks: breaks)
       let payPeriodListViewModel = PayPeriodListViewModel(context: context)
       let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, payPeriodListViewModel: payPeriodListViewModel)
 

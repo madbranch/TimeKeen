@@ -15,6 +15,7 @@ struct CurrentTimeEntryView: View {
   @State private var isEndingBreak = false
   @State private var breakStart = CurrentTimeEntryView.getRoundedDate()
   @State private var breakEnd = CurrentTimeEntryView.getRoundedDate()
+  @State private var minBreakEndDate = Date()
 
   private let dateFormat: DateFormatter
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -77,23 +78,20 @@ struct CurrentTimeEntryView: View {
           .scaledToFit()
           .minimumScaleFactor(0.01)
           .lineLimit(1)
+        if breakState == .takingABreak {
+          Text("Started Break at \(dateFormat.string(from: viewModel.breakStart))")
+            .foregroundStyle(.secondary)
+        }
         Spacer()
         TextField("Notes", text: $notes, axis: .vertical)
           .padding()
           .textFieldStyle(.roundedBorder)
-        switch breakState {
-        case .working:
+        if breakState == .working {
           Button {
+            breakStart = CurrentTimeEntryView.getRoundedDate()
             isStartingBreak = true
           } label: {
             Text("Take a Break...")
-              .padding()
-          }
-        case .takingABreak:
-          Button {
-            isEndingBreak = true
-          } label: {
-            Text("Go Back to Work...")
               .padding()
           }
         }
@@ -101,21 +99,37 @@ struct CurrentTimeEntryView: View {
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
-        Button("Clock Out...", action: {
-          guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: clockInDate) else {
-            return
-          }
-          
-          minClockOutDate = newDate
-          clockOutDate = newDate
-          isClockingOut = true
-        })
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
-        .padding()
+        switch breakState {
+        case .working:
+          Button("Clock Out...", action: {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: clockInDate) else {
+              return
+            }
+            
+            minClockOutDate = newDate
+            clockOutDate = newDate
+            isClockingOut = true
+          })
+          .buttonStyle(.borderedProminent)
+          .controlSize(.large)
+          .padding()
+        case .takingABreak:
+          Button("End Break...", action: {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: breakStart) else {
+              return
+            }
+            
+            minBreakEndDate = newDate
+            breakEnd = newDate
+            isEndingBreak = true
+          })
+          .buttonStyle(.borderedProminent)
+          .controlSize(.large)
+          .padding()
+        }
       }
     }
-    .sheet(isPresented: $isClockingIn) {
+    .sheet(isPresented: $isClockingIn) { [clockInDate] in
       VStack {
         DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
@@ -132,7 +146,7 @@ struct CurrentTimeEntryView: View {
         .fraction(0.2)
       ])
     }
-    .sheet(isPresented: $isClockingOut) {
+    .sheet(isPresented: $isClockingOut) { [clockOutDate] in
       VStack {
         DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
@@ -149,7 +163,7 @@ struct CurrentTimeEntryView: View {
         .fraction(0.2)
       ])
     }
-    .sheet(isPresented: $isStartingBreak) {
+    .sheet(isPresented: $isStartingBreak) { [breakStart] in
       VStack {
         DatePicker("At", selection: $breakStart, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
@@ -166,12 +180,12 @@ struct CurrentTimeEntryView: View {
         .fraction(0.2)
       ])
     }
-    .sheet(isPresented: $isEndingBreak) {
+    .sheet(isPresented: $isEndingBreak) { [breakEnd] in
       VStack {
         DatePicker("At", selection: $breakEnd, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("Ending Break at \(self.dateFormat.string(from: breakEnd))", action: {
+        Button("End Break at \(self.dateFormat.string(from: breakEnd))", action: {
           viewModel.endBreak(at: breakEnd)
           isEndingBreak = false
         })

@@ -1,22 +1,35 @@
 import Foundation
 import SwiftData
 
+struct BreakItem: Codable {
+  let start: Date
+  let end: Date
+}
+
 final class CurrentTimeEntryViewModel: ObservableObject {
   @Published var clockInDate = Date()
   @Published var clockInState: ClockInState = .clockedOut
+  @Published var breakStart = Date()
+  @Published var breaks = [BreakItem]()
 
   private var context: ModelContext
   
-  init(context: ModelContext, clockedInAt clockInDate: Date? = nil) {
+  init(context: ModelContext, clockedInAt clockInDate: Date? = nil, startedBreakAt breakStart: Date? = nil, withBreaks breaks: [BreakItem]? = nil) {
     self.context = context
-    
-    guard clockInDate != nil else {
-      return
-    }
     
     if let startingClockinDate = clockInDate {
       self.clockInDate = startingClockinDate
-      clockInState = .clockedIn(.working)
+
+      if let startingBreaks = breaks {
+        self.breaks = startingBreaks
+      }
+
+      if let startingBreakStart = breakStart {
+        self.breakStart = startingBreakStart
+        clockInState = .clockedIn(.takingABreak)
+      } else {
+        clockInState = .clockedIn(.working)
+      }
     }
   }
   
@@ -26,6 +39,7 @@ final class CurrentTimeEntryViewModel: ObservableObject {
       return
     case .clockedOut:
       self.clockInDate = clockInDate
+      breaks.removeAll()
       clockInState = .clockedIn(.working)
       UserDefaults.standard.set(clockInDate, forKey: "ClockInDate")
     }
@@ -40,8 +54,9 @@ final class CurrentTimeEntryViewModel: ObservableObject {
       case .takingABreak:
         return
       case .working:
-        // todo: start break...
+        self.breakStart = breakStart
         clockInState = .clockedIn(.takingABreak)
+        UserDefaults.standard.set(breakStart, forKey: "BreakStart")
       }
     }
   }
@@ -53,8 +68,13 @@ final class CurrentTimeEntryViewModel: ObservableObject {
     case .clockedIn(let breakState):
       switch breakState {
       case .takingABreak:
-        // todo: end break...
+        self.breaks.append(BreakItem(start: breakStart, end: breakEnd))
         clockInState = .clockedIn(.working)
+        UserDefaults.standard.removeObject(forKey: "BreakStart")
+        
+        if let encodedBreaks = try? JSONEncoder().encode(breaks) {
+          UserDefaults.standard.set(encodedBreaks, forKey: "Breaks")
+        }
       case .working:
         return
       }
@@ -72,10 +92,13 @@ final class CurrentTimeEntryViewModel: ObservableObject {
       
       let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
       
+      timeEntry.breaks.append(contentsOf: breaks.map { BreakEntry(start: $0.start, end: $0.end) })
+      
       context.insert(timeEntry)
 
       clockInState = .clockedOut
       UserDefaults.standard.removeObject(forKey: "ClockInDate")
+      UserDefaults.standard.removeObject(forKey: "Breaks")
 
       return .success(timeEntry)
     }
