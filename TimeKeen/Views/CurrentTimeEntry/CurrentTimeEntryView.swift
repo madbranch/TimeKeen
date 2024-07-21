@@ -10,6 +10,7 @@ struct CurrentTimeEntryView: View {
   @State private var clockInDate = CurrentTimeEntryView.getRoundedDate()
   @State private var clockOutDate = CurrentTimeEntryView.getRoundedDate()
   @State private var minClockOutDate = Date()
+  @State private var notes = ""
   
   private let dateFormat: DateFormatter
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -51,6 +52,7 @@ struct CurrentTimeEntryView: View {
       case .ClockedOut:
         Button {
           clockInDate = CurrentTimeEntryView.getRoundedDate()
+          notes = ""
           isClockingIn = true
         } label: {
           Text("Clock In...")
@@ -72,6 +74,9 @@ struct CurrentTimeEntryView: View {
           .minimumScaleFactor(0.01)
           .lineLimit(1)
         Spacer()
+        TextField("Notes", text: $notes, axis: .vertical)
+          .padding()
+          .textFieldStyle(.roundedBorder)
         Text("Clocked in at \(self.dateFormat.string(from: viewModel.clockInDate))")
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
@@ -113,7 +118,7 @@ struct CurrentTimeEntryView: View {
           .datePickerStyle(.compact)
           .padding()
         Button("Clock Out at \(self.dateFormat.string(from: clockOutDate))", action: {
-          _ = viewModel.clockOut(at: clockOutDate)
+          _ = viewModel.clockOut(at: clockOutDate, notes: notes)
           isClockingOut = false
         })
         .buttonStyle(.borderedProminent)

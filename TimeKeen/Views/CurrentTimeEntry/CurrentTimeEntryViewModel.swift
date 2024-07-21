@@ -26,7 +26,7 @@ final class CurrentTimeEntryViewModel: ObservableObject {
     UserDefaults.standard.set(clockInDate, forKey: "ClockInDate")
   }
   
-  func clockOut(at end: Date) -> Result<TimeEntry, ClockOutError> {
+  func clockOut(at end: Date, notes: String) -> Result<TimeEntry, ClockOutError> {
     guard clockInState == .ClockedIn else {
       return .failure(.notClockedIn)
     }
@@ -35,7 +35,7 @@ final class CurrentTimeEntryViewModel: ObservableObject {
       return .failure(.startAndEndEqual)
     }
     
-    let timeEntry = TimeEntry(from: clockInDate, to: end)
+    let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
     
     context.insert(timeEntry)
 
