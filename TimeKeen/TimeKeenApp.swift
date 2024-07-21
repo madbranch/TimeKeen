@@ -7,7 +7,7 @@ struct TimeKeenApp: App {
   
   init() {
     do {
-      container = try ModelContainer(for: TimeEntry.self)
+      container = try ModelContainer(for: TimeEntry.self, BreakEntry.self)
     } catch {
       fatalError("Failed to create ModelContainer for TimeEntry")
     }
