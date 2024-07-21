@@ -42,7 +42,7 @@ struct CurrentTimeEntryView: View {
     
     let roundedMinutes = Int((Double(minute) / 15.0).rounded(.toNearestOrAwayFromZero) * 15.0)
     
-    return Calendar.current.date(bySetting: .minute, value: roundedMinutes, of: date) ?? date
+    return Calendar.current.date(byAdding: .minute, value: roundedMinutes - minute, to: date) ?? Date()
   }
   
   var body: some View {
