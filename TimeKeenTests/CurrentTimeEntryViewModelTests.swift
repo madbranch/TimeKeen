@@ -8,7 +8,7 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
   func test_Init_WithDefault_ShouldNotBeStarted() throws {
     let container = try createContainer()
     let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
-    XCTAssertEqual(ClockInState.ClockedOut, currentTimeEntry.clockInState)
+    XCTAssertEqual(ClockInState.clockedOut, currentTimeEntry.clockInState)
   }
   
   @MainActor
@@ -16,7 +16,7 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     let container = try createContainer()
     let date = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext, clockedInAt: date)
-    XCTAssertEqual(ClockInState.ClockedIn, currentTimeEntry.clockInState)
+    XCTAssertEqual(ClockInState.clockedIn, currentTimeEntry.clockInState)
     XCTAssertEqual(date, currentTimeEntry.clockInDate)
   }
   
@@ -46,7 +46,7 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     currentTimeEntry.clockIn(at: start)
     let end = CurrentTimeEntryViewModelTests.createSomeValidEndDate()
     XCTAssertNoThrow(try currentTimeEntry.clockOut(at: end).get())
-    XCTAssertEqual(ClockInState.ClockedOut, currentTimeEntry.clockInState)
+    XCTAssertEqual(ClockInState.clockedOut, currentTimeEntry.clockInState)
   }
   
   private static func createSomeValidStartDate() -> Date {

@@ -1,4 +1,4 @@
 enum ClockInState {
-  case ClockedOut
-  case ClockedIn
+  case clockedOut
+  case clockedIn(BreakState)
 }
