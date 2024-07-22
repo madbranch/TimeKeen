@@ -33,6 +33,7 @@
 		66411CE62C4E6E7D0050FDFB /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE52C4E6E7D0050FDFB /* Formatting.swift */; };
 		66411CE82C4E907B0050FDFB /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */; };
 		66411CEA2C4E94530050FDFB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE92C4E94530050FDFB /* SettingsView.swift */; };
+		66411CEE2C4EDE4D0050FDFB /* IntervalDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CED2C4EDE4D0050FDFB /* IntervalDatePicker.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
@@ -89,6 +90,7 @@
 		66411CE52C4E6E7D0050FDFB /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
 		66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		66411CE92C4E94530050FDFB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		66411CED2C4EDE4D0050FDFB /* IntervalDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalDatePicker.swift; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				662D07442974210B002083F6 /* ContentView.swift */,
 				662D0746297421D7002083F6 /* ContentViewModel.swift */,
 				6611F1B62961E9320089B49B /* CurrentTimeEntry */,
+				66411CED2C4EDE4D0050FDFB /* IntervalDatePicker.swift */,
 				669393E52990641100CC661C /* PayPeriods */,
 				66411CE92C4E94530050FDFB /* SettingsView.swift */,
 			);
@@ -369,6 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66411CEE2C4EDE4D0050FDFB /* IntervalDatePicker.swift in Sources */,
 				662294BD2C47E904005707D1 /* PayPeriodDetails.swift in Sources */,
 				66411CE02C4D28B40050FDFB /* BreakState.swift in Sources */,
 				662D0747297421D7002083F6 /* ContentViewModel.swift in Sources */,

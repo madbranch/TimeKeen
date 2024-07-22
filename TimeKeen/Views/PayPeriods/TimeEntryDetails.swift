@@ -3,6 +3,7 @@ import SwiftUI
 struct TimeEntryDetails: View {
   @Bindable var viewModel: TimeEntryViewModel
   @Environment(\.editMode) private var editMode
+  @AppStorage("MinuteInterval") var minuteInterval = 15
   @State var isEditingBreak = false
   @State var isAddingBreak = false
   @State var breakStart = Formatting.getRoundedDate()
@@ -20,10 +21,12 @@ struct TimeEntryDetails: View {
           Text(viewModel.timeEntry.duration.formatted(Formatting.durationStyle))
         }
         if editMode?.wrappedValue.isEditing == true {
-          DatePicker("Start", selection: $viewModel.timeEntry.start, in: ...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
-            .datePickerStyle(.compact)
-          DatePicker("End", selection: $viewModel.timeEntry.end, in: viewModel.timeEntry.start..., displayedComponents: [.date, .hourAndMinute])
-            .datePickerStyle(.compact)
+          LabeledContent("Start") {
+            IntervalDatePicker(selection: $viewModel.timeEntry.start, minuteInterval: minuteInterval, in: ...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+          }
+          LabeledContent("End") {
+            IntervalDatePicker(selection: $viewModel.timeEntry.end, minuteInterval: minuteInterval, in: viewModel.timeEntry.start..., displayedComponents: [.date, .hourAndMinute])
+          }
           TextField("Notes", text: $viewModel.timeEntry.notes, axis: .vertical)
         } else {
           LabeledContent("Start") {
@@ -72,12 +75,14 @@ struct TimeEntryDetails: View {
     .navigationTitle("\(viewModel.timeEntry.start.formatted(date: .abbreviated, time: .omitted))")
     .sheet(isPresented: $isAddingBreak) {
       VStack {
-        DatePicker("From", selection: $breakStart, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
-          .datePickerStyle(.compact)
-          .padding()
-        DatePicker("To", selection: $breakEnd, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
-          .datePickerStyle(.compact)
-          .padding()
+        LabeledContent("From") {
+          IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+        }
+        .padding()
+        LabeledContent("To") {
+          IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+        }
+        .padding()
         Button("Add Break", action: {
           viewModel.timeEntry.breaks.append(BreakEntry(start: breakStart, end: breakEnd))
           isAddingBreak = false
@@ -90,12 +95,14 @@ struct TimeEntryDetails: View {
     }
     .sheet(isPresented: $isEditingBreak) {
       VStack {
-        DatePicker("From", selection: $breakStart, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
-          .datePickerStyle(.compact)
-          .padding()
-        DatePicker("To", selection: $breakEnd, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
-          .datePickerStyle(.compact)
-          .padding()
+        LabeledContent("From") {
+          IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+        }
+        .padding()
+        LabeledContent("To") {
+          IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+        }
+        .padding()
         Button("Save", action: {
           if let entry = breakEntry {
             entry.start = breakStart
