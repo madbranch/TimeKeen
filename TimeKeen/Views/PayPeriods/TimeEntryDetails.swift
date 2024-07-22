@@ -45,6 +45,16 @@ struct TimeEntryDetails: View {
             Text(breakEntry.duration.formatted(Formatting.durationStyle))
               .foregroundStyle(.secondary)
           }
+          .contentShape(Rectangle())
+          .onTapGesture {
+            guard editMode?.wrappedValue.isEditing == true else {
+              return
+            }
+            self.breakEntry = breakEntry
+            breakStart = breakEntry.start
+            breakEnd = breakEntry.end
+            isEditingBreak = true
+          }
         }
         .onDelete(perform: viewModel.deleteBreaks)
       }
@@ -71,6 +81,27 @@ struct TimeEntryDetails: View {
         Button("Add Break", action: {
           viewModel.timeEntry.breaks.append(BreakEntry(start: breakStart, end: breakEnd))
           isAddingBreak = false
+        })
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .padding()
+      }
+      .presentationDetents([.fraction(0.4)])
+    }
+    .sheet(isPresented: $isEditingBreak) {
+      VStack {
+        DatePicker("From", selection: $breakStart, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+          .datePickerStyle(.compact)
+          .padding()
+        DatePicker("To", selection: $breakEnd, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+          .datePickerStyle(.compact)
+          .padding()
+        Button("Save", action: {
+          if let entry = breakEntry {
+            entry.start = breakStart
+            entry.end = breakEnd
+          }
+          isEditingBreak = false
         })
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
