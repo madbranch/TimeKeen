@@ -17,15 +17,12 @@ struct CurrentTimeEntryView: View {
   @State private var breakEnd = CurrentTimeEntryView.getRoundedDate()
   @State private var minBreakEndDate = Date()
 
-  private let dateFormat: DateFormatter
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
   private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
   
   init(viewModel: CurrentTimeEntryViewModel) {
     self.viewModel = viewModel
-    dateFormat = DateFormatter()
-    dateFormat.dateFormat = "HH:mm"
   }
   
   private func updateClockInDuration(input: Date) {
@@ -79,7 +76,7 @@ struct CurrentTimeEntryView: View {
           .minimumScaleFactor(0.01)
           .lineLimit(1)
         if breakState == .takingABreak {
-          Text("Started Break at \(dateFormat.string(from: viewModel.breakStart))")
+          Text("Started Break at \(Formatting.startEndFormatter.string(from: viewModel.breakStart))")
             .foregroundStyle(.secondary)
         }
         Spacer()
@@ -95,7 +92,7 @@ struct CurrentTimeEntryView: View {
               .padding()
           }
         }
-        Text("Clocked in at \(self.dateFormat.string(from: viewModel.clockInDate))")
+        Text("Clocked in at \(Formatting.startEndFormatter.string(from: viewModel.clockInDate))")
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
@@ -134,7 +131,7 @@ struct CurrentTimeEntryView: View {
         DatePicker("At", selection: $clockInDate, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("Clock In at \(self.dateFormat.string(from: clockInDate))", action: {
+        Button("Clock In at \(Formatting.startEndFormatter.string(from: clockInDate))", action: {
           viewModel.clockIn(at: clockInDate)
           isClockingIn = false
         })
@@ -151,7 +148,7 @@ struct CurrentTimeEntryView: View {
         DatePicker("At", selection: $clockOutDate, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("Clock Out at \(self.dateFormat.string(from: clockOutDate))", action: {
+        Button("Clock Out at \(Formatting.startEndFormatter.string(from: clockOutDate))", action: {
           _ = viewModel.clockOut(at: clockOutDate, notes: notes)
           isClockingOut = false
         })
@@ -168,7 +165,7 @@ struct CurrentTimeEntryView: View {
         DatePicker("At", selection: $breakStart, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("Start Break at \(self.dateFormat.string(from: breakStart))", action: {
+        Button("Start Break at \(Formatting.startEndFormatter.string(from: breakStart))", action: {
           viewModel.startBreak(at: breakStart)
           isStartingBreak = false
         })
@@ -185,7 +182,7 @@ struct CurrentTimeEntryView: View {
         DatePicker("At", selection: $breakEnd, displayedComponents: [.date, .hourAndMinute])
           .datePickerStyle(.compact)
           .padding()
-        Button("End Break at \(self.dateFormat.string(from: breakEnd))", action: {
+        Button("End Break at \(Formatting.startEndFormatter.string(from: breakEnd))", action: {
           viewModel.endBreak(at: breakEnd)
           isEndingBreak = false
         })
