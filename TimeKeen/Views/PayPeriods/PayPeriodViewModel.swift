@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-final class PayPeriodViewModel: ObservableObject, Identifiable, Hashable {
+@Observable class PayPeriodViewModel: Identifiable, Hashable {
   static func == (lhs: PayPeriodViewModel, rhs: PayPeriodViewModel) -> Bool {
     return lhs.dailyTimeEntryLists == rhs.dailyTimeEntryLists
   }
@@ -12,11 +12,11 @@ final class PayPeriodViewModel: ObservableObject, Identifiable, Hashable {
   }
   
   private var context: ModelContext
-  @Published var payPeriodStart: Date
-  @Published var payPeriodEnd: Date
-  @Published var dailyTimeEntryLists = [TimeEntryListViewModel]()
-  @Published var nbEntries = 0
-  @Published var duration: Duration = .zero
+  var payPeriodStart: Date
+  var payPeriodEnd: Date
+  var dailyTimeEntryLists = [TimeEntryListViewModel]()
+  var nbEntries = 0
+  var duration: Duration = .zero
   
   init(from payPeriodStart: Date, to payPeriodEnd: Date, with dailyTimeEntryLists: [TimeEntryListViewModel], context: ModelContext) {
     self.context = context

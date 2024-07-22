@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PayPeriodRow: View {
-  @ObservedObject var viewModel: PayPeriodViewModel
+  var viewModel: PayPeriodViewModel
   private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
 
   init(viewModel: PayPeriodViewModel) {
