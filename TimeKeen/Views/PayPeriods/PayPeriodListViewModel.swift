@@ -2,9 +2,9 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-final class PayPeriodListViewModel: ObservableObject {
+@Observable class PayPeriodListViewModel {
   private var context: ModelContext
-  @Published var payPeriods = [PayPeriodViewModel]()
+  var payPeriods = [PayPeriodViewModel]()
   
   init(context: ModelContext) {
     self.context = context

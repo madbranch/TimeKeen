@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PayPeriodList: View {
-  @ObservedObject var viewModel: PayPeriodListViewModel
+  var viewModel: PayPeriodListViewModel
 
   init(viewModel: PayPeriodListViewModel) {
     self.viewModel = viewModel
