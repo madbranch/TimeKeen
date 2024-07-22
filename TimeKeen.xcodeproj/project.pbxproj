@@ -29,6 +29,7 @@
 		66411CDE2C4D24CD0050FDFB /* BreakEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */; };
 		66411CE02C4D28B40050FDFB /* BreakState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CDF2C4D28B40050FDFB /* BreakState.swift */; };
 		66411CE22C4D3ED10050FDFB /* BreakItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE12C4D3ED10050FDFB /* BreakItem.swift */; };
+		66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
@@ -81,6 +82,7 @@
 		66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakEntry.swift; sourceTree = "<group>"; };
 		66411CDF2C4D28B40050FDFB /* BreakState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakState.swift; sourceTree = "<group>"; };
 		66411CE12C4D3ED10050FDFB /* BreakItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakItem.swift; sourceTree = "<group>"; };
+		66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakEntryExtension.swift; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			children = (
 				6693596E29606A3A00DEDD35 /* Assets.xcassets */,
 				66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */,
+				66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */,
 				6693597829606A3A00DEDD35 /* Info.plist */,
 				6693597329606A3A00DEDD35 /* PersistenceController.swift */,
 				6693597029606A3A00DEDD35 /* Preview Content */,
@@ -361,6 +364,7 @@
 				66411CE02C4D28B40050FDFB /* BreakState.swift in Sources */,
 				662D0747297421D7002083F6 /* ContentViewModel.swift in Sources */,
 				6693597429606A3A00DEDD35 /* PersistenceController.swift in Sources */,
+				66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */,
 				66411CDE2C4D24CD0050FDFB /* BreakEntry.swift in Sources */,
 				662294BB2C47DCB8005707D1 /* PayPeriodRow.swift in Sources */,
 				66411CDC2C4B00750050FDFB /* TimeEntryViewModel.swift in Sources */,

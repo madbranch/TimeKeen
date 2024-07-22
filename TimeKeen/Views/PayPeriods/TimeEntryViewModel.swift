@@ -18,4 +18,8 @@ import SwiftData
     self.context = context
     self.timeEntry = timeEntry
   }
+  
+  func deleteBreaks(at offsets: IndexSet) {
+    timeEntry.breaks.remove(atOffsets: offsets)
+  }
 }

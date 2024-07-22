@@ -78,24 +78,29 @@ final class CurrentTimeEntryViewModel: ObservableObject {
   
   func clockOut(at end: Date, notes: String) -> Result<TimeEntry, ClockOutError> {
     switch clockInState {
-    case .clockedIn(_):
-      return .failure(.notClockedIn)
     case .clockedOut:
-      guard clockInDate != end else {
-        return .failure(.startAndEndEqual)
+      return .failure(.notClockedIn)
+    case .clockedIn(let breakState):
+      switch breakState {
+      case .takingABreak:
+        return .failure(.notWorking)
+      case .working:
+        guard clockInDate != end else {
+          return .failure(.startAndEndEqual)
+        }
+        
+        let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
+        
+        timeEntry.breaks.append(contentsOf: breaks.map { BreakEntry(start: $0.start, end: $0.end) })
+        
+        context.insert(timeEntry)
+
+        clockInState = .clockedOut
+        UserDefaults.standard.removeObject(forKey: "ClockInDate")
+        UserDefaults.standard.removeObject(forKey: "Breaks")
+
+        return .success(timeEntry)
       }
-      
-      let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
-      
-      timeEntry.breaks.append(contentsOf: breaks.map { BreakEntry(start: $0.start, end: $0.end) })
-      
-      context.insert(timeEntry)
-
-      clockInState = .clockedOut
-      UserDefaults.standard.removeObject(forKey: "ClockInDate")
-      UserDefaults.standard.removeObject(forKey: "Breaks")
-
-      return .success(timeEntry)
     }
   }
 }

@@ -16,7 +16,7 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     let container = try createContainer()
     let date = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext, clockedInAt: date)
-    XCTAssertEqual(ClockInState.clockedIn, currentTimeEntry.clockInState)
+    XCTAssertEqual(ClockInState.clockedIn(.working), currentTimeEntry.clockInState)
     XCTAssertEqual(date, currentTimeEntry.clockInDate)
   }
   
@@ -24,7 +24,7 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
   func test_ClockOut_WithStartNil_ShouldReturnNotStarted() throws {
     let container = try createContainer()
     let currentTimeEntry = CurrentTimeEntryViewModel(context: container.mainContext)
-    let result: Result<TimeEntry, ClockOutError> = currentTimeEntry.clockOut(at: CurrentTimeEntryViewModelTests.createSomeValidStartDate())
+    let result: Result<TimeEntry, ClockOutError> = currentTimeEntry.clockOut(at: CurrentTimeEntryViewModelTests.createSomeValidStartDate(), notes: "")
     XCTAssertEqual(.failure(ClockOutError.notClockedIn), result)
   }
   
@@ -35,7 +35,7 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     let start = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     currentTimeEntry.clockIn(at: start)
     let end = start
-    XCTAssertEqual(.failure(.startAndEndEqual), currentTimeEntry.clockOut(at: end))
+    XCTAssertEqual(.failure(.startAndEndEqual), currentTimeEntry.clockOut(at: end, notes: ""))
   }
   
   @MainActor
@@ -45,7 +45,7 @@ final class CurrentTimeEntryViewModelTests: XCTestCase {
     let start = CurrentTimeEntryViewModelTests.createSomeValidStartDate()
     currentTimeEntry.clockIn(at: start)
     let end = CurrentTimeEntryViewModelTests.createSomeValidEndDate()
-    XCTAssertNoThrow(try currentTimeEntry.clockOut(at: end).get())
+    XCTAssertNoThrow(try currentTimeEntry.clockOut(at: end, notes: "").get())
     XCTAssertEqual(ClockInState.clockedOut, currentTimeEntry.clockInState)
   }
   

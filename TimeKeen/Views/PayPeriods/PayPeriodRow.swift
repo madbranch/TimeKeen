@@ -23,6 +23,7 @@ struct PayPeriodRow: View {
       }
       Spacer()
       Text(viewModel.duration.formatted(PayPeriodRow.durationStyle))
+        .foregroundStyle(.secondary)
     }
   }
 }
