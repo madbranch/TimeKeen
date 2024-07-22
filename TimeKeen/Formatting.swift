@@ -25,6 +25,10 @@ class Formatting {
   }()
   
   static func getRoundedDate() -> Date {
+    return getRoundedDate(minuteInterval: Double(UserDefaults.standard.minuteInterval))
+  }
+  
+  static func getRoundedDate(minuteInterval: Double) -> Date {
     let date = Date()
     let components = Calendar.current.dateComponents([.minute], from: date)
     
@@ -32,7 +36,7 @@ class Formatting {
       return date
     }
     
-    let roundedMinutes = Int((Double(minute) / 15.0).rounded(.toNearestOrAwayFromZero) * 15.0)
+    let roundedMinutes = Int((Double(minute) / minuteInterval).rounded(.toNearestOrAwayFromZero) * minuteInterval)
     
     return Calendar.current.date(byAdding: .minute, value: roundedMinutes - minute, to: date) ?? Date()
   }

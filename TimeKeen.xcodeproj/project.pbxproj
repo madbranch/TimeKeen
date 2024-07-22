@@ -31,6 +31,7 @@
 		66411CE22C4D3ED10050FDFB /* BreakItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE12C4D3ED10050FDFB /* BreakItem.swift */; };
 		66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */; };
 		66411CE62C4E6E7D0050FDFB /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE52C4E6E7D0050FDFB /* Formatting.swift */; };
+		66411CE82C4E907B0050FDFB /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
@@ -85,6 +86,7 @@
 		66411CE12C4D3ED10050FDFB /* BreakItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakItem.swift; sourceTree = "<group>"; };
 		66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakEntryExtension.swift; sourceTree = "<group>"; };
 		66411CE52C4E6E7D0050FDFB /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
+		66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				662294B12C4466B1005707D1 /* TimeEntry.swift */,
 				662294AF2C440196005707D1 /* TimeEntryExtension.swift */,
 				6693596A29606A3900DEDD35 /* TimeKeenApp.swift */,
+				66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */,
 				6611F1B22961D22A0089B49B /* Views */,
 			);
 			path = TimeKeen;
@@ -389,6 +392,7 @@
 				662294B42C4677B8005707D1 /* PayPeriodListViewModel.swift in Sources */,
 				662294AC2C43F840005707D1 /* TimeEntryRow.swift in Sources */,
 				66411CD62C4AA25A0050FDFB /* PayPeriodSection.swift in Sources */,
+				66411CE82C4E907B0050FDFB /* UserDefaultsExtension.swift in Sources */,
 				662294B02C440196005707D1 /* TimeEntryExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

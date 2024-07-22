@@ -86,7 +86,7 @@ struct CurrentTimeEntryView: View {
         switch breakState {
         case .working:
           Button("Clock Out...", action: {
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: clockInDate) else {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: UserDefaults.standard.minuteInterval, to: clockInDate) else {
               return
             }
             
@@ -99,7 +99,7 @@ struct CurrentTimeEntryView: View {
           .padding()
         case .takingABreak:
           Button("End Break...", action: {
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: 15, to: breakStart) else {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: UserDefaults.standard.minuteInterval, to: breakStart) else {
               return
             }
             

@@ -35,7 +35,7 @@ struct ContentView: View {
       }
     }
     .onAppear {
-      UIDatePicker.appearance().minuteInterval = 15
+      UIDatePicker.appearance().minuteInterval = UserDefaults.standard.minuteInterval
     }
   }
 }
