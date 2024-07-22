@@ -16,7 +16,6 @@ struct PayPeriodList: View {
     .navigationDestination(for: PayPeriodViewModel.self) { payPeriod in
       PayPeriodDetails(viewModel: payPeriod)
     }
-    .navigationTitle("Pay Periods")
     .onAppear(perform: viewModel.fetchTimeEntries)
   }
 }

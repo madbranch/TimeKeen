@@ -16,18 +16,22 @@ struct ContentView: View {
           Label("Clock-In", systemImage: "clock")
         }
         .tag(0)
-      SettingsView()
-        .tabItem {
-          Label("Settings", systemImage: "gear")
-        }
-        .tag(1)
+      NavigationStack {
+        SettingsView()
+          .navigationTitle("Settings")
+      }
+      .tabItem {
+        Label("Settings", systemImage: "gear")
+      }
+      .tag(1)
       NavigationStack(path: $path) {
         PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
+          .navigationTitle("Pay Periods")
       }
-        .tabItem {
-          Label("Pay Periods", systemImage: "list.bullet")
-        }
-        .tag(2)
+      .tabItem {
+        Label("Pay Periods", systemImage: "list.bullet")
+      }
+      .tag(2)
     }
     .onChange(of: selectedTab) { oldValue, newValue in
       if oldValue == 2 {
