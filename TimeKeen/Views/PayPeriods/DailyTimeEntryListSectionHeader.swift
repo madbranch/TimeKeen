@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DailyTimeEntryListSectionHeader: View {
-  @ObservedObject var viewModel: TimeEntryListViewModel
+  var viewModel: TimeEntryListViewModel
   private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
 
   init(viewModel: TimeEntryListViewModel) {

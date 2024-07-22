@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TimeEntryList: View {
-  @ObservedObject var viewModel: TimeEntryListViewModel
+  var viewModel: TimeEntryListViewModel
 
   init(viewModel: TimeEntryListViewModel) {
     self.viewModel = viewModel
