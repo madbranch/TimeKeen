@@ -7,14 +7,14 @@ struct CurrentTimeEntryView: View {
   
   @State private var isClockingIn = false
   @State private var isClockingOut = false
-  @State private var clockInDate = CurrentTimeEntryView.getRoundedDate()
-  @State private var clockOutDate = CurrentTimeEntryView.getRoundedDate()
+  @State private var clockInDate = Formatting.getRoundedDate()
+  @State private var clockOutDate = Formatting.getRoundedDate()
   @State private var minClockOutDate = Date()
   @State private var notes = ""
   @State private var isStartingBreak = false
   @State private var isEndingBreak = false
-  @State private var breakStart = CurrentTimeEntryView.getRoundedDate()
-  @State private var breakEnd = CurrentTimeEntryView.getRoundedDate()
+  @State private var breakStart = Formatting.getRoundedDate()
+  @State private var breakEnd = Formatting.getRoundedDate()
   @State private var minBreakEndDate = Date()
 
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -35,25 +35,12 @@ struct CurrentTimeEntryView: View {
     }
   }
   
-  private static func getRoundedDate() -> Date {
-    let date = Date()
-    let components = Calendar.current.dateComponents([.minute], from: date)
-    
-    guard let minute = components.minute else {
-      return date
-    }
-    
-    let roundedMinutes = Int((Double(minute) / 15.0).rounded(.toNearestOrAwayFromZero) * 15.0)
-    
-    return Calendar.current.date(byAdding: .minute, value: roundedMinutes - minute, to: date) ?? Date()
-  }
-  
   var body: some View {
     VStack {
       switch viewModel.clockInState {
       case .clockedOut:
         Button {
-          clockInDate = CurrentTimeEntryView.getRoundedDate()
+          clockInDate = Formatting.getRoundedDate()
           notes = ""
           isClockingIn = true
         } label: {
@@ -85,7 +72,7 @@ struct CurrentTimeEntryView: View {
           .textFieldStyle(.roundedBorder)
         if breakState == .working {
           Button {
-            breakStart = CurrentTimeEntryView.getRoundedDate()
+            breakStart = Formatting.getRoundedDate()
             isStartingBreak = true
           } label: {
             Text("Take a Break...")
