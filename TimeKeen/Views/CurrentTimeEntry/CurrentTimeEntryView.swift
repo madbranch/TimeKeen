@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CurrentTimeEntryView: View {
-  @ObservedObject var viewModel: CurrentTimeEntryViewModel
+  var viewModel: CurrentTimeEntryViewModel
   
   @State private var clockInDuration: Duration = .zero
   

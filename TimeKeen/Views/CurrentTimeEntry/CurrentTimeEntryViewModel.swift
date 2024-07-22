@@ -1,11 +1,11 @@
 import Foundation
 import SwiftData
 
-final class CurrentTimeEntryViewModel: ObservableObject {
-  @Published var clockInDate = Date()
-  @Published var clockInState: ClockInState = .clockedOut
-  @Published var breakStart = Date()
-  @Published var breaks = [BreakItem]()
+@Observable class CurrentTimeEntryViewModel {
+  var clockInDate = Date()
+  var clockInState: ClockInState = .clockedOut
+  var breakStart = Date()
+  var breaks = [BreakItem]()
 
   private var context: ModelContext
   
