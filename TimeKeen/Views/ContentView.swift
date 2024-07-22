@@ -16,7 +16,7 @@ struct ContentView: View {
           Label("Clock-In", systemImage: "clock")
         }
         .tag(0)
-      Text("omg settings")
+      SettingsView()
         .tabItem {
           Label("Settings", systemImage: "gear")
         }
