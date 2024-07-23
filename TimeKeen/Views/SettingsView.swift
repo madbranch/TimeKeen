@@ -21,7 +21,7 @@ struct SettingsView: View {
         Text("Every Sunday")
       }
       Button("Reset Settings to Defaults", role: .destructive) {
-        print("Reset Settings")
+        minuteInterval = 15
       }
       Button("Delete All Entries", role: .destructive) {
         print("Delete All")
