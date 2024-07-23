@@ -19,11 +19,7 @@ import SwiftData
       
       calendar.firstWeekday = 2
       
-      let timeEntriesPerPayPeriod = Dictionary(grouping: allTimeEntries, by: {
-        let yearForWeekOfYear = calendar.component(.yearForWeekOfYear, from: $0.start)
-        let weekOfYear = calendar.component(.weekOfYear, from: $0.start)
-        return calendar.date(from: DateComponents(weekOfYear: weekOfYear, yearForWeekOfYear: yearForWeekOfYear))!
-      })
+      let timeEntriesPerPayPeriod = Dictionary(grouping: allTimeEntries, by: PayPeriodGrouping.getGroupByMethod(schedule: UserDefaults.standard.payPeriodSchedule, periodEnd: UserDefaults.standard.endOfLastPayPeriod))
       
       var newPayPeriods = [PayPeriodViewModel]()
       newPayPeriods.reserveCapacity(timeEntriesPerPayPeriod.count)
