@@ -37,6 +37,7 @@
 		66411CF02C4F56B50050FDFB /* PayPeriodSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */; };
 		66411CF22C4FBE6A0050FDFB /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CF12C4FBE6A0050FDFB /* DateExtension.swift */; };
 		66411CF42C4FC0790050FDFB /* PayPeriodGrouping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */; };
+		66411CF62C4FC4A00050FDFB /* PayPeriodGroupingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CF52C4FC4A00050FDFB /* PayPeriodGroupingTests.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
@@ -97,6 +98,7 @@
 		66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodSchedule.swift; sourceTree = "<group>"; };
 		66411CF12C4FBE6A0050FDFB /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodGrouping.swift; sourceTree = "<group>"; };
+		66411CF52C4FC4A00050FDFB /* PayPeriodGroupingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodGroupingTests.swift; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			children = (
 				6693598129606A3A00DEDD35 /* TimeKeenTests.swift */,
 				6629125329607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift */,
+				66411CF52C4FC4A00050FDFB /* PayPeriodGroupingTests.swift */,
 			);
 			path = TimeKeenTests;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 			files = (
 				6693598229606A3A00DEDD35 /* TimeKeenTests.swift in Sources */,
 				6629125429607B2C007A5343 /* CurrentTimeEntryViewModelTests.swift in Sources */,
+				66411CF62C4FC4A00050FDFB /* PayPeriodGroupingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@ class TimeEntry {
   var end: Date
   var notes: String = ""
   var breaks = [BreakEntry]()
-  init(from start: Date, to end: Date, notes: String) {
+  init(from start: Date, to end: Date, notes: String = "") {
     self.start = start
     self.end = end
     self.notes = notes
