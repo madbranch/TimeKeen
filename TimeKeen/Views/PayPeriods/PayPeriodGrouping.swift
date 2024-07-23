@@ -19,7 +19,7 @@ struct PayPeriodGrouping {
   
   private static func getGroupByWeekly(periodEnd: Date) -> (TimeEntry) -> Date {
     var calendar = Calendar(identifier: Calendar.current.identifier)
-    calendar.firstWeekday = 2
+    calendar.firstWeekday = (calendar.component(.weekday, from: periodEnd) % calendar.weekdaySymbols.count) + 1
     return {
       let yearForWeekOfYear = calendar.component(.yearForWeekOfYear, from: $0.start)
       let weekOfYear = calendar.component(.weekOfYear, from: $0.start)
