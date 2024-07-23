@@ -75,4 +75,20 @@ final class PayPeriodGroupingTests: XCTestCase {
     
     XCTAssertEqual(groupedEntries.keys.count, 3)
   }
+  
+  @MainActor
+  func test_group_byMonthlyEndOn28_ShouldGroupByCorrectly() throws {
+    let entries = [
+      TimeEntry(from: date("2024-02-28 07:30"), to: date("2024-02-28 07:45")),
+      TimeEntry(from: date("2024-02-29 07:30"), to: date("2024-02-29 07:45")),
+      TimeEntry(from: date("2024-03-28 07:30"), to: date("2024-03-28 07:45")),
+      TimeEntry(from: date("2024-03-29 07:30"), to: date("2024-03-29 07:45")),
+    ]
+    
+    let periodEnd = date("2023-07-28 07:00")
+    
+    let groupedEntries = entries.group(by: .Monthly, ending: periodEnd)
+    
+    XCTAssertEqual(groupedEntries.keys.count, 3)
+  }
 }

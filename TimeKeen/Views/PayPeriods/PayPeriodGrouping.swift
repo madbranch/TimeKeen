@@ -23,9 +23,9 @@ struct PayPeriodGrouping {
     return {
       let yearForWeekOfYear = calendar.component(.yearForWeekOfYear, from: $0.start)
       let weekOfYear = calendar.component(.weekOfYear, from: $0.start)
-      let periodStart = calendar.date(from: DateComponents(weekOfYear: weekOfYear, yearForWeekOfYear: yearForWeekOfYear))!
-      let periodEnd = calendar.date(byAdding: .day, value: calendar.weekdaySymbols.count - 1, to: periodStart)!
-      return periodStart...periodEnd
+      let currentPeriodStart = calendar.date(from: DateComponents(weekOfYear: weekOfYear, yearForWeekOfYear: yearForWeekOfYear))!
+      let currentPeriodEnd = calendar.date(byAdding: .day, value: calendar.weekdaySymbols.count - 1, to: currentPeriodStart)!
+      return currentPeriodStart...currentPeriodEnd
     }
   }
   
@@ -38,14 +38,19 @@ struct PayPeriodGrouping {
       let deltaComponents = calendar.dateComponents([.day], from: periodStart, to: start)
       let deltaDays = deltaComponents.day!
       let delta = (deltaDays / biweekdays) * biweekdays
-      let periodStart = calendar.date(byAdding: .day, value: delta, to: periodEnd)!
-      let periodEnd = calendar.date(byAdding: .day, value: biweekdays - 1, to: periodStart)!
-      return periodStart...periodEnd
+      let currentPeriodStart = calendar.date(byAdding: .day, value: delta, to: periodEnd)!
+      let currentPeriodEnd = calendar.date(byAdding: .day, value: biweekdays - 1, to: currentPeriodStart)!
+      return currentPeriodStart...currentPeriodEnd
     }
   }
   
   private static func getGroupByMonthly(periodEnd: Date) -> (TimeEntry) -> ClosedRange<Date> {
-    return getGroupByWeekly(periodEnd: periodEnd)
+    //let calendar = Calendar.current
+    //let periodStart = calendar.date(byAdding: .day, value: 1, to: calendar.date(byAdding: .month, value: -1, to: periodEnd)!)!
+    return {
+      let start = $0.start
+      return start...$0.end
+    }
   }
   
   private static func getGroupByEveryFourWeeks(periodEnd: Date) -> (TimeEntry) -> ClosedRange<Date> {
