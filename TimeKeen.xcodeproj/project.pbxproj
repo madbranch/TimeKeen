@@ -190,8 +190,10 @@
 				6693596E29606A3A00DEDD35 /* Assets.xcassets */,
 				66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */,
 				66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */,
+				66411CF12C4FBE6A0050FDFB /* DateExtension.swift */,
 				66411CE52C4E6E7D0050FDFB /* Formatting.swift */,
 				6693597829606A3A00DEDD35 /* Info.plist */,
+				66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */,
 				6693597329606A3A00DEDD35 /* PersistenceController.swift */,
 				6693597029606A3A00DEDD35 /* Preview Content */,
 				662294B12C4466B1005707D1 /* TimeEntry.swift */,
@@ -199,8 +201,6 @@
 				6693596A29606A3900DEDD35 /* TimeKeenApp.swift */,
 				66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */,
 				6611F1B22961D22A0089B49B /* Views */,
-				66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */,
-				66411CF12C4FBE6A0050FDFB /* DateExtension.swift */,
 			);
 			path = TimeKeen;
 			sourceTree = "<group>";
@@ -236,6 +236,7 @@
 			children = (
 				662294BE2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift */,
 				662294BC2C47E904005707D1 /* PayPeriodDetails.swift */,
+				66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */,
 				662294B82C46874F005707D1 /* PayPeriodList.swift */,
 				662294B32C4677B8005707D1 /* PayPeriodListViewModel.swift */,
 				662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */,
@@ -246,7 +247,6 @@
 				669393E62990642700CC661C /* TimeEntryListViewModel.swift */,
 				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
 				66411CDB2C4B00750050FDFB /* TimeEntryViewModel.swift */,
-				66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */,
 			);
 			path = PayPeriods;
 			sourceTree = "<group>";
