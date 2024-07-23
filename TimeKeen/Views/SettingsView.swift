@@ -9,6 +9,8 @@ struct SettingsView: View {
   
   @AppStorage("PayPeriodSchedule") var payPeriodSchedule = PayPeriodSchedule.Weekly
   
+  @AppStorage("EndOfLastPayPeriod") var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
+  
   var body: some View {
     List {
       Picker("Minute Interval", selection: $minuteInterval) {
@@ -23,11 +25,12 @@ struct SettingsView: View {
         Text("Every Four Weeks").tag(PayPeriodSchedule.EveryFourWeeks)
         Text("1st & 16th").tag(PayPeriodSchedule.FirstAndSixteenth)
       }
-      LabeledContent("Period Ends") {
-        Text("Every Sunday")
-      }
+      DatePicker("Period Ends", selection: $endOfLastPayPeriod, displayedComponents: [.date] )
+        .datePickerStyle(.compact)
       Button("Reset Settings to Defaults", role: .destructive) {
-        minuteInterval = 15
+        UserDefaults.standard.removeObject(forKey: "MinuteInterval")
+        UserDefaults.standard.removeObject(forKey: "PayPeriodSchedule")
+        UserDefaults.standard.removeObject(forKey: "EndOfLastPayPeriod")
       }
       Button("Delete All Entries", role: .destructive) {
         print("Delete All")
