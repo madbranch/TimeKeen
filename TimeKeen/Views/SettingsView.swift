@@ -7,6 +7,8 @@ struct SettingsView: View {
     }
   }
   
+  @AppStorage("PayPeriodSchedule") var payPeriodSchedule = PayPeriodSchedule.Weekly
+  
   var body: some View {
     List {
       Picker("Minute Interval", selection: $minuteInterval) {
@@ -14,8 +16,12 @@ struct SettingsView: View {
         Text("5 minutes").tag(5)
         Text("15 minutes").tag(15)
       }
-      LabeledContent("Schedule") {
-        Text("Weekly")
+      Picker("Schedule", selection: $payPeriodSchedule) {
+        Text("Weekly").tag(PayPeriodSchedule.Weekly)
+        Text("Biweekly").tag(PayPeriodSchedule.Biweekly)
+        Text("Monthly").tag(PayPeriodSchedule.Monthly)
+        Text("Every Four Weeks").tag(PayPeriodSchedule.EveryFourWeeks)
+        Text("1st & 16th").tag(PayPeriodSchedule.FirstAndSixteenth)
       }
       LabeledContent("Period Ends") {
         Text("Every Sunday")
