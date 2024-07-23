@@ -10,21 +10,22 @@ import SwiftData
     self.context = context
   }
   
-  func fetchTimeEntries() {
+  func fetchTimeEntries(by schedule: PayPeriodSchedule, ending periodEnd: Date) {
     do {
       let descriptor = FetchDescriptor<TimeEntry>(sortBy: [SortDescriptor(\.start, order: .reverse)])
       let allTimeEntries = try context.fetch(descriptor)
       
       let calendar = Calendar.current
       
-      let timeEntriesPerPayPeriod = allTimeEntries.group(by: UserDefaults.standard.payPeriodSchedule, ending: UserDefaults.standard.endOfLastPayPeriod)
+      let timeEntriesPerPayPeriod = allTimeEntries.group(by: schedule, ending: periodEnd)
       
       var newPayPeriods = [PayPeriodViewModel]()
       newPayPeriods.reserveCapacity(timeEntriesPerPayPeriod.count)
       
-      for payPeriodStart in timeEntriesPerPayPeriod.keys.sorted().reversed() {
-        let payPeriodTimeEntries = timeEntriesPerPayPeriod[payPeriodStart]!
-        let payPeriodEnd = calendar.date(byAdding: .day, value: 6, to: payPeriodStart)!
+      for payPeriod in timeEntriesPerPayPeriod.keys.sorted(by: { $0.lowerBound >= $1.lowerBound } ) {
+        let payPeriodTimeEntries = timeEntriesPerPayPeriod[payPeriod]!
+        let payPeriodStart = payPeriod.lowerBound
+        let payPeriodEnd = payPeriod.upperBound
         
         let timeEntriesPerDay = Dictionary(grouping: payPeriodTimeEntries, by: {
           let year = calendar.component(.year, from: $0.start)

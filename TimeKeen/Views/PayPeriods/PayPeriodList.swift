@@ -2,6 +2,8 @@ import SwiftUI
 
 struct PayPeriodList: View {
   var viewModel: PayPeriodListViewModel
+  @AppStorage("PayPeriodSchedule") var payPeriodSchedule = PayPeriodSchedule.Weekly
+  @AppStorage("EndOfLastPayPeriod") var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
 
   init(viewModel: PayPeriodListViewModel) {
     self.viewModel = viewModel
@@ -16,6 +18,8 @@ struct PayPeriodList: View {
     .navigationDestination(for: PayPeriodViewModel.self) { payPeriod in
       PayPeriodDetails(viewModel: payPeriod)
     }
-    .onAppear(perform: viewModel.fetchTimeEntries)
+    .onAppear() {
+      viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
+    }
   }
 }
