@@ -24,7 +24,7 @@ final class PayPeriodGroupingTests: XCTestCase {
     // Sunday
     let periodEnd = date("2024-07-07 07:00")
     
-    let groupedEntries = Dictionary(grouping: entries, by: PayPeriodGrouping.getGroupByMethod(schedule: .Weekly, periodEnd: periodEnd))
+    let groupedEntries = entries.group(by: .Weekly, ending: periodEnd)
     
     XCTAssertEqual(groupedEntries.keys.count, 2)
   }

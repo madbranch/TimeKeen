@@ -1,5 +1,11 @@
 import Foundation
 
+extension Array where Element == TimeEntry {
+  func group(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> Dictionary<Date, [TimeEntry]> {
+    return Dictionary(grouping: self, by: PayPeriodGrouping.getGroupByMethod(schedule: schedule, periodEnd: periodEnd))
+  }
+}
+
 struct PayPeriodGrouping {
   static func getGroupByMethod(schedule: PayPeriodSchedule, periodEnd: Date) -> (TimeEntry) -> Date {
     return switch schedule {

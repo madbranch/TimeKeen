@@ -15,11 +15,9 @@ import SwiftData
       let descriptor = FetchDescriptor<TimeEntry>(sortBy: [SortDescriptor(\.start, order: .reverse)])
       let allTimeEntries = try context.fetch(descriptor)
       
-      var calendar = Calendar(identifier: Calendar.current.identifier)
+      let calendar = Calendar.current
       
-      calendar.firstWeekday = 2
-      
-      let timeEntriesPerPayPeriod = Dictionary(grouping: allTimeEntries, by: PayPeriodGrouping.getGroupByMethod(schedule: UserDefaults.standard.payPeriodSchedule, periodEnd: UserDefaults.standard.endOfLastPayPeriod))
+      let timeEntriesPerPayPeriod = allTimeEntries.group(by: UserDefaults.standard.payPeriodSchedule, ending: UserDefaults.standard.endOfLastPayPeriod)
       
       var newPayPeriods = [PayPeriodViewModel]()
       newPayPeriods.reserveCapacity(timeEntriesPerPayPeriod.count)
