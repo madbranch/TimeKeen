@@ -91,4 +91,20 @@ final class PayPeriodGroupingTests: XCTestCase {
     
     XCTAssertEqual(groupedEntries.keys.count, 3)
   }
-}
+  
+  @MainActor
+  func test_group_byEveryFourWeeks_ShouldGroupByCorrectly() throws {
+    let entries = [
+      TimeEntry(from: date("2024-08-04 07:30"), to: date("2024-08-04 07:45")),
+      TimeEntry(from: date("2024-08-05 07:30"), to: date("2024-08-05 07:45")),
+      TimeEntry(from: date("2024-09-01 07:30"), to: date("2024-09-01 07:45")),
+      TimeEntry(from: date("2024-09-02 07:30"), to: date("2024-09-02 07:45")),
+    ]
+    
+    let periodEnd = date("2024-07-07 07:00")
+    
+    let groupedEntries = entries.group(by: .EveryFourWeeks, ending: periodEnd)
+    
+    XCTAssertEqual(groupedEntries.keys.count, 3)
+  }
+ }
