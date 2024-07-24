@@ -39,6 +39,7 @@
 		66411CF42C4FC0790050FDFB /* PayPeriodGrouping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */; };
 		66411CF62C4FC4A00050FDFB /* PayPeriodGroupingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CF52C4FC4A00050FDFB /* PayPeriodGroupingTests.swift */; };
 		66411CF82C51119A0050FDFB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CF72C51119A0050FDFB /* SettingsViewModel.swift */; };
+		66411CFB2C5134490050FDFB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 66411CFA2C5134490050FDFB /* Localizable.xcstrings */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
@@ -101,6 +102,7 @@
 		66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodGrouping.swift; sourceTree = "<group>"; };
 		66411CF52C4FC4A00050FDFB /* PayPeriodGroupingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodGroupingTests.swift; sourceTree = "<group>"; };
 		66411CF72C51119A0050FDFB /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		66411CFA2C5134490050FDFB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				66411CF12C4FBE6A0050FDFB /* DateExtension.swift */,
 				66411CE52C4E6E7D0050FDFB /* Formatting.swift */,
 				6693597829606A3A00DEDD35 /* Info.plist */,
+				66411CFA2C5134490050FDFB /* Localizable.xcstrings */,
 				66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */,
 				6693597329606A3A00DEDD35 /* PersistenceController.swift */,
 				6693597029606A3A00DEDD35 /* Preview Content */,
@@ -343,6 +346,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 6693595E29606A3900DEDD35;
 			productRefGroup = 6693596829606A3900DEDD35 /* Products */;
@@ -363,6 +367,7 @@
 			files = (
 				6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */,
 				6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */,
+				66411CFB2C5134490050FDFB /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
