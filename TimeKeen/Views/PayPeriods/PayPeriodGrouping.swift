@@ -47,7 +47,7 @@ struct PayPeriodGrouping {
     case .Biweekly: getGroupByNWeekly(periodEnd: periodEnd, nbWeeks: 2)
     case .Monthly: getGroupByMonthly(periodEnd: periodEnd)
     case .EveryFourWeeks: getGroupByNWeekly(periodEnd: periodEnd, nbWeeks: 4)
-    case .FirstAndSixteenth: getGroupByFirstAndSixteenth(periodEnd: periodEnd)
+    case .FirstAndSixteenth: getGroupByFirstAndSixteenth()
     }
   }
   
@@ -99,7 +99,17 @@ struct PayPeriodGrouping {
     }
   }
   
-  private static func getGroupByFirstAndSixteenth(periodEnd: Date) -> (TimeEntry) -> ClosedRange<Date> {
-    return getGroupByWeekly(periodEnd: periodEnd)
+  private static func getGroupByFirstAndSixteenth() -> (TimeEntry) -> ClosedRange<Date> {
+    let calendar = Calendar.current
+    return {
+      let start = $0.start
+      let components = calendar.dateComponents([.year, .month, .day], from: start)
+      
+      if components.day! < 16 {
+        return calendar.startMonth(from: start)!...calendar.date(from: DateComponents(year: components.year, month: components.month, day: 15))!
+      }
+      
+      return calendar.date(from: DateComponents(year: components.year, month: components.month, day: 16))!...calendar.endMonth(from: start)!
+    }
   }
 }

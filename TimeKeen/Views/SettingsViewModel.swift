@@ -1,8 +1,19 @@
-//
-//  SettingsViewModel.swift
-//  TimeKeen
-//
-//  Created by Adam Labranche on 2024-07-22.
-//
+import SwiftUI
+import SwiftData
 
-import Foundation
+@Observable class SettingsViewModel {
+  private var context: ModelContext
+  
+  init(context: ModelContext) {
+    self.context = context
+  }
+  
+  func deleteAllEntries() {
+    do {
+      try context.delete(model: TimeEntry.self)
+      try context.delete(model: BreakEntry.self)
+    } catch {
+      fatalError(error.localizedDescription)
+    }
+  }
+}

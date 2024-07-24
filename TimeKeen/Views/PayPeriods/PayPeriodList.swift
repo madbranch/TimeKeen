@@ -21,5 +21,14 @@ struct PayPeriodList: View {
     .onAppear() {
       viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
     }
+    .overlay {
+      if viewModel.payPeriods.isEmpty {
+        ContentUnavailableView {
+          Label("No Time Entries", systemImage: "clock")
+        } description: {
+          Text("Time you log will appear here.")
+        }
+      }
+    }
   }
 }

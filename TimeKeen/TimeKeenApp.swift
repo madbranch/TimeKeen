@@ -33,7 +33,8 @@ struct TimeKeenApp: App {
       let context = container.mainContext
       let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, clockedInAt: start, startedBreakAt: breakStart, withBreaks: breaks)
       let payPeriodListViewModel = PayPeriodListViewModel(context: context)
-      let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, payPeriodListViewModel: payPeriodListViewModel)
+      let settingsViewModel = SettingsViewModel(context: context)
+      let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, payPeriodListViewModel: payPeriodListViewModel, settingsViewModel: settingsViewModel)
 
       ContentView(viewModel: viewModel)
     }

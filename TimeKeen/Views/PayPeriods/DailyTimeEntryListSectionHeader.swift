@@ -10,7 +10,11 @@ struct DailyTimeEntryListSectionHeader: View {
 
   var body: some View {
     HStack {
-      Text(viewModel.timeEntries[0].timeEntry.start.formatted(date: .complete, time: .omitted))
+      if viewModel.timeEntries.isEmpty {
+        Text("---")
+      } else {
+        Text(viewModel.timeEntries[0].timeEntry.start.formatted(date: .complete, time: .omitted))
+      }
       Spacer()
       Text(viewModel.duration.formatted(DailyTimeEntryListSectionHeader.durationStyle))
     }

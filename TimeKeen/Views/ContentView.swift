@@ -17,7 +17,7 @@ struct ContentView: View {
         }
         .tag(0)
       NavigationStack {
-        SettingsView()
+        SettingsView(viewModel: viewModel.settingsViewModel)
           .navigationTitle("Settings")
       }
       .tabItem {

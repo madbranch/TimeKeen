@@ -2,6 +2,8 @@ import SwiftUI
 
 struct TimeEntryList: View {
   var viewModel: TimeEntryListViewModel
+  
+  @Environment(\.dismiss) private var dismiss
 
   init(viewModel: TimeEntryListViewModel) {
     self.viewModel = viewModel
@@ -13,7 +15,13 @@ struct TimeEntryList: View {
         TimeEntryRow(viewModel: timeEntry)
       }
     }
-    .onDelete(perform: viewModel.deleteTimeEntries)
+    .onDelete { offsets in
+      viewModel.deleteTimeEntries(at: offsets)
+      
+      if viewModel.timeEntries.isEmpty {
+        dismiss()
+      }
+    }
     .onAppear(perform: viewModel.computeProperties)
   }
 }
