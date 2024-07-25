@@ -4,6 +4,7 @@ struct PayPeriodList: View {
   var viewModel: PayPeriodListViewModel
   @AppStorage("PayPeriodSchedule") var payPeriodSchedule = PayPeriodSchedule.Weekly
   @AppStorage("EndOfLastPayPeriod") var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
+  @State private var isPresentingShareSheet = false
 
   init(viewModel: PayPeriodListViewModel) {
     self.viewModel = viewModel
@@ -21,6 +22,13 @@ struct PayPeriodList: View {
     .onAppear() {
       viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
     }
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button("Export", systemImage: "square.and.arrow.up") {
+          isPresentingShareSheet = true
+        }
+      }
+    }
     .overlay {
       if viewModel.payPeriods.isEmpty {
         ContentUnavailableView {
@@ -29,6 +37,9 @@ struct PayPeriodList: View {
           Text("Time you log will appear here.")
         }
       }
+    }
+    .sheet(isPresented: $isPresentingShareSheet) {
+      TimeEntrySharingView(viewModel: viewModel.timeEntrySharingViewModel)
     }
   }
 }

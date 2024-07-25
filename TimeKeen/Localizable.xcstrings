@@ -277,6 +277,12 @@
         }
       }
     },
+    "Export" : {
+
+    },
+    "Export all time entries from the selected period in time." : {
+
+    },
     "From" : {
       "localizations" : {
         "fr" : {

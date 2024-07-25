@@ -5,8 +5,10 @@ import SwiftData
 @Observable class PayPeriodListViewModel {
   private var context: ModelContext
   var payPeriods = [PayPeriodViewModel]()
+  var timeEntrySharingViewModel: TimeEntrySharingViewModel
   
-  init(context: ModelContext) {
+  init(timeEntrySharingViewModel: TimeEntrySharingViewModel, context: ModelContext) {
+    self.timeEntrySharingViewModel = timeEntrySharingViewModel
     self.context = context
   }
   
