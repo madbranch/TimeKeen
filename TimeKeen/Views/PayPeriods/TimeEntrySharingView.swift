@@ -18,12 +18,14 @@ struct TimeEntrySharingView: View {
       DatePicker("To", selection: $viewModel.to, in: viewModel.from..., displayedComponents: [.date])
         .datePickerStyle(.compact)
       Spacer()
-      Button("Export", systemImage: "square.and.arrow.up") {
+      Button(action: {
         print("Export!")
+      }) {
+        Label("Export", systemImage: "square.and.arrow.up")
+          .frame(maxWidth: .infinity)
       }
       .buttonStyle(.borderedProminent)
       .controlSize(.large)
-      .padding()
     }
     .padding()
     .presentationDetents([.medium])

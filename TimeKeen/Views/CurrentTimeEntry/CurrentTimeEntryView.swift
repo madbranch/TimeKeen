@@ -118,15 +118,17 @@ struct CurrentTimeEntryView: View {
         LabeledContent("At") {
           IntervalDatePicker(selection: $clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
-        Button("Clock In at \(Formatting.startEndFormatter.string(from: clockInDate))", action: {
+        Button(action: {
           viewModel.clockIn(at: clockInDate)
           isClockingIn = false
-        })
+        }) {
+          Text("Clock In at \(Formatting.startEndFormatter.string(from: clockInDate))")
+            .frame(maxWidth: .infinity)
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .padding()
       }
+      .padding()
       .presentationDetents([
         .fraction(0.2)
       ])
@@ -136,15 +138,17 @@ struct CurrentTimeEntryView: View {
         LabeledContent("At") {
           IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
-        Button("Clock Out at \(Formatting.startEndFormatter.string(from: clockOutDate))", action: {
+        Button(action: {
           _ = viewModel.clockOut(at: clockOutDate, notes: notes)
           isClockingOut = false
-        })
+        }) {
+          Text("Clock Out at \(Formatting.startEndFormatter.string(from: clockOutDate))")
+            .frame(maxWidth: .infinity)
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .padding()
       }
+      .padding()
       .presentationDetents([
         .fraction(0.2)
       ])
@@ -154,15 +158,17 @@ struct CurrentTimeEntryView: View {
         LabeledContent("At") {
           IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: clockInDate..., displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
-        Button("Start Break at \(Formatting.startEndFormatter.string(from: breakStart))", action: {
+        Button(action: {
           viewModel.startBreak(at: breakStart)
           isStartingBreak = false
-        })
+        }) {
+          Text("Start Break at \(Formatting.startEndFormatter.string(from: breakStart))")
+            .frame(maxWidth: .infinity)
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .padding()
       }
+      .padding()
       .presentationDetents([
         .fraction(0.2)
       ])
@@ -172,15 +178,17 @@ struct CurrentTimeEntryView: View {
         LabeledContent("At") {
           IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: breakStart..., displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
-        Button("End Break at \(Formatting.startEndFormatter.string(from: breakEnd))", action: {
+        Button(action: {
           viewModel.endBreak(at: breakEnd)
           isEndingBreak = false
-        })
+        }) {
+          Text("End Break at \(Formatting.startEndFormatter.string(from: breakEnd))")
+            .frame(maxWidth: .infinity)
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .padding()
       }
+      .padding()
       .presentationDetents([
         .fraction(0.2)
       ])
