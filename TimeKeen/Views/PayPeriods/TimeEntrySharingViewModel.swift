@@ -37,7 +37,23 @@ struct TimeEntryJsonExport: Transferable {
   }
   
   func commaSeparatedText() -> Data {
-    return Data()
+    do {
+      let dateRange = from...to
+      let descriptor = FetchDescriptor<TimeEntry>(predicate: #Predicate<TimeEntry> { dateRange.contains($0.start) }, sortBy: [SortDescriptor(\.start, order: .reverse)])
+      let timeEntries = try context.fetch(descriptor)
+      
+      var text = String(localized: "From,To,Number of Breaks,On Break,On the Clock,Notes\n")
+      
+      let formatter = ISO8601DateFormatter()
+      
+      for timeEntry in timeEntries {
+        text.append("\(formatter.string(from: timeEntry.start)),\(formatter.string(from: timeEntry.end)),\"\(timeEntry.notes)\"\n")
+      }
+      
+      return Data()
+    } catch {
+      return Data()
+    }
   }
   
   func json() -> Data {

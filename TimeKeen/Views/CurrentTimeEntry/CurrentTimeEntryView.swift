@@ -4,7 +4,7 @@ struct CurrentTimeEntryView: View {
   var viewModel: CurrentTimeEntryViewModel
   
   @AppStorage("MinuteInterval") var minuteInterval = 15
-  @State private var clockInDuration: Duration = .zero
+  @State private var clockInDuration: TimeInterval = .zero
   @State private var isClockingIn = false
   @State private var isClockingOut = false
   @State private var clockInDate = Formatting.getRoundedDate()
@@ -19,20 +19,12 @@ struct CurrentTimeEntryView: View {
   
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
-  private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
-  
   init(viewModel: CurrentTimeEntryViewModel) {
     self.viewModel = viewModel
   }
   
   private func updateClockInDuration(input: Date) {
-    let components = Calendar.current.dateComponents([.hour, .minute], from: viewModel.clockInDate, to: input)
-    
-    if let hour = components.hour, let minute = components.minute  {
-      clockInDuration = .seconds(hour * 60 * 60 + minute * 60)
-    } else {
-      clockInDuration = .zero
-    }
+    clockInDuration = viewModel.clockInDate.distance(to: input)
   }
   
   var body: some View {
@@ -55,7 +47,7 @@ struct CurrentTimeEntryView: View {
         .padding()
       case .clockedIn(let breakState):
         Spacer()
-        Text(clockInDuration.formatted(CurrentTimeEntryView.durationStyle))
+        Text((clockInDuration < 0 ? "-" : "") + (Formatting.timeIntervalFormatter.string(from: clockInDuration) ?? ""))
           .onAppear { updateClockInDuration(input: Date.now) }
           .onReceive(timer, perform: updateClockInDuration)
           .font(.system(size: 1000))
@@ -111,6 +103,12 @@ struct CurrentTimeEntryView: View {
           .controlSize(.large)
           .padding()
         }
+      }
+    }
+    .sensoryFeedback(trigger: viewModel.clockInState) { old, new in
+      return switch new {
+      case .clockedOut: .success
+      case .clockedIn(_): old == .clockedOut ? .impact : nil
       }
     }
     .sheet(isPresented: $isClockingIn) { [clockInDate] in

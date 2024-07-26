@@ -10,4 +10,8 @@ extension BreakEntry {
       return Duration.zero
     }
   }
+  
+  var interval: TimeInterval {
+    return start.distance(to: end)
+  }
 }
