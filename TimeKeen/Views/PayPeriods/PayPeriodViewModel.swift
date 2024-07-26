@@ -16,7 +16,7 @@ import SwiftData
   var payPeriodEnd: Date
   var dailyTimeEntryLists = [TimeEntryListViewModel]()
   var nbEntries = 0
-  var duration: Duration = .zero
+  var onTheClock = TimeInterval.zero
   
   init(from payPeriodStart: Date, to payPeriodEnd: Date, with dailyTimeEntryLists: [TimeEntryListViewModel], context: ModelContext) {
     self.context = context
@@ -27,17 +27,14 @@ import SwiftData
   
   func computeProperties() {
     var nbEntries = 0
-    var duration: Duration = .zero
+    var onTheClock = TimeInterval.zero
     
     for dailyTimeEntryList in dailyTimeEntryLists {
       nbEntries += dailyTimeEntryList.timeEntries.count
-      
-      for timeEntry in dailyTimeEntryList.timeEntries {
-        duration = .seconds(duration.components.seconds + timeEntry.timeEntry.duration.components.seconds)
-      }
+      onTheClock = dailyTimeEntryList.timeEntries.reduce(TimeInterval.zero) { $0 + $1.timeEntry.onTheClock }
     }
     
     self.nbEntries = nbEntries
-    self.duration = duration
+    self.onTheClock = onTheClock
   }
 }

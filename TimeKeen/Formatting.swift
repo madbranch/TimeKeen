@@ -1,8 +1,6 @@
 import Foundation
 
 class Formatting {
-  static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
-  
   static let timeIntervalFormatter = {
     let formatter = DateComponentsFormatter()
     formatter.zeroFormattingBehavior = .pad

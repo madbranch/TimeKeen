@@ -13,7 +13,7 @@ import SwiftData
   
   private var context: ModelContext
   var timeEntries = [TimeEntryViewModel]()
-  var duration: Duration = .zero
+  var onTheClock: TimeInterval = .zero
 
   init(timeEntries: [TimeEntryViewModel], context: ModelContext) {
     self.context = context
@@ -22,7 +22,7 @@ import SwiftData
   
   func computeProperties()
   {
-    duration = timeEntries.reduce(Duration.zero, { result, timeEntry in result + timeEntry.timeEntry.duration })
+    onTheClock = timeEntries.reduce(TimeInterval.zero) { $0 + $1.timeEntry.onTheClock }
   }
   
   func deleteTimeEntries(at offsets: IndexSet) {

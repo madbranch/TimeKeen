@@ -2,7 +2,6 @@ import SwiftUI
 
 struct PayPeriodRow: View {
   var viewModel: PayPeriodViewModel
-  private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
 
   init(viewModel: PayPeriodViewModel) {
     self.viewModel = viewModel
@@ -18,7 +17,7 @@ struct PayPeriodRow: View {
           .foregroundStyle(.secondary)
       }
       Spacer()
-      Text(viewModel.duration.formatted(PayPeriodRow.durationStyle))
+      Text(Formatting.timeIntervalFormatter.string(from: viewModel.onTheClock) ?? "")
         .foregroundStyle(.secondary)
     }
   }

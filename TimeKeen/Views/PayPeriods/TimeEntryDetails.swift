@@ -18,7 +18,7 @@ struct TimeEntryDetails: View {
     List {
       Section("Entry") {
         LabeledContent("Duration") {
-          Text(viewModel.timeEntry.duration.formatted(Formatting.durationStyle))
+          Text(Formatting.timeIntervalFormatter.string(from: viewModel.timeEntry.onTheClock) ?? "")
         }
         if editMode?.wrappedValue.isEditing == true {
           LabeledContent("Start") {
@@ -45,7 +45,7 @@ struct TimeEntryDetails: View {
           HStack {
             Text("\(Formatting.startEndFormatter.string(from: breakEntry.start)) - \(Formatting.startEndFormatter.string(from: breakEntry.end))")
             Spacer()
-            Text(breakEntry.duration.formatted(Formatting.durationStyle))
+            Text(Formatting.timeIntervalFormatter.string(from: breakEntry.interval) ?? "")
               .foregroundStyle(.secondary)
           }
           .contentShape(Rectangle())

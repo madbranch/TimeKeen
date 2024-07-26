@@ -2,7 +2,6 @@ import SwiftUI
 
 struct DailyTimeEntryListSectionHeader: View {
   var viewModel: TimeEntryListViewModel
-  private static let durationStyle = Duration.TimeFormatStyle(pattern: .hourMinute)
 
   init(viewModel: TimeEntryListViewModel) {
     self.viewModel = viewModel
@@ -16,7 +15,7 @@ struct DailyTimeEntryListSectionHeader: View {
         Text(viewModel.timeEntries[0].timeEntry.start.formatted(date: .complete, time: .omitted))
       }
       Spacer()
-      Text(viewModel.duration.formatted(DailyTimeEntryListSectionHeader.durationStyle))
+      Text(Formatting.timeIntervalFormatter.string(from: viewModel.onTheClock) ?? "")
     }
   }
 }
