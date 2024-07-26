@@ -207,6 +207,12 @@
         }
       }
     },
+    "CSV" : {
+
+    },
+    "CSV Time Entries" : {
+
+    },
     "Delete All Entries" : {
       "localizations" : {
         "fr" : {
@@ -283,6 +289,15 @@
     "Export all time entries from the selected period in time." : {
 
     },
+    "Export to CSV" : {
+
+    },
+    "Export to JSON" : {
+
+    },
+    "Format" : {
+
+    },
     "From" : {
       "localizations" : {
         "fr" : {
@@ -292,6 +307,12 @@
           }
         }
       }
+    },
+    "JSON" : {
+
+    },
+    "JSON Time Entries" : {
+
     },
     "Minute Interval" : {
       "localizations" : {

@@ -17,15 +17,25 @@ struct TimeEntrySharingView: View {
         .datePickerStyle(.compact)
       DatePicker("To", selection: $viewModel.to, in: viewModel.from..., displayedComponents: [.date])
         .datePickerStyle(.compact)
-      Spacer()
-      Button(action: {
-        print("Export!")
-      }) {
-        Label("Export", systemImage: "square.and.arrow.up")
-          .frame(maxWidth: .infinity)
+      LabeledContent("Format") {
+        Picker("Format", selection: $viewModel.format) {
+          Text("CSV").tag(TimeEntryExportFormat.csv)
+          Text("JSON").tag(TimeEntryExportFormat.json)
+        }
       }
-      .buttonStyle(.borderedProminent)
-      .controlSize(.large)
+      Spacer()
+      switch viewModel.format {
+      case .csv:
+        ShareLink(item: viewModel.csvExport, preview: SharePreview("CSV Time Entries")) {
+          Label("Export to CSV", systemImage: "square.and.arrow.up")
+            .frame(maxWidth: .infinity)
+        }
+      case .json:
+        ShareLink(item: viewModel.jsonExport, preview: SharePreview("JSON Time Entries")) {
+          Label("Export to JSON", systemImage: "square.and.arrow.up")
+            .frame(maxWidth: .infinity)
+        }
+      }
     }
     .padding()
     .presentationDetents([.medium])
