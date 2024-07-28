@@ -66,6 +66,13 @@ struct TimeEntryJsonExport: Transferable {
   }
   
   func json() -> Data {
-    return Data()
+    let timeEntries = fetchEntries()
+    
+    do {
+      let encodedData = try JSONEncoder().encode(timeEntries)
+      return Data(encodedData)
+    } catch {
+      return Data()
+    }
   }
 }
