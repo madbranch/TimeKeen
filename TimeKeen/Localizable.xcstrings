@@ -208,10 +208,24 @@
       }
     },
     "CSV" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CSV"
+          }
+        }
+      }
     },
     "CSV Time Entries" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrées de temps CSV"
+          }
+        }
+      }
     },
     "Delete All Entries" : {
       "localizations" : {
@@ -284,19 +298,54 @@
       }
     },
     "Export" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exporter"
+          }
+        }
+      }
     },
     "Export all time entries from the selected period in time." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exporte toutes les entrées de temps de la période sélectionnée."
+          }
+        }
+      }
     },
     "Export to CSV" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exporter en CSV"
+          }
+        }
+      }
     },
     "Export to JSON" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exporter en JSON"
+          }
+        }
+      }
     },
     "Format" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format"
+          }
+        }
+      }
     },
     "From" : {
       "localizations" : {
@@ -309,10 +358,24 @@
       }
     },
     "From,To,Number of Breaks,On Break,On the Clock,Notes\n" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "De,À,Nombre de pauses,En pause,À travailler,Notes"
+          }
+        }
+      }
     },
     "JSON" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JSON"
+          }
+        }
+      }
     },
     "JSON Time Entries" : {
 
