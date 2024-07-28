@@ -26,12 +26,12 @@ struct TimeEntrySharingView: View {
       Spacer()
       switch viewModel.format {
       case .csv:
-        ShareLink(item: viewModel.csvExport, preview: SharePreview("CSV Time Entries")) {
+        ShareLink(item: viewModel.csvExport, preview: SharePreview("CSV Time Entries", image: Image(systemName: "tablecells"))) {
           Label("Export to CSV", systemImage: "square.and.arrow.up")
             .frame(maxWidth: .infinity)
         }
       case .json:
-        ShareLink(item: viewModel.jsonExport, preview: SharePreview("JSON Time Entries")) {
+        ShareLink(item: viewModel.jsonExport, preview: SharePreview("JSON Time Entries", image: Image(systemName: "doc.text"))) {
           Label("Export to JSON", systemImage: "square.and.arrow.up")
             .frame(maxWidth: .infinity)
         }

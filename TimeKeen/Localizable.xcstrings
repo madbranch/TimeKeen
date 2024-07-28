@@ -378,7 +378,14 @@
       }
     },
     "JSON Time Entries" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrées de temps JSON"
+          }
+        }
+      }
     },
     "Minute Interval" : {
       "localizations" : {
