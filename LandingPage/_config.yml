@@ -120,3 +120,6 @@ collections:
 
 # Markdown rendering
 markdown: kramdown
+
+domain: timekeen.com
+url: https://timekeen.com
