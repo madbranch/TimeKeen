@@ -1,3 +1,262 @@
----
-layout: default
----
+<!doctype html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title class="pageTitle">Time Keen</title>
+        <meta
+            name="description"
+            content="Log the time you spend working the way you want."
+        />
+
+        <link rel="shortcut icon" href="/assets/appstore.png" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+
+        <!-- <meta name="apple-itunes-app" content="app-id={{ site.ios_app_id }}" /> -->
+
+        <link href="/assets/fontawesome/css/fontawesome.css" rel="stylesheet" />
+        <link href="/assets/fontawesome/css/solid.css" rel="stylesheet" />
+        <link href="/assets/fontawesome/css/brands.css" rel="stylesheet" />
+        <link href="/main.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="imageWrapper">
+            <div class="headerBackground">
+                <div class="container">
+                    <header>
+                        <div class="logo">
+                            <div class="appIconShadow">
+                                <svg width="0" height="0">
+                                    <defs>
+                                        <clipPath id="shape">
+                                            <path
+                                                id="shape"
+                                                class="cls-1"
+                                                d="M6181.23,233.709v-1.792c0-.5-0.02-1-0.02-1.523a24.257,24.257,0,0,0-.28-3.3,11.207,11.207,0,0,0-1.04-3.132,10.683,10.683,0,0,0-1.95-2.679,10.384,10.384,0,0,0-2.68-1.943,10.806,10.806,0,0,0-3.13-1.038,19.588,19.588,0,0,0-3.3-.285c-0.5-.017-1-0.017-1.52-0.017h-22.39c-0.51,0-1.01.017-1.53,0.017a24.041,24.041,0,0,0-3.3.285,11.009,11.009,0,0,0-3.13,1.038,10.491,10.491,0,0,0-4.62,4.622,10.893,10.893,0,0,0-1.04,3.132,19.2,19.2,0,0,0-.28,3.3c-0.02.5-.02,1-0.02,1.523v22.392c0,0.5.02,1,.02,1.524a24.257,24.257,0,0,0,.28,3.3,10.9,10.9,0,0,0,1.04,3.132,10.491,10.491,0,0,0,4.62,4.622,11.04,11.04,0,0,0,3.13,1.038,19.891,19.891,0,0,0,3.3.285c0.51,0.017,1.01.017,1.53,0.017h22.39c0.5,0,1-.017,1.52-0.017a24.221,24.221,0,0,0,3.3-.285,10.836,10.836,0,0,0,3.13-1.038,10.408,10.408,0,0,0,2.68-1.943,10.683,10.683,0,0,0,1.95-2.679,11.217,11.217,0,0,0,1.04-3.132,20.257,20.257,0,0,0,.28-3.3c0.02-.5.02-1,0.02-1.524v-20.6h0Z"
+                                                transform="translate(-6131 -218)"
+                                            />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                                <img
+                                    class="headerIcon"
+                                    src="/assets/appstore.png"
+                                />
+
+                                <div class="divider"></div>
+                            </div>
+                            <p class="headerName">Time Keen</p>
+                        </div>
+                    </header>
+
+                    <div class="iphonePreview"></div>
+                    <div class="appInfo">
+                        <div class="appIconShadow">
+                            <svg width="0" height="0">
+                                <defs>
+                                    <clipPath id="shape120">
+                                        <path
+                                            id="shape"
+                                            class="cls-1"
+                                            d="M6821,495.533v-4.281c0-1.2-.04-2.4-0.04-3.642a57.7,57.7,0,0,0-.68-7.882,26.144,26.144,0,0,0-2.48-7.483,25.115,25.115,0,0,0-11.04-11.044,26.118,26.118,0,0,0-7.49-2.481,47.28,47.28,0,0,0-7.88-.68c-1.2-.04-2.4-0.04-3.64-0.04h-53.5c-1.2,0-2.4.04-3.64,0.04a57.813,57.813,0,0,0-7.88.68,26.323,26.323,0,0,0-7.49,2.481,25.115,25.115,0,0,0-11.04,11.044,26.144,26.144,0,0,0-2.48,7.483,47.313,47.313,0,0,0-.68,7.882c-0.04,1.2-.04,2.4-0.04,3.642v53.5c0,1.2.04,2.4,0.04,3.641a57.7,57.7,0,0,0,.68,7.883,26.137,26.137,0,0,0,2.48,7.482,25.115,25.115,0,0,0,11.04,11.044,26.261,26.261,0,0,0,7.49,2.481,47.28,47.28,0,0,0,7.88.68c1.2,0.04,2.4.04,3.64,0.04h53.5c1.2,0,2.4-.04,3.64-0.04a57.654,57.654,0,0,0,7.88-.68,26.057,26.057,0,0,0,7.49-2.481,25.115,25.115,0,0,0,11.04-11.044,26.137,26.137,0,0,0,2.48-7.482,47.316,47.316,0,0,0,.68-7.883c0.04-1.2.04-2.4,0.04-3.641V495.533h0Z"
+                                            transform="translate(-6701 -458)"
+                                            filter="url(#f1)"
+                                        />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                            <img
+                                class="appIconLarge"
+                                src="/assets/appstore.png"
+                            />
+                        </div>
+                        <div class="appNamePriceContainer">
+                            <h1 class="appName">Time Keen</h1>
+                            <h2 class="appPrice">Free</h2>
+                        </div>
+                        <div class="appDescriptionContainer">
+                            <p class="appDescription">
+                                Log the time you spend working the way you want.
+                            </p>
+                        </div>
+                        <div class="downloadButtonsContainer">
+                            <a class="appStoreLink" href=""
+                                ><img
+                                    class="appStore"
+                                    src="/assets/appstore.svg"
+                            /></a>
+                        </div>
+                    </div>
+
+                    <div class="features">
+                        <div class="feature">
+                            <div>
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="iconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="iconTop fas fa-clock fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </div>
+                            <div class="featureText">
+                                <h3>Clock-in and clock-out</h3>
+                                <p>
+                                    Clock-in as you start working and clock-out
+                                    as you stop working.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div>
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="iconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="iconTop fas fa-mug-hot fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </div>
+                            <div class="featureText">
+                                <h3>Take Breaks</h3>
+                                <p>
+                                    Quickly enter breaks you take to easily
+                                    track how much time you spend on the clock.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div>
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="iconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="iconTop fas fa-pen fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </div>
+                            <div class="featureText">
+                                <h3>Take Notes</h3>
+                                <p>
+                                    Easily take short notes to help remind you
+                                    what you've been working on.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div>
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="iconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="iconTop fas fa-eye fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </div>
+                            <div class="featureText">
+                                <h3>Review Logged Time</h3>
+                                <p>
+                                    Glance at how much you have worked during
+                                    the pay period and the previous ones.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <div>
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="iconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="iconTop fas fa-wrench fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </div>
+                            <div class="featureText">
+                                <h3>Easy to Tweak</h3>
+                                <p>
+                                    Configure the pay period duration however
+                                    you need.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer>
+                        <p class="footerText">
+                            Made by Adam Labranche in Quebec
+                        </p>
+
+                        <div class="footerIcons">
+                            <a href="https://twitter.com/madbranch">
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="socialIconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="socialIconTop fab fa-twitter fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </a>
+
+                            <a href="https://github.com/madbranch">
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="socialIconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="socialIconTop fab fa-github fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </a>
+
+                            <a href="mailto:timekeen@labranche.co">
+                                <span class="fa-stack fa-1x">
+                                    <i
+                                        class="socialIconBack fas fa-circle fa-stack-2x"
+                                    ></i>
+                                    <i
+                                        class="socialIconTop fas fa-envelope fa-stack-1x"
+                                    ></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="footerLinks">
+                            <a href="/privacypolicy/" target="_self"
+                                >Privacy Policy</a
+                            >
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
