@@ -1,0 +1,28 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <rect id="background" width="1024" height="1024" fill="#bdc6c5" />
+    <rect id="shadow1" width="640" height="2000" x="192" y="380" fill="#627e8b" transform="rotate(-45 512 380)" />
+    <rect id="shadow2" width="170" height="2000" x="182" y="716" fill="#627e8b" transform="rotate(-45 246 716)" />
+    <rect id="shadow3" width="64" height="320" x="246" y="460" fill="#627e8b" />
+
+    <path id="helmetBack" d="M182 380 H192 A1350 1350 180 0 1 832 380 H842 V566 C822 470 800 460 778 460 A1750 1750 180 0 0 246 460 C224 460 202 470 182 566 Z" fill="#5ec7fb" transform="translate(0, 50)" />
+
+    <circle id="clockBackground" cx="512" cy="580" r="250" fill="white" />
+    <circle id="clockCenter" cx="512" cy="580" r="32" fill="#00152f" />
+    <rect id="clockTick2" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(60 512 782)" />
+    <rect id="clockTick3" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(90 512 782)" />
+    <rect id="clockTick4" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(120 512 782)" />
+    <rect id="clockTick5" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(150 512 782)" />
+    <rect id="clockTick6" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(180 512 782)" />
+    <rect id="clockTick7" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(210 512 782)" />
+    <rect id="clockTick8" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(240 512 782)" />
+    <rect id="clockTick9" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(270 512 782)" />
+    <rect id="clockTick10" width="32" height="48" x="496" y="554" fill="#00152f" transform="translate(0 -202) rotate(300 512 782)" />
+    <rect id="clockNeedleLong" width="24" height="200" x="500" y="380" fill="#00152f" transform="rotate(60 512 580)" />
+    <rect id="clockNeedleShort" width="24" height="125" x="500" y="455" fill="#00152f" transform="rotate(305 512 580)" />
+
+    <path id="helmetLeftTop" d="M192 380 A320 320 90 0 1 512 60 V380 Z" fill="#5ec7fb" />
+    <path id="helmetRightTop" d="M512 60 A320 320 90 0 1 832 380 H512 Z" fill="#0170bf" />
+    <path id="helmetRightBottom" d="M778 460 h64 v256 a64 64 90 0 1 -64 64 Z" fill="#0170bf"/>
+    <path id="helmetLeftBottom" d="M182 460 H246 V780 a64 64 90 0 1 -64 -64 Z" fill="#0170bf"/>
+    <path id="helmetBorder" d="M182 380 H192 A1350 1350 180 0 1 832 380 H842 V566 C822 470 800 460 778 460 A1750 1750 180 0 0 246 460 C224 460 202 470 182 566 Z" fill="#111d3b"/>
+</svg>
