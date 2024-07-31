@@ -6,40 +6,6 @@ extension Array where Element == TimeEntry {
   }
 }
 
-extension Calendar {
-  func previousDay(from date: Date) -> Date? {
-    return self.date(byAdding: .day, value: -1, to: date)
-  }
-  
-  func nextDay(from date: Date) -> Date? {
-    return self.date(byAdding: .day, value: 1, to: date)
-  }
-  
-  func previousMonth(from date: Date) -> Date? {
-    return self.date(byAdding: .month, value: -1, to: date)
-  }
-  
-  func nextMonth(from date: Date) -> Date? {
-    return self.date(byAdding: .month, value: 1, to: date)
-  }
-  
-  func startMonth(from date: Date) -> Date? {
-    return self.date(from: self.dateComponents([.year, .month], from: date))
-  }
-  
-  func endMonth(from date: Date) -> Date? {
-    return self.previousDay(from: self.startMonth(from: self.nextMonth(from: date)!)!)!
-  }
-  
-  func periodStart(ending periodEnd: Date) -> Date? {
-    return self.nextDay(from: self.previousMonth(from: periodEnd)!)
-  }
-  
-  func periodEnd(starting periodStart: Date) -> Date? {
-    return self.nextMonth(from: self.previousDay(from: periodStart)!)
-  }
-}
-
 struct PayPeriodGrouping {
   static func getGroupByMethod(schedule: PayPeriodSchedule, periodEnd: Date) -> (TimeEntry) -> ClosedRange<Date> {
     return switch schedule {

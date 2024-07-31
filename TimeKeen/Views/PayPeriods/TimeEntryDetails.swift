@@ -6,8 +6,8 @@ struct TimeEntryDetails: View {
   @AppStorage("MinuteInterval") var minuteInterval = 15
   @State var isEditingBreak = false
   @State var isAddingBreak = false
-  @State var breakStart = Formatting.getRoundedDate()
-  @State var breakEnd = Formatting.getRoundedDate()
+  @State var breakStart = Date()
+  @State var breakEnd = Date()
   @State var breakEntry: BreakEntry?
   
   init(viewModel: TimeEntryViewModel) {

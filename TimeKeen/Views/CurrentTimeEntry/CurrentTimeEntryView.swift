@@ -1,20 +1,18 @@
 import SwiftUI
 
 struct CurrentTimeEntryView: View {
-  var viewModel: CurrentTimeEntryViewModel
+  @Bindable var viewModel: CurrentTimeEntryViewModel
   
   @AppStorage("MinuteInterval") var minuteInterval = 15
   @State private var clockInDuration: TimeInterval = .zero
   @State private var isClockingIn = false
   @State private var isClockingOut = false
-  @State private var clockInDate = Formatting.getRoundedDate()
-  @State private var clockOutDate = Formatting.getRoundedDate()
+  @State private var clockOutDate = Date()
   @State private var minClockOutDate = Date()
   @State private var notes = ""
   @State private var isStartingBreak = false
   @State private var isEndingBreak = false
-  @State private var breakStart = Formatting.getRoundedDate()
-  @State private var breakEnd = Formatting.getRoundedDate()
+  @State private var breakEnd = Date()
   @State private var minBreakEndDate = Date()
   
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -32,7 +30,8 @@ struct CurrentTimeEntryView: View {
       switch viewModel.clockInState {
       case .clockedOut:
         Button {
-          clockInDate = Formatting.getRoundedDate()
+          viewModel.clockInDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
+          print(Formatting.startEndWithDateFormatter.string(from: viewModel.clockInDate))
           notes = ""
           isClockingIn = true
         } label: {
@@ -64,7 +63,7 @@ struct CurrentTimeEntryView: View {
           .textFieldStyle(.roundedBorder)
         if breakState == .working {
           Button {
-            breakStart = Formatting.getRoundedDate()
+            viewModel.breakStart = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
             isStartingBreak = true
           } label: {
             Text("Take a Break...")
@@ -78,12 +77,12 @@ struct CurrentTimeEntryView: View {
         switch breakState {
         case .working:
           Button("Clock Out...", action: {
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: UserDefaults.standard.minuteInterval, to: clockInDate) else {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: UserDefaults.standard.minuteInterval, to: viewModel.clockInDate) else {
               return
             }
             
-            minClockOutDate = newDate
-            clockOutDate = newDate
+            minClockOutDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
+            clockOutDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: max(newDate, Date()))
             isClockingOut = true
           })
           .buttonStyle(.borderedProminent)
@@ -91,7 +90,7 @@ struct CurrentTimeEntryView: View {
           .padding()
         case .takingABreak:
           Button("End Break...", action: {
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: UserDefaults.standard.minuteInterval, to: breakStart) else {
+            guard let newDate = Calendar.current.date(byAdding: .minute, value: UserDefaults.standard.minuteInterval, to: viewModel.breakStart) else {
               return
             }
             
@@ -111,16 +110,16 @@ struct CurrentTimeEntryView: View {
       case .clockedIn(_): old == .clockedOut ? .impact : nil
       }
     }
-    .sheet(isPresented: $isClockingIn) { [clockInDate] in
+    .sheet(isPresented: $isClockingIn) { [viewModel, minuteInterval] in
       VStack {
         LabeledContent("At") {
-          IntervalDatePicker(selection: $clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute])
+          IntervalDatePicker(selection: $viewModel.clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute])
         }
         Button(action: {
-          viewModel.clockIn(at: clockInDate)
+          viewModel.clockIn(at: viewModel.clockInDate)
           isClockingIn = false
         }) {
-          Text("Clock In at \(Formatting.startEndFormatter.string(from: clockInDate))")
+          Text("Clock In at \(Formatting.startEndFormatter.string(from: viewModel.clockInDate))")
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
@@ -131,7 +130,7 @@ struct CurrentTimeEntryView: View {
         .fraction(0.2)
       ])
     }
-    .sheet(isPresented: $isClockingOut) { [clockOutDate] in
+    .sheet(isPresented: $isClockingOut) { [clockOutDate, minClockOutDate, minuteInterval] in
       VStack {
         LabeledContent("At") {
           IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
@@ -151,16 +150,16 @@ struct CurrentTimeEntryView: View {
         .fraction(0.2)
       ])
     }
-    .sheet(isPresented: $isStartingBreak) { [breakStart] in
+    .sheet(isPresented: $isStartingBreak) { [viewModel, minuteInterval] in
       VStack {
         LabeledContent("At") {
-          IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: clockInDate..., displayedComponents: [.date, .hourAndMinute])
+          IntervalDatePicker(selection: $viewModel.breakStart, minuteInterval: minuteInterval, in: viewModel.clockInDate..., displayedComponents: [.date, .hourAndMinute])
         }
         Button(action: {
-          viewModel.startBreak(at: breakStart)
+          viewModel.startBreak(at: viewModel.breakStart)
           isStartingBreak = false
         }) {
-          Text("Start Break at \(Formatting.startEndFormatter.string(from: breakStart))")
+          Text("Start Break at \(Formatting.startEndFormatter.string(from: viewModel.breakStart))")
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
@@ -171,10 +170,10 @@ struct CurrentTimeEntryView: View {
         .fraction(0.2)
       ])
     }
-    .sheet(isPresented: $isEndingBreak) { [breakEnd] in
+    .sheet(isPresented: $isEndingBreak) { [viewModel, breakEnd] in
       VStack {
         LabeledContent("At") {
-          IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: breakStart..., displayedComponents: [.date, .hourAndMinute])
+          IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: viewModel.breakStart..., displayedComponents: [.date, .hourAndMinute])
         }
         Button(action: {
           viewModel.endBreak(at: breakEnd)
