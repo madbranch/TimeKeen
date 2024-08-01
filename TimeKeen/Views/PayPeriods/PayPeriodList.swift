@@ -59,7 +59,7 @@ struct PayPeriodList: View {
           }
         }
         .padding([.bottom])
-        Text("Decide how you want your time entries to be grouped.")
+        Text("Choose how you want your time entries to be grouped.")
           .font(.subheadline)
         Picker("Schedule", selection: $payPeriodSchedule) {
           Text("Weekly").tag(PayPeriodSchedule.Weekly)
