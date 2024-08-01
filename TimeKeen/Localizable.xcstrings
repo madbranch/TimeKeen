@@ -137,13 +137,12 @@
         }
       }
     },
-    "Cancel" : {
-      "extractionState" : "stale",
+    "Choose how you want your time entries to be grouped." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Annuler"
+            "value" : "Choisi comment tu veux grouper les entrées de temps."
           }
         }
       }
@@ -224,20 +223,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Entrées de temps CSV"
-          }
-        }
-      }
-    },
-    "Decide how you want your time entries to be grouped." : {
-
-    },
-    "Delete All Entries" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supprimer toutes les entrées"
           }
         }
       }
@@ -373,7 +358,14 @@
       }
     },
     "Grouping" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groupement"
+          }
+        }
+      }
     },
     "JSON" : {
       "localizations" : {
@@ -436,7 +428,14 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Pay Periods" : {
       "localizations" : {
@@ -458,28 +457,6 @@
         }
       }
     },
-    "Reset Settings" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réinitialiser paramètres"
-          }
-        }
-      }
-    },
-    "Reset Settings to Defaults" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réinitialiser aux paramètres par défaut"
-          }
-        }
-      }
-    },
     "Save" : {
       "localizations" : {
         "fr" : {
@@ -496,17 +473,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Horaire"
-          }
-        }
-      }
-    },
-    "Settings" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Paramètres"
           }
         }
       }
@@ -547,28 +513,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Prendre une pause..."
-          }
-        }
-      }
-    },
-    "This will delete all log entries." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ceci supprimera toutes les entrées."
-          }
-        }
-      }
-    },
-    "This will reset all application settings to their defaults. No data will be lost" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ceci réinitialisera tous les paramètres de l'application. Aucune donnée ne sera perdue."
           }
         }
       }
