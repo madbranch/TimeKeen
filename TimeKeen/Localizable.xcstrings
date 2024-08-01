@@ -138,6 +138,7 @@
       }
     },
     "Cancel" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -227,7 +228,11 @@
         }
       }
     },
+    "Decide how you want your time entries to be grouped." : {
+
+    },
     "Delete All Entries" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -367,6 +372,9 @@
         }
       }
     },
+    "Grouping" : {
+
+    },
     "JSON" : {
       "localizations" : {
         "fr" : {
@@ -427,6 +435,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Pay Periods" : {
       "localizations" : {
         "fr" : {
@@ -448,6 +459,7 @@
       }
     },
     "Reset Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -458,6 +470,7 @@
       }
     },
     "Reset Settings to Defaults" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -488,6 +501,7 @@
       }
     },
     "Settings" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -538,6 +552,7 @@
       }
     },
     "This will delete all log entries." : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -548,6 +563,7 @@
       }
     },
     "This will reset all application settings to their defaults. No data will be lost" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {

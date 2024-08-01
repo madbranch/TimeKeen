@@ -3,7 +3,7 @@ import SwiftUI
 struct ContentView: View {
   var viewModel: ContentViewModel
   @State private var path: NavigationPath = .init()
-  @State private var selectedTab = 1
+  @State private var selectedTab = 0
   
   init(viewModel: ContentViewModel) {
     self.viewModel = viewModel
@@ -11,19 +11,11 @@ struct ContentView: View {
   
   var body: some View {
     TabView(selection: $selectedTab) {
-      NavigationStack {
-        SettingsView(viewModel: viewModel.settingsViewModel)
-          .navigationTitle("Settings")
-      }
-      .tabItem {
-        Label("Settings", systemImage: "gear")
-      }
-      .tag(0)
       CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
         .tabItem {
           Label("Clock-In", systemImage: "clock")
         }
-        .tag(1)
+        .tag(0)
       NavigationStack(path: $path) {
         PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
           .navigationTitle("Pay Periods")
@@ -31,10 +23,10 @@ struct ContentView: View {
       .tabItem {
         Label("Pay Periods", systemImage: "list.bullet")
       }
-      .tag(2)
+      .tag(1)
     }
     .onChange(of: selectedTab) { oldValue, newValue in
-      if oldValue == 2 {
+      if oldValue == 1 {
         path = .init()
       }
     }

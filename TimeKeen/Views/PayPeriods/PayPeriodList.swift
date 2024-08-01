@@ -5,7 +5,8 @@ struct PayPeriodList: View {
   @AppStorage("PayPeriodSchedule") var payPeriodSchedule = PayPeriodSchedule.Weekly
   @AppStorage("EndOfLastPayPeriod") var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
   @State private var isPresentingShareSheet = false
-
+  @State private var isEditingSettings = false
+  
   init(viewModel: PayPeriodListViewModel) {
     self.viewModel = viewModel
   }
@@ -28,6 +29,11 @@ struct PayPeriodList: View {
           isPresentingShareSheet = true
         }
       }
+      ToolbarItem(placement: .topBarLeading) {
+        Button("Grouping", systemImage: "slider.horizontal.3") {
+          isEditingSettings = true
+        }
+      }
     }
     .overlay {
       if viewModel.payPeriods.isEmpty {
@@ -41,5 +47,42 @@ struct PayPeriodList: View {
     .sheet(isPresented: $isPresentingShareSheet) {
       TimeEntrySharingView(viewModel: viewModel.timeEntrySharingViewModel)
     }
+    .sheet(isPresented: $isEditingSettings, onDismiss: refresh) {
+      VStack {
+        HStack {
+          Spacer()
+          Text("Pay Periods")
+            .font(.headline)
+          Spacer()
+          Button("OK") {
+            isEditingSettings = false
+          }
+        }
+        .padding([.bottom])
+        Text("Decide how you want your time entries to be grouped.")
+          .font(.subheadline)
+        Picker("Schedule", selection: $payPeriodSchedule) {
+          Text("Weekly").tag(PayPeriodSchedule.Weekly)
+          Text("Biweekly").tag(PayPeriodSchedule.Biweekly)
+          Text("Monthly").tag(PayPeriodSchedule.Monthly)
+          Text("Every Four Weeks").tag(PayPeriodSchedule.EveryFourWeeks)
+          Text("1st & 16th").tag(PayPeriodSchedule.FirstAndSixteenth)
+        }
+        if payPeriodSchedule == .FirstAndSixteenth {
+          LabeledContent("Period Ends") {
+            Text("Twice Monthly")
+          }
+        } else {
+          DatePicker("Period Ends", selection: $endOfLastPayPeriod, displayedComponents: [.date] )
+            .datePickerStyle(.compact)
+        }
+        Spacer()
+      }
+      .padding()
+    }
+  }
+  
+  func refresh() {
+    viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
   }
 }
