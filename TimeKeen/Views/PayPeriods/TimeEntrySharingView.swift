@@ -2,6 +2,7 @@ import SwiftUI
 
 struct TimeEntrySharingView: View {
   @Bindable var viewModel: TimeEntrySharingViewModel
+  @Environment(\.dismiss) private var dismiss
   
   init(viewModel: TimeEntrySharingViewModel) {
     self.viewModel = viewModel
@@ -11,6 +12,13 @@ struct TimeEntrySharingView: View {
     VStack {
       Text("Export")
         .font(.headline)
+        .frame(maxWidth: .infinity, alignment: .center)
+        .overlay(alignment: .trailing) {
+          Button("Cancel", role: .cancel) {
+            dismiss()
+          }
+        }
+        .padding([.bottom])
       Text("Export all time entries from the selected period in time.")
         .font(.subheadline)
       DatePicker("From", selection: $viewModel.from, in: ...viewModel.to, displayedComponents: [.date])
