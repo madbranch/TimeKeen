@@ -1,12 +1,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-  @AppStorage("MinuteInterval") var minuteInterval = 15 {
-    didSet {
-      UIDatePicker.appearance().minuteInterval = minuteInterval
-    }
-  }
-  
   var viewModel: SettingsViewModel
   @AppStorage("PayPeriodSchedule") var payPeriodSchedule = PayPeriodSchedule.Weekly
   @AppStorage("EndOfLastPayPeriod") var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
@@ -19,11 +13,6 @@ struct SettingsView: View {
   
   var body: some View {
     List {
-      Picker("Minute Interval", selection: $minuteInterval) {
-        Text("1 minute").tag(1)
-        Text("5 minutes").tag(5)
-        Text("15 minutes").tag(15)
-      }
       Picker("Schedule", selection: $payPeriodSchedule) {
         Text("Weekly").tag(PayPeriodSchedule.Weekly)
         Text("Biweekly").tag(PayPeriodSchedule.Biweekly)

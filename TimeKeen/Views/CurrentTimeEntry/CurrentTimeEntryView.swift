@@ -3,7 +3,11 @@ import SwiftUI
 struct CurrentTimeEntryView: View {
   @Bindable var viewModel: CurrentTimeEntryViewModel
   
-  @AppStorage("MinuteInterval") var minuteInterval = 15
+  @AppStorage("MinuteInterval") var minuteInterval = 15 {
+    didSet {
+      UIDatePicker.appearance().minuteInterval = minuteInterval
+    }
+  }
   @State private var clockInDuration: TimeInterval = .zero
   @State private var isClockingIn = false
   @State private var isClockingOut = false
@@ -27,6 +31,12 @@ struct CurrentTimeEntryView: View {
   
   var body: some View {
     VStack {
+      Picker("Minute Interval", selection: $minuteInterval) {
+        Text("1 minute").tag(1)
+        Text("5 minutes").tag(5)
+        Text("15 minutes").tag(15)
+      }
+      .padding()
       switch viewModel.clockInState {
       case .clockedOut:
         Button {
