@@ -75,46 +75,66 @@ struct TimeEntryDetails: View {
     .navigationTitle("\(viewModel.timeEntry.start.formatted(date: .abbreviated, time: .omitted))")
     .sheet(isPresented: $isAddingBreak) {
       VStack {
+        Text("Add Break")
+          .font(.headline)
+          .frame(maxWidth: .infinity, alignment: .center)
+          .overlay(alignment: .trailing) {
+            Button("Cancel") {
+              isAddingBreak = false
+            }
+          }
         LabeledContent("From") {
           IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
         LabeledContent("To") {
           IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
-        Button("Add Break", action: {
+        Button(action: {
           viewModel.timeEntry.breaks.append(BreakEntry(start: breakStart, end: breakEnd))
           isAddingBreak = false
-        })
+        }) {
+          Text("Add Break")
+            .frame(maxWidth: .infinity)
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .padding()
+        .frame(maxHeight: .infinity, alignment: .bottom)
       }
-      .presentationDetents([.fraction(0.4)])
+      .padding()
+      .presentationDetents([.medium])
     }
     .sheet(isPresented: $isEditingBreak) {
       VStack {
+        Text("Edit Break")
+          .font(.headline)
+          .frame(maxWidth: .infinity, alignment: .center)
+          .overlay(alignment: .trailing) {
+            Button("Cancel") {
+              isEditingBreak = false
+            }
+          }
         LabeledContent("From") {
           IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
         LabeledContent("To") {
           IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: viewModel.timeEntry.start...viewModel.timeEntry.end, displayedComponents: [.date, .hourAndMinute])
         }
-        .padding()
-        Button("Save", action: {
+        Button(action: {
           if let entry = breakEntry {
             entry.start = breakStart
             entry.end = breakEnd
           }
           isEditingBreak = false
-        })
+        }) {
+          Text("Save")
+            .frame(maxWidth: .infinity)
+        }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .padding()
+        .frame(maxHeight: .infinity, alignment: .bottom)
       }
-      .presentationDetents([.fraction(0.4)])
+      .padding()
+      .presentationDetents([.medium])
     }
   }
 }

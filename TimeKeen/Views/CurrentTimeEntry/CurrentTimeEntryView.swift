@@ -122,9 +122,15 @@ struct CurrentTimeEntryView: View {
     }
     .sheet(isPresented: $isClockingIn) { [viewModel, minuteInterval] in
       VStack {
-        LabeledContent("At") {
-          IntervalDatePicker(selection: $viewModel.clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute])
-        }
+          Text("Clock-in")
+            .font(.headline)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .overlay(alignment: .trailing) {
+              Button("Cancel", role: .cancel) {
+                isClockingIn = false
+              }
+            }
+        IntervalDatePicker(selection: $viewModel.clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
           viewModel.clockIn(at: viewModel.clockInDate)
           isClockingIn = false
@@ -134,17 +140,22 @@ struct CurrentTimeEntryView: View {
         }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
+        .frame(maxHeight: .infinity, alignment: .bottom)
       }
       .padding()
-      .presentationDetents([
-        .fraction(0.2)
-      ])
+      .presentationDetents([.medium])
     }
     .sheet(isPresented: $isClockingOut) { [clockOutDate, minClockOutDate, minuteInterval] in
       VStack {
-        LabeledContent("At") {
-          IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute])
-        }
+        Text("Clock-out")
+          .font(.headline)
+          .frame(maxWidth: .infinity, alignment: .center)
+          .overlay(alignment: .trailing) {
+            Button("Cancel", role: .cancel) {
+              isClockingOut = false
+            }
+          }
+        IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
           _ = viewModel.clockOut(at: clockOutDate, notes: notes)
           isClockingOut = false
@@ -154,17 +165,22 @@ struct CurrentTimeEntryView: View {
         }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
+        .frame(maxHeight: .infinity, alignment: .bottom)
       }
       .padding()
-      .presentationDetents([
-        .fraction(0.2)
-      ])
+      .presentationDetents([.medium])
     }
     .sheet(isPresented: $isStartingBreak) { [viewModel, minuteInterval] in
       VStack {
-        LabeledContent("At") {
-          IntervalDatePicker(selection: $viewModel.breakStart, minuteInterval: minuteInterval, in: viewModel.clockInDate..., displayedComponents: [.date, .hourAndMinute])
-        }
+        Text("Start Break")
+          .font(.headline)
+          .frame(maxWidth: .infinity, alignment: .center)
+          .overlay(alignment: .trailing) {
+            Button("Cancel", role: .cancel) {
+              isStartingBreak = false
+            }
+          }
+        IntervalDatePicker(selection: $viewModel.breakStart, minuteInterval: minuteInterval, in: viewModel.clockInDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
           viewModel.startBreak(at: viewModel.breakStart)
           isStartingBreak = false
@@ -174,17 +190,22 @@ struct CurrentTimeEntryView: View {
         }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
+        .frame(maxHeight: .infinity, alignment: .bottom)
       }
       .padding()
-      .presentationDetents([
-        .fraction(0.2)
-      ])
+      .presentationDetents([.medium])
     }
     .sheet(isPresented: $isEndingBreak) { [viewModel, breakEnd] in
       VStack {
-        LabeledContent("At") {
-          IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: viewModel.breakStart..., displayedComponents: [.date, .hourAndMinute])
-        }
+        Text("End Break")
+          .font(.headline)
+          .frame(maxWidth: .infinity, alignment: .center)
+          .overlay(alignment: .trailing) {
+            Button("Cancel", role: .cancel) {
+              isStartingBreak = false
+            }
+          }
+        IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: viewModel.breakStart..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
           viewModel.endBreak(at: breakEnd)
           isEndingBreak = false
@@ -194,11 +215,10 @@ struct CurrentTimeEntryView: View {
         }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
+        .frame(maxHeight: .infinity, alignment: .bottom)
       }
       .padding()
-      .presentationDetents([
-        .fraction(0.2)
-      ])
+      .presentationDetents([.medium])
     }
   }
 }

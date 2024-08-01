@@ -6,37 +6,42 @@ struct IntervalDatePicker: UIViewRepresentable {
   private let minimumDate: Date?
   private let maximumDate: Date?
   let displayedComponents: DatePickerComponents
+  private let preferredDatePickerStyle: UIDatePickerStyle
   
-  init(selection: Binding<Date>, minuteInterval: Int, displayedComponents: DatePickerComponents) {
+  init(selection: Binding<Date>, minuteInterval: Int, displayedComponents: DatePickerComponents, style preferredDatePickerStyle: UIDatePickerStyle? = nil ) {
     _selection = selection
     self.minuteInterval = minuteInterval
     minimumDate = nil
     maximumDate = nil
     self.displayedComponents = displayedComponents
+    self.preferredDatePickerStyle = preferredDatePickerStyle ?? .automatic
   }
   
-  init(selection: Binding<Date>, minuteInterval: Int, in range: PartialRangeThrough<Date>, displayedComponents: DatePickerComponents) {
+  init(selection: Binding<Date>, minuteInterval: Int, in range: PartialRangeThrough<Date>, displayedComponents: DatePickerComponents, style preferredDatePickerStyle: UIDatePickerStyle? = nil ) {
     _selection = selection
     self.minuteInterval = minuteInterval
     minimumDate = nil
     maximumDate = range.upperBound
     self.displayedComponents = displayedComponents
+    self.preferredDatePickerStyle = preferredDatePickerStyle ?? .automatic
   }
   
-  init(selection: Binding<Date>, minuteInterval: Int, in range: PartialRangeFrom<Date>, displayedComponents: DatePickerComponents) {
+  init(selection: Binding<Date>, minuteInterval: Int, in range: PartialRangeFrom<Date>, displayedComponents: DatePickerComponents, style preferredDatePickerStyle: UIDatePickerStyle? = nil ) {
     _selection = selection
     self.minuteInterval = minuteInterval
     minimumDate = range.lowerBound
     maximumDate = nil
     self.displayedComponents = displayedComponents
+    self.preferredDatePickerStyle = preferredDatePickerStyle ?? .automatic
   }
   
-  init(selection: Binding<Date>, minuteInterval: Int, in range: ClosedRange<Date>, displayedComponents: DatePickerComponents) {
+  init(selection: Binding<Date>, minuteInterval: Int, in range: ClosedRange<Date>, displayedComponents: DatePickerComponents, style preferredDatePickerStyle: UIDatePickerStyle? = nil ) {
     _selection = selection
     self.minuteInterval = minuteInterval
     minimumDate = range.lowerBound
     maximumDate = range.upperBound
     self.displayedComponents = displayedComponents
+    self.preferredDatePickerStyle = preferredDatePickerStyle ?? .automatic
   }
 
   func makeCoordinator() -> Coordinator {
@@ -45,7 +50,7 @@ struct IntervalDatePicker: UIViewRepresentable {
   
   func makeUIView(context: UIViewRepresentableContext<IntervalDatePicker>) -> UIDatePicker {
     let picker = UIDatePicker()
-    picker.preferredDatePickerStyle = .compact
+    picker.preferredDatePickerStyle = preferredDatePickerStyle
     // listen to changes coming from the date picker, and use them to update the state variable
     picker.addTarget(context.coordinator, action: #selector(Coordinator.dateChanged), for: .valueChanged)
     return picker

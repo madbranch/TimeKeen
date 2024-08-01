@@ -49,15 +49,14 @@ struct PayPeriodList: View {
     }
     .sheet(isPresented: $isEditingSettings, onDismiss: refresh) {
       VStack {
-        HStack {
-          Spacer()
-          Text("Pay Periods")
-            .font(.headline)
-          Spacer()
-          Button("OK") {
-            isEditingSettings = false
+        Text("Pay Periods")
+          .font(.headline)
+          .frame(maxWidth: .infinity, alignment: .center)
+          .overlay(alignment: .trailing) {
+            Button("OK") {
+              isEditingSettings = false
+            }
           }
-        }
         .padding([.bottom])
         Text("Choose how you want your time entries to be grouped.")
           .font(.subheadline)
@@ -79,6 +78,7 @@ struct PayPeriodList: View {
         Spacer()
       }
       .padding()
+      .presentationDetents([.medium])
     }
   }
   
