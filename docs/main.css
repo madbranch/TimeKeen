@@ -37,7 +37,7 @@ a:link,
 a:hover,
 a:visited,
 a:active {
-    color: #1d63ea;
+    color: #1f7ea1;
     text-decoration: none;
 }
 
@@ -495,7 +495,7 @@ nav > ul li a:active {
 }
 
 .iconTop {
-    color: #1d63ea;
+    color: #1f7ea1;
 }
 
 .socialIconBack {
@@ -927,7 +927,7 @@ footer {
 }
 
 .markdown-body a {
-    color: #1d63ea;
+    color: #1f7ea1;
     text-decoration: none;
 }
 
