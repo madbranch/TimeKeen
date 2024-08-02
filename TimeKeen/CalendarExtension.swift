@@ -42,6 +42,12 @@ extension Calendar {
     
     let roundedMinutes = Int((Double(minute) / Double(minuteInterval)).rounded(.toNearestOrAwayFromZero)) * minuteInterval
     
-    return self.date(byAdding: .minute, value: roundedMinutes - minute, to: date) ?? Date()
+    guard let roundedMinutesDate = self.date(byAdding: .minute, value: roundedMinutes - minute, to: date) else {
+      return date
+    }
+    
+    let roundedComponents = self.dateComponents([.year, .month, .day, .hour, .minute], from: roundedMinutesDate)
+    
+    return self.date(from: roundedComponents) ?? date
   }
 }
