@@ -11,15 +11,16 @@
             <rect id="clockNeedleShort" width="64" height="191" x="480" y="321" fill="#00152f" transform="rotate(305 512 512)" rx="32" />
         </clipPath>
         <clipPath id="needles2">
-            <circle id="clockCenter2" cx="289.5" cy="512" r="64" fill="#00152f" />
-            <rect id="clockNeedleLong2" width="64" height="269" x="257.5" y="243" fill="#00152f" transform="rotate(60 289.5 512)" rx="32" />
-            <rect id="clockNeedleShort2" width="64" height="191" x="257.5" y="321" fill="#00152f" transform="rotate(305 289.5 512)" rx="32" />
+            <circle id="clockCenter2" cx="289.5" cy="624" r="64" fill="#00152f" />
+            <rect id="clockNeedleLong2" width="64" height="269" x="257.5" y="355" fill="#00152f" transform="rotate(45 289.5 624)" rx="32" />
+            <rect id="clockNeedleShort2" width="64" height="191" x="257.5" y="433" fill="#00152f" transform="rotate(303.75 289.5 624)" rx="32" />
         </clipPath>
     </defs>
     <rect id="background" width="1024" height="1024" fill="url(#grad1)" />
 
     <g>
-        <path d="M957 512 A445 445 180 1 0 67 512 A222.5 222.5 180 1 0 512 512 Z" fill="white" />
+        <path d="M857 512 A395 395 180 1 0 67 512 v112 A222.5 222.5 180 1 0 512 624 v-112 Z" fill="white" />
+        <path d="M760 400 V512 H957 Z" fill="white" />
         <!-- <path id="helmetLeftTop" d="M192 380 A320 320 90 0 1 512 60 V380 Z" fill="white" />
         <path id="helmetRightTop" d="M512 60 A320 320 90 0 1 832 380 H512 Z" fill="white" />
         <path id="helmetRightBottom" d="M778 460 h64 v256 a64 64 90 0 1 -64 64 Z" fill="white"/>
