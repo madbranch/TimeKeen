@@ -13,10 +13,9 @@ struct TimeKeenApp: App {
     }
   }
   
-  
   var body: some Scene {
     WindowGroup {
-      let userDefaults = UserDefaults.standard
+      let userDefaults = SharedData.userDefaults ?? UserDefaults.standard
       let start = userDefaults.object(forKey: "ClockInDate") as? Date
       let breakStart = userDefaults.object(forKey: "BreakStart") as? Date
       let breaks = userDefaults.breaks
@@ -25,7 +24,7 @@ struct TimeKeenApp: App {
       let timeEntrySharingViewModel = TimeEntrySharingViewModel(context: context)
       let payPeriodListViewModel = PayPeriodListViewModel(timeEntrySharingViewModel: timeEntrySharingViewModel, context: context)
       let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, payPeriodListViewModel: payPeriodListViewModel)
-
+      
       ContentView(viewModel: viewModel)
     }
   }

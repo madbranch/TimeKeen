@@ -3,7 +3,7 @@ import SwiftUI
 struct CurrentTimeEntryView: View {
   @Bindable var viewModel: CurrentTimeEntryViewModel
   
-  @AppStorage("MinuteInterval") var minuteInterval = 15 {
+  @AppStorage(SharedData.Keys.minuteInterval.rawValue, store: SharedData.userDefaults) var minuteInterval = 15 {
     didSet {
       UIDatePicker.appearance().minuteInterval = minuteInterval
     }

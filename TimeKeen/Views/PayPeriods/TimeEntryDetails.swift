@@ -3,7 +3,7 @@ import SwiftUI
 struct TimeEntryDetails: View {
   @Bindable var viewModel: TimeEntryViewModel
   @Environment(\.editMode) private var editMode
-  @AppStorage("MinuteInterval") var minuteInterval = 15
+  @AppStorage(SharedData.Keys.minuteInterval.rawValue, store: SharedData.userDefaults) var minuteInterval = 15
   @State var isEditingBreak = false
   @State var isAddingBreak = false
   @State var breakStart = Date()
