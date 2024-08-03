@@ -4,6 +4,7 @@ struct ContentView: View {
   var viewModel: ContentViewModel
   @State private var path: NavigationPath = .init()
   @State private var selectedTab = 0
+  @AppStorage("MinuteInterval") var minuteInterval = 15
   
   init(viewModel: ContentViewModel) {
     self.viewModel = viewModel
@@ -31,7 +32,7 @@ struct ContentView: View {
       }
     }
     .onAppear {
-      UIDatePicker.appearance().minuteInterval = UserDefaults.standard.minuteInterval
+      UIDatePicker.appearance().minuteInterval = minuteInterval
     }
   }
 }

@@ -6,10 +6,11 @@ import SwiftData
   var clockInState: ClockInState = .clockedOut
   var breakStart = Date()
   var breaks = [BreakItem]()
+  private let userDefaults: UserDefaults
 
   private var context: ModelContext
   
-  init(context: ModelContext, clockedInAt clockInDate: Date? = nil, startedBreakAt breakStart: Date? = nil, withBreaks breaks: [BreakItem]? = nil) {
+  init(context: ModelContext, clockedInAt clockInDate: Date? = nil, startedBreakAt breakStart: Date? = nil, withBreaks breaks: [BreakItem]? = nil, userDefaults: UserDefaults) {
     self.context = context
     
     if let startingClockinDate = clockInDate {
@@ -26,6 +27,8 @@ import SwiftData
         clockInState = .clockedIn(.working)
       }
     }
+    
+    self.userDefaults = userDefaults
   }
   
   func clockIn(at clockInDate: Date) {
@@ -36,7 +39,7 @@ import SwiftData
       self.clockInDate = clockInDate
       breaks.removeAll()
       clockInState = .clockedIn(.working)
-      UserDefaults.standard.set(clockInDate, forKey: "ClockInDate")
+      userDefaults.set(clockInDate, forKey: "ClockInDate")
     }
   }
   
@@ -51,7 +54,7 @@ import SwiftData
       case .working:
         self.breakStart = breakStart
         clockInState = .clockedIn(.takingABreak)
-        UserDefaults.standard.set(breakStart, forKey: "BreakStart")
+        userDefaults.set(breakStart, forKey: "BreakStart")
       }
     }
   }
@@ -65,10 +68,10 @@ import SwiftData
       case .takingABreak:
         self.breaks.append(BreakItem(start: breakStart, end: breakEnd))
         clockInState = .clockedIn(.working)
-        UserDefaults.standard.removeObject(forKey: "BreakStart")
+        userDefaults.removeObject(forKey: "BreakStart")
         
         if let encodedBreaks = try? JSONEncoder().encode(breaks) {
-          UserDefaults.standard.set(encodedBreaks, forKey: "Breaks")
+          userDefaults.set(encodedBreaks, forKey: "Breaks")
         }
       case .working:
         return
@@ -96,8 +99,8 @@ import SwiftData
         context.insert(timeEntry)
 
         clockInState = .clockedOut
-        UserDefaults.standard.removeObject(forKey: "ClockInDate")
-        UserDefaults.standard.removeObject(forKey: "Breaks")
+        userDefaults.removeObject(forKey: "ClockInDate")
+        userDefaults.removeObject(forKey: "Breaks")
 
         return .success(timeEntry)
       }

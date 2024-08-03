@@ -2,14 +2,26 @@ import Foundation
 
 extension UserDefaults {
   var minuteInterval: Int {
-    return UserDefaults.standard.object(forKey: "MinuteInterval") as? Int ?? 15
+    return self.object(forKey: "MinuteInterval") as? Int ?? 15
   }
   
   var payPeriodSchedule: PayPeriodSchedule {
-    return UserDefaults.standard.object(forKey: "PayPeriodSchedule") as? PayPeriodSchedule ?? .Weekly
+    return self.object(forKey: "PayPeriodSchedule") as? PayPeriodSchedule ?? .Weekly
   }
   
   var endOfLastPayPeriod: Date {
-    return UserDefaults.standard.object(forKey: "EndOfLastPayPeriod") as? Date ?? Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
+    return self.object(forKey: "EndOfLastPayPeriod") as? Date ?? Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
+  }
+  
+  var breaks: [BreakItem]? {
+    guard let data = self.object(forKey: "Breaks") as? Data else {
+      return nil
+    }
+    
+    guard let breaks = try? JSONDecoder().decode([BreakItem].self, from: data) else {
+      return nil
+    }
+    
+    return breaks
   }
 }
