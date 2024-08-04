@@ -5,28 +5,14 @@
             <stop offset="100%" stop-color="#6ff7e8" />
         </linearGradient>
 
-        <clipPath id="needles">
-            <circle id="clockCenter" cx="512" cy="512" r="64" fill="#00152f" />
-            <rect id="clockNeedleLong" width="64" height="269" x="480" y="243" fill="#00152f" transform="rotate(60 512 512)" rx="32" />
-            <rect id="clockNeedleShort" width="64" height="191" x="480" y="321" fill="#00152f" transform="rotate(305 512 512)" rx="32" />
-        </clipPath>
-        <clipPath id="needles2">
-            <circle id="clockCenter2" cx="289.5" cy="624" r="64" fill="#00152f" />
-            <rect id="clockNeedleLong2" width="64" height="269" x="257.5" y="355" fill="#00152f" transform="rotate(45 289.5 624)" rx="32" />
-            <rect id="clockNeedleShort2" width="64" height="191" x="257.5" y="433" fill="#00152f" transform="rotate(303.75 289.5 624)" rx="32" />
-        </clipPath>
+        <mask id="helmet">
+            <path d="M857 512 A395 395 180 1 0 67 512 v112 A222.5 222.5 180 1 0 512 624 v-112 Z" fill="white" />
+            <path d="M760 400 V512 H957 Z" fill="white" />
+            <rect id="clockNeedleLong2" width="64" height="269" x="257.5" y="355" fill="black" transform="rotate(45 289.5 624)" rx="32" />
+            <rect id="clockNeedleShort2" width="64" height="191" x="257.5" y="433" fill="black" transform="rotate(303.75 289.5 624)" rx="32" />
+            <circle id="clockCenter2" cx="289.5" cy="624" r="64" fill="black" />
+        </mask>
     </defs>
     <rect id="background" width="1024" height="1024" fill="url(#grad1)" />
-
-    <g>
-        <path d="M857 512 A395 395 180 1 0 67 512 v112 A222.5 222.5 180 1 0 512 624 v-112 Z" fill="white" />
-        <path d="M760 400 V512 H957 Z" fill="white" />
-        <!-- <path id="helmetLeftTop" d="M192 380 A320 320 90 0 1 512 60 V380 Z" fill="white" />
-        <path id="helmetRightTop" d="M512 60 A320 320 90 0 1 832 380 H512 Z" fill="white" />
-        <path id="helmetRightBottom" d="M778 460 h64 v256 a64 64 90 0 1 -64 64 Z" fill="white"/>
-        <path id="helmetLeftBottom" d="M182 460 H246 V780 a64 64 90 0 1 -64 -64 Z" fill="white"/>
-        <path id="helmetBorder" d="M182 380 H192 A1350 1350 180 0 1 832 380 H842 V566 C822 470 800 460 778 460 A1750 1750 180 0 0 246 460 C224 460 202 470 182 566 Z" fill="white"/> -->
-    </g>
-
-    <rect id="background" width="1024" height="1024" fill="url(#grad1)" clip-path="url(#needles2)" />
+    <rect id="icon" width="1024" height="1024" fill="white" mask="url(#helmet)" />
 </svg>
