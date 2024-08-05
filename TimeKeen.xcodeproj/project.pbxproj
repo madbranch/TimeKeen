@@ -51,6 +51,7 @@
 		669393E72990642700CC661C /* TimeEntryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E62990642700CC661C /* TimeEntryListViewModel.swift */; };
 		66ADA4092C52719F002E6185 /* TimeEntrySharingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ADA4082C52719F002E6185 /* TimeEntrySharingViewModel.swift */; };
 		66ADA40B2C5271F6002E6185 /* TimeEntrySharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */; };
+		66B1D8122C60D0460015BD48 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,7 @@
 		669393E62990642700CC661C /* TimeEntryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryListViewModel.swift; sourceTree = "<group>"; };
 		66ADA4082C52719F002E6185 /* TimeEntrySharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntrySharingViewModel.swift; sourceTree = "<group>"; };
 		66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntrySharingView.swift; sourceTree = "<group>"; };
+		66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				6693596E29606A3A00DEDD35 /* Assets.xcassets */,
+				66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */,
 				66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */,
 				66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */,
 				665E7E562C5A76C600E8C43F /* CalendarExtension.swift */,
@@ -375,6 +378,7 @@
 			files = (
 				6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */,
 				6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */,
+				66B1D8122C60D0460015BD48 /* PrivacyInfo.xcprivacy in Resources */,
 				66411CFB2C5134490050FDFB /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
