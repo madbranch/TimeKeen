@@ -41,7 +41,6 @@ struct CurrentTimeEntryView: View {
       case .clockedOut:
         Button {
           viewModel.clockInDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
-          print(Formatting.startEndWithDateFormatter.string(from: viewModel.clockInDate))
           notes = ""
           isClockingIn = true
         } label: {
@@ -52,7 +51,7 @@ struct CurrentTimeEntryView: View {
         }
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
-        .clipShape(Circle())
+        .buttonBorderShape(.circle)
         .padding()
       case .clockedIn(let breakState):
         Spacer()

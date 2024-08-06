@@ -200,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				6693596E29606A3A00DEDD35 /* Assets.xcassets */,
-				66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */,
 				66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */,
 				66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */,
 				665E7E562C5A76C600E8C43F /* CalendarExtension.swift */,
@@ -210,6 +209,7 @@
 				66411CFA2C5134490050FDFB /* Localizable.xcstrings */,
 				66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */,
 				6693597029606A3A00DEDD35 /* Preview Content */,
+				66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */,
 				665E7E592C5EBB8400E8C43F /* SharedData.swift */,
 				662294B12C4466B1005707D1 /* TimeEntry.swift */,
 				662294AF2C440196005707D1 /* TimeEntryExtension.swift */,
