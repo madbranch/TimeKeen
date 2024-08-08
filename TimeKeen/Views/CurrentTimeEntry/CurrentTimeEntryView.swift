@@ -29,6 +29,45 @@ struct CurrentTimeEntryView: View {
     clockInDuration = viewModel.clockInDate.distance(to: input)
   }
   
+  private func startClockIn() {
+    viewModel.clockInDate = getRoundedNow()
+    notes = ""
+    isClockingIn = true
+  }
+  
+  func getRoundedNow() -> Date {
+    return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
+  }
+  
+  func handleQuickAction() {
+    guard let quickAction = viewModel.quickActionProvider.quickAction else {
+      return
+    }
+    
+    switch quickAction {
+    case .clockIn:
+      if viewModel.clockInState == .clockedOut {
+        notes = ""
+        viewModel.clockIn(at: getRoundedNow())
+      }
+      break
+    case .clockOut:
+      if viewModel.clockInState == .clockedIn(.working) {
+        _ = viewModel.clockOut(at: getRoundedNow(), notes: notes)
+      }
+      break
+    case .startBreak:
+      if viewModel.clockInState == .clockedIn(.working) {
+        viewModel.startBreak(at: getRoundedNow())
+      }
+      break
+    case .endBreak:
+      if viewModel.clockInState == .clockedIn(.takingABreak) {
+        viewModel.endBreak(at: getRoundedNow())
+      }
+    }
+  }
+
   var body: some View {
     VStack {
       Picker("Minute Interval", selection: $minuteInterval) {
@@ -40,9 +79,7 @@ struct CurrentTimeEntryView: View {
       switch viewModel.clockInState {
       case .clockedOut:
         Button {
-          viewModel.clockInDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
-          notes = ""
-          isClockingIn = true
+          startClockIn()
         } label: {
           Text("Clock In...")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -72,7 +109,7 @@ struct CurrentTimeEntryView: View {
           .textFieldStyle(.roundedBorder)
         if breakState == .working {
           Button {
-            viewModel.breakStart = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
+            viewModel.breakStart = getRoundedNow()
             isStartingBreak = true
           } label: {
             Text("Take a Break...")
@@ -113,13 +150,17 @@ struct CurrentTimeEntryView: View {
         }
       }
     }
+    .onChange(of: viewModel.quickActionProvider.quickAction) { _, _ in
+      handleQuickAction()
+    }
+    .onAppear(perform: handleQuickAction)
     .sensoryFeedback(trigger: viewModel.clockInState) { old, new in
       return switch new {
       case .clockedOut: .success
       case .clockedIn(_): old == .clockedOut ? .impact : nil
       }
     }
-    .sheet(isPresented: $isClockingIn) { [viewModel, minuteInterval] in
+    .sheet(isPresented: $isClockingIn) { [viewModel, clockInDate = viewModel.clockInDate, minuteInterval] in
       VStack {
           Text("Clock-in")
             .font(.headline)
@@ -134,7 +175,7 @@ struct CurrentTimeEntryView: View {
           viewModel.clockIn(at: viewModel.clockInDate)
           isClockingIn = false
         }) {
-          Text("Clock In at \(Formatting.startEndFormatter.string(from: viewModel.clockInDate))")
+          Text("Clock In at \(Formatting.startEndFormatter.string(from: clockInDate))")
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)

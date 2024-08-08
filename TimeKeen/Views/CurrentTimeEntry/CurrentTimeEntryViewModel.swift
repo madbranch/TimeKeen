@@ -6,11 +6,12 @@ import SwiftData
   var clockInState: ClockInState = .clockedOut
   var breakStart = Date()
   var breaks = [BreakItem]()
+  var quickActionProvider: QuickActionProvider
   private let userDefaults: UserDefaults
 
   private var context: ModelContext
   
-  init(context: ModelContext, clockedInAt clockInDate: Date? = nil, startedBreakAt breakStart: Date? = nil, withBreaks breaks: [BreakItem]? = nil, userDefaults: UserDefaults) {
+  init(context: ModelContext, clockedInAt clockInDate: Date? = nil, startedBreakAt breakStart: Date? = nil, withBreaks breaks: [BreakItem]? = nil, userDefaults: UserDefaults, quickActionProvider: QuickActionProvider) {
     self.context = context
     
     if let startingClockinDate = clockInDate {
@@ -29,6 +30,7 @@ import SwiftData
     }
     
     self.userDefaults = userDefaults
+    self.quickActionProvider = quickActionProvider
   }
   
   func clockIn(at clockInDate: Date) {
