@@ -39,11 +39,7 @@ struct CurrentTimeEntryView: View {
     return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
   }
   
-  func handleQuickAction() {
-    guard let quickAction = viewModel.quickActionProvider.quickAction else {
-      return
-    }
-    
+  private func handle(_ quickAction: QuickAction) {
     switch quickAction {
     case .clockIn:
       if viewModel.clockInState == .clockedOut {
@@ -66,6 +62,16 @@ struct CurrentTimeEntryView: View {
         viewModel.endBreak(at: getRoundedNow())
       }
     }
+  }
+  
+  func handleQuickAction() {
+    guard let quickAction = viewModel.quickActionProvider.quickAction else {
+      return
+    }
+    
+    handle(quickAction)
+    
+    viewModel.quickActionProvider.quickAction = nil
   }
 
   var body: some View {
