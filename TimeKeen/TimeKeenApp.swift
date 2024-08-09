@@ -54,10 +54,29 @@ struct TimeKeenApp: App {
     }
   }
   
-  static let clockInQuickAction = UIApplicationShortcutItem(type: QuickAction.clockIn.rawValue, localizedTitle: "Clock-In", localizedSubtitle: "Clock-in now", icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill.rtl"))
-  static let clockOutQuickAction = UIApplicationShortcutItem(type: QuickAction.clockOut.rawValue, localizedTitle: "Clock-Out", localizedSubtitle: "Clock-out now", icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill"))
-  static let startBreakQuickAction = UIApplicationShortcutItem(type: QuickAction.startBreak.rawValue, localizedTitle: "Start Break", localizedSubtitle: "Take a break now", icon: UIApplicationShortcutIcon(systemImageName: "pause.fill"))
-  static let endBreakQuickAction = UIApplicationShortcutItem(type: QuickAction.endBreak.rawValue, localizedTitle: "End Break", localizedSubtitle: "Go back to work", icon: UIApplicationShortcutIcon(systemImageName: "play.fill"))
+  static let clockInQuickAction =
+    UIApplicationShortcutItem(type: QuickAction.clockIn.rawValue,
+                              localizedTitle: NSLocalizedString("Clock-In", comment: "Quick action title for clocking in"),
+                              localizedSubtitle: NSLocalizedString("Clock-in now", comment: "Quick action sub-title for clocking in"),
+                              icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill.rtl"))
+  
+  static let clockOutQuickAction =
+    UIApplicationShortcutItem(type: QuickAction.clockOut.rawValue,
+                              localizedTitle: NSLocalizedString("Clock-Out", comment: "Quick action title for clocking out"),
+                              localizedSubtitle: NSLocalizedString("Clock-out now", comment: "Quick action sub-title for clocking out"),
+                              icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill"))
+  
+  static let startBreakQuickAction =
+    UIApplicationShortcutItem(type: QuickAction.startBreak.rawValue,
+                              localizedTitle: NSLocalizedString("Take a Break", comment: "Quick action title for taking a break"),
+                              localizedSubtitle: NSLocalizedString("Take a break now", comment: "Quick action sub-title for taking a break"),
+                              icon: UIApplicationShortcutIcon(systemImageName: "pause.fill"))
+  
+  static let endBreakQuickAction =
+    UIApplicationShortcutItem(type: QuickAction.endBreak.rawValue,
+                              localizedTitle: NSLocalizedString("End Break", comment: "Quick action title for going back to work"),
+                              localizedSubtitle: NSLocalizedString("Go back to work", comment: "Quick action sub-title for going back to work"),
+                              icon: UIApplicationShortcutIcon(systemImageName: "play.fill"))
 
   func updateQuickActions(currentTimeEntryViewModel: CurrentTimeEntryViewModel) {
     UIApplication.shared.shortcutItems = switch currentTimeEntryViewModel.clockInState {

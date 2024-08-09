@@ -198,11 +198,23 @@
       }
     },
     "Clock-In" : {
+      "comment" : "Quick action title for clocking in",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commencer"
+          }
+        }
+      }
+    },
+    "Clock-in now" : {
+      "comment" : "Quick action sub-title for clocking in",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer à travailler maintenant"
           }
         }
       }
@@ -217,12 +229,44 @@
         }
       }
     },
+    "Clock-Out" : {
+      "comment" : "Quick action title for clocking out",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter"
+          }
+        }
+      }
+    },
+    "Clock-out now" : {
+      "comment" : "Quick action sub-title for clocking out",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter de travailler maintenant"
+          }
+        }
+      }
+    },
     "Clocked in at %@" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commencé à %@"
+          }
+        }
+      }
+    },
+    "Clocking in at %@..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencera à %@..."
           }
         }
       }
@@ -278,6 +322,7 @@
       }
     },
     "End Break" : {
+      "comment" : "Quick action title for going back to work",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -393,6 +438,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "De,À,Nombre de pauses,En pause,À travailler,Notes"
+          }
+        }
+      }
+    },
+    "Go back to work" : {
+      "comment" : "Quick action sub-title for going back to work",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retourner travailler"
           }
         }
       }
@@ -556,6 +612,20 @@
           }
         }
       }
+    },
+    "Take a Break" : {
+      "comment" : "Quick action title for taking a break",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prend une pause"
+          }
+        }
+      }
+    },
+    "Take a break now" : {
+      "comment" : "Quick action sub-title for taking a break"
     },
     "Take a Break..." : {
       "localizations" : {

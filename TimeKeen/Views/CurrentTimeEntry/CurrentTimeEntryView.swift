@@ -98,13 +98,14 @@ struct CurrentTimeEntryView: View {
         .padding()
       case .clockedIn(let breakState):
         Spacer()
-        Text((clockInDuration < 0 ? "-" : "") + (Formatting.timeIntervalFormatter.string(from: clockInDuration) ?? ""))
+        Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
           .onAppear { updateClockInDuration(input: Date.now) }
           .onReceive(timer, perform: updateClockInDuration)
           .font(.system(size: 1000))
           .scaledToFit()
           .minimumScaleFactor(0.01)
           .lineLimit(1)
+          .foregroundStyle(clockInDuration < 0 ? .secondary : .primary)
         if breakState == .takingABreak {
           Text("Started Break at \(Formatting.startEndFormatter.string(from: viewModel.breakStart))")
             .foregroundStyle(.secondary)
@@ -122,7 +123,7 @@ struct CurrentTimeEntryView: View {
               .padding()
           }
         }
-        Text("Clocked in at \(Formatting.startEndFormatter.string(from: viewModel.clockInDate))")
+        Text(clockInDuration < 0 ? "Clocking in at \(Formatting.startEndFormatter.string(from: viewModel.clockInDate))..." : "Clocked in at \(Formatting.startEndFormatter.string(from: viewModel.clockInDate))")
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
