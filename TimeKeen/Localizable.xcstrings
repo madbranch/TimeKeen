@@ -158,8 +158,7 @@
         }
       }
     },
-    "Clock In at %@" : {
-      "extractionState" : "stale",
+    "Clock In At %@" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -168,9 +167,6 @@
           }
         }
       }
-    },
-    "Clock In At %@" : {
-
     },
     "Clock in now" : {
       "comment" : "Quick action sub-title for clocking in",
@@ -204,8 +200,7 @@
         }
       }
     },
-    "Clock Out at %@" : {
-      "extractionState" : "stale",
+    "Clock Out At %@" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -214,9 +209,6 @@
           }
         }
       }
-    },
-    "Clock Out At %@" : {
-
     },
     "Clock out now" : {
       "comment" : "Quick action sub-title for clocking out",
