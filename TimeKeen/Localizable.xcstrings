@@ -147,12 +147,38 @@
         }
       }
     },
+    "Clock In" : {
+      "comment" : "Quick action title for clocking in",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer"
+          }
+        }
+      }
+    },
     "Clock In at %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commencer à %@"
+          }
+        }
+      }
+    },
+    "Clock In At %@" : {
+
+    },
+    "Clock in now" : {
+      "comment" : "Quick action sub-title for clocking in",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer à travailler maintenant"
           }
         }
       }
@@ -167,69 +193,7 @@
         }
       }
     },
-    "Clock Out at %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer à %@"
-          }
-        }
-      }
-    },
-    "Clock Out..." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer..."
-          }
-        }
-      }
-    },
-    "Clock-in" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commencer"
-          }
-        }
-      }
-    },
-    "Clock-In" : {
-      "comment" : "Quick action title for clocking in",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commencer"
-          }
-        }
-      }
-    },
-    "Clock-in now" : {
-      "comment" : "Quick action sub-title for clocking in",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commencer à travailler maintenant"
-          }
-        }
-      }
-    },
-    "Clock-out" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer"
-          }
-        }
-      }
-    },
-    "Clock-Out" : {
+    "Clock Out" : {
       "comment" : "Quick action title for clocking out",
       "localizations" : {
         "fr" : {
@@ -240,13 +204,37 @@
         }
       }
     },
-    "Clock-out now" : {
+    "Clock Out at %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter à %@"
+          }
+        }
+      }
+    },
+    "Clock Out At %@" : {
+
+    },
+    "Clock out now" : {
       "comment" : "Quick action sub-title for clocking out",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arrêter de travailler maintenant"
+          }
+        }
+      }
+    },
+    "Clock Out..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminer..."
           }
         }
       }

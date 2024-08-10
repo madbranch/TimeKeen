@@ -14,7 +14,7 @@ struct ContentView: View {
     TabView(selection: $selectedTab) {
       CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
         .tabItem {
-          Label("Clock-In", systemImage: "clock")
+          Label("Clock In", systemImage: "clock")
         }
         .tag(0)
       NavigationStack(path: $path) {

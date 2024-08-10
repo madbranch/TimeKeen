@@ -56,14 +56,14 @@ struct TimeKeenApp: App {
   
   static let clockInQuickAction =
     UIApplicationShortcutItem(type: QuickAction.clockIn.rawValue,
-                              localizedTitle: NSLocalizedString("Clock-In", comment: "Quick action title for clocking in"),
-                              localizedSubtitle: NSLocalizedString("Clock-in now", comment: "Quick action sub-title for clocking in"),
+                              localizedTitle: NSLocalizedString("Clock In", comment: "Quick action title for clocking in"),
+                              localizedSubtitle: NSLocalizedString("Clock in now", comment: "Quick action sub-title for clocking in"),
                               icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill.rtl"))
   
   static let clockOutQuickAction =
     UIApplicationShortcutItem(type: QuickAction.clockOut.rawValue,
-                              localizedTitle: NSLocalizedString("Clock-Out", comment: "Quick action title for clocking out"),
-                              localizedSubtitle: NSLocalizedString("Clock-out now", comment: "Quick action sub-title for clocking out"),
+                              localizedTitle: NSLocalizedString("Clock Out", comment: "Quick action title for clocking out"),
+                              localizedSubtitle: NSLocalizedString("Clock out now", comment: "Quick action sub-title for clocking out"),
                               icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill"))
   
   static let startBreakQuickAction =

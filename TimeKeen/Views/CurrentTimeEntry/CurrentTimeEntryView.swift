@@ -169,7 +169,7 @@ struct CurrentTimeEntryView: View {
     }
     .sheet(isPresented: $isClockingIn) { [viewModel, clockInDate = viewModel.clockInDate, minuteInterval] in
       VStack {
-          Text("Clock-in")
+          Text("Clock In")
             .font(.headline)
             .frame(maxWidth: .infinity, alignment: .center)
             .overlay(alignment: .trailing) {
@@ -182,7 +182,7 @@ struct CurrentTimeEntryView: View {
           viewModel.clockIn(at: viewModel.clockInDate)
           isClockingIn = false
         }) {
-          Text("Clock In at \(Formatting.startEndFormatter.string(from: clockInDate))")
+          Text("Clock In At \(Formatting.startEndFormatter.string(from: clockInDate))")
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
@@ -194,7 +194,7 @@ struct CurrentTimeEntryView: View {
     }
     .sheet(isPresented: $isClockingOut) { [clockOutDate, minClockOutDate, minuteInterval] in
       VStack {
-        Text("Clock-out")
+        Text("Clock Out")
           .font(.headline)
           .frame(maxWidth: .infinity, alignment: .center)
           .overlay(alignment: .trailing) {
@@ -207,7 +207,7 @@ struct CurrentTimeEntryView: View {
           _ = viewModel.clockOut(at: clockOutDate, notes: notes)
           isClockingOut = false
         }) {
-          Text("Clock Out at \(Formatting.startEndFormatter.string(from: clockOutDate))")
+          Text("Clock Out At \(Formatting.startEndFormatter.string(from: clockOutDate))")
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
