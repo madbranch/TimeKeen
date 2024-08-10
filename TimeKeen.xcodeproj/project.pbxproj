@@ -123,6 +123,7 @@
 		66ADA4082C52719F002E6185 /* TimeEntrySharingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntrySharingViewModel.swift; sourceTree = "<group>"; };
 		66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntrySharingView.swift; sourceTree = "<group>"; };
 		66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		66B1D8132C6783F90015BD48 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +218,7 @@
 				6693596A29606A3900DEDD35 /* TimeKeenApp.swift */,
 				66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */,
 				6611F1B22961D22A0089B49B /* Views */,
+				66B1D8132C6783F90015BD48 /* Store.storekit */,
 			);
 			path = TimeKeen;
 			sourceTree = "<group>";

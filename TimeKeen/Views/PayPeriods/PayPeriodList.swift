@@ -34,6 +34,11 @@ struct PayPeriodList: View {
           isEditingSettings = true
         }
       }
+      ToolbarItem(placement: .topBarLeading) {
+        Button("Donate", systemImage: "cup.and.saucer") {
+          print("thx")
+        }
+      }
     }
     .overlay {
       if viewModel.payPeriods.isEmpty {

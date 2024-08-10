@@ -1,0 +1,130 @@
+{
+  "identifier" : "3FCE74C2",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "6624304770",
+      "localizations" : [
+        {
+          "description" : "A lovely tip to support me.",
+          "displayName" : "Lovely Tip",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Un joli pourboire pour me supporter.",
+          "displayName" : "Joli pourboire",
+          "locale" : "fr"
+        }
+      ],
+      "productID" : "com.timekeen.TimeKeen.lovely",
+      "referenceName" : "Lovely Tip",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "5.99",
+      "familyShareable" : false,
+      "internalID" : "6624304837",
+      "localizations" : [
+        {
+          "description" : "A sensational tip to support me.",
+          "displayName" : "Sensational Tip",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Un pourboire sensationnel pour me supporter.",
+          "displayName" : "Pourboire sensationnel",
+          "locale" : "fr"
+        }
+      ],
+      "productID" : "com.timekeen.TimeKeen.sensational",
+      "referenceName" : "Sensational Tip",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "12.99",
+      "familyShareable" : false,
+      "internalID" : "6624305028",
+      "localizations" : [
+        {
+          "description" : "Un pourboire absurde pour me supporter.",
+          "displayName" : "Pourboire absurde",
+          "locale" : "fr"
+        },
+        {
+          "description" : "A silly tip to support me.",
+          "displayName" : "Silly Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.timekeen.TimeKeen.silly",
+      "referenceName" : "Silly Tip",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6590632852",
+    "_developerTeamID" : "A2M6WJ4ZXF",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 744981500.11093295,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
