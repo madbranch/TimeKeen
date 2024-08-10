@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "launchscreen.svg",
-      "idiom" : "universal"
+      "filename" : "launchscreen.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "launchscreen_2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "launchscreen_3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
