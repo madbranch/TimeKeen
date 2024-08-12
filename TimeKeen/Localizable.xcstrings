@@ -271,8 +271,15 @@
         }
       }
     },
-    "Donate" : {
-
+    "Done" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminer"
+          }
+        }
+      }
     },
     "Duration" : {
       "localizations" : {
@@ -634,6 +641,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Le temps que vous travaillez apparaîtra ici."
+          }
+        }
+      }
+    },
+    "Tip Jar" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pourboires"
           }
         }
       }

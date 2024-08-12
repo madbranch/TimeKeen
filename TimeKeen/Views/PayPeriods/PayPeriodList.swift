@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 
 struct PayPeriodList: View {
   var viewModel: PayPeriodListViewModel
@@ -6,6 +7,7 @@ struct PayPeriodList: View {
   @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
   @State private var isPresentingShareSheet = false
   @State private var isEditingSettings = false
+  @State private var isShopping = false
   
   init(viewModel: PayPeriodListViewModel) {
     self.viewModel = viewModel
@@ -35,8 +37,8 @@ struct PayPeriodList: View {
         }
       }
       ToolbarItem(placement: .topBarLeading) {
-        Button("Donate", systemImage: "cup.and.saucer") {
-          print("thx")
+        Button("Tip Jar", systemImage: "storefront") {
+          isShopping = true
         }
       }
     }
@@ -62,7 +64,7 @@ struct PayPeriodList: View {
               isEditingSettings = false
             }
           }
-        .padding([.bottom])
+          .padding([.bottom])
         Text("Choose how you want your time entries to be grouped.")
           .font(.subheadline)
         Picker("Schedule", selection: $payPeriodSchedule) {
@@ -84,6 +86,9 @@ struct PayPeriodList: View {
       }
       .padding()
       .presentationDetents([.medium])
+    }
+    .sheet(isPresented: $isShopping) {
+      TipPickerSheet()
     }
   }
   
