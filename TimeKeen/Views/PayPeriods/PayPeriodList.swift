@@ -5,6 +5,7 @@ struct PayPeriodList: View {
   var viewModel: PayPeriodListViewModel
   @AppStorage(SharedData.Keys.payPeriodSchedule.rawValue, store: SharedData.userDefaults) var payPeriodSchedule = PayPeriodSchedule.Weekly
   @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
+  @Environment(\.scenePhase) var scenePhase
   @State private var isPresentingShareSheet = false
   @State private var isEditingSettings = false
   @State private var isShopping = false
@@ -24,6 +25,11 @@ struct PayPeriodList: View {
     }
     .onAppear() {
       viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
+    }
+    .onChange(of: scenePhase) { _, newPhase in
+      if newPhase == .active {
+        viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
+      }
     }
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
