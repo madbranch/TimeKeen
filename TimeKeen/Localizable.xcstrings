@@ -87,6 +87,16 @@
         }
       }
     },
+    "10 minutes" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10 minutes"
+          }
+        }
+      }
+    },
     "15 minutes" : {
       "localizations" : {
         "fr" : {

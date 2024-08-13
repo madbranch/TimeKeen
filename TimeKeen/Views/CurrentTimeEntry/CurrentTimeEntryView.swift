@@ -79,6 +79,7 @@ struct CurrentTimeEntryView: View {
       Picker("Minute Interval", selection: $minuteInterval) {
         Text("1 minute").tag(1)
         Text("5 minutes").tag(5)
+        Text("10 minutes").tag(10)
         Text("15 minutes").tag(15)
       }
       .padding()
