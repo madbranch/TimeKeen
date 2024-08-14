@@ -112,7 +112,7 @@ struct CurrentTimeEntryView: View {
             .foregroundStyle(.secondary)
         }
         Spacer()
-        TextField("Notes", text: $notes, axis: .vertical)
+        TextField("Notes", text: $notes)
           .padding()
           .textFieldStyle(.roundedBorder)
         if breakState == .working {
