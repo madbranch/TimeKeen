@@ -11,8 +11,8 @@ struct PayPeriodDetails: View {
     List(viewModel.dailyTimeEntryLists) { dailyTimeEntryList in
       PayPeriodSection(viewModel: dailyTimeEntryList)
     }
-    .navigationDestination(for: TimeEntryViewModel.self) { timeEntry in
-      TimeEntryDetails(viewModel: timeEntry)
+    .navigationDestination(for: TimeEntry.self) { timeEntry in
+      TimeEntryDetails(timeEntry: timeEntry)
     }
     .navigationTitle("\(Formatting.yearlessDateformatter.string(from: viewModel.payPeriodStart)) - \(Formatting.yearlessDateformatter.string(from: viewModel.payPeriodEnd))")
   }

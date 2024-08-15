@@ -31,7 +31,7 @@ import SwiftData
     
     for dailyTimeEntryList in dailyTimeEntryLists {
       nbEntries += dailyTimeEntryList.timeEntries.count
-      onTheClock += dailyTimeEntryList.timeEntries.reduce(TimeInterval.zero) { $0 + $1.timeEntry.onTheClock }
+      onTheClock += dailyTimeEntryList.timeEntries.reduce(TimeInterval.zero) { $0 + $1.onTheClock }
     }
     
     self.nbEntries = nbEntries

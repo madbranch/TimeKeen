@@ -12,7 +12,7 @@ struct TimeEntryList: View {
   var body: some View {
     ForEach(viewModel.timeEntries) { timeEntry in
       NavigationLink(value: timeEntry) {
-        TimeEntryRow(timeEntry: timeEntry.timeEntry)
+        TimeEntryRow(timeEntry: timeEntry)
       }
     }
     .onDelete { offsets in

@@ -40,9 +40,9 @@ import SwiftData
         newTimeEntryLists.reserveCapacity(timeEntriesPerDay.count)
         
         for timeEntriesDay in timeEntriesPerDay.keys.sorted().reversed() {
-          let dailyTimeEntries = timeEntriesPerDay[timeEntriesDay]!.map { TimeEntryViewModel(context: context, timeEntry: $0 ) }
-          
-          newTimeEntryLists.append(TimeEntryListViewModel(timeEntries: dailyTimeEntries, context: self.context))
+          if let dailyTimeEntries = timeEntriesPerDay[timeEntriesDay] {
+            newTimeEntryLists.append(TimeEntryListViewModel(timeEntries: dailyTimeEntries, context: self.context))
+          }
         }
         
         let newPayPeriod = PayPeriodViewModel(from: payPeriodStart, to: payPeriodEnd, with: newTimeEntryLists, context: self.context)

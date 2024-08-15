@@ -12,7 +12,7 @@ struct DailyTimeEntryListSectionHeader: View {
       if viewModel.timeEntries.isEmpty {
         Text("---")
       } else {
-        Text(viewModel.timeEntries[0].timeEntry.start.formatted(date: .complete, time: .omitted))
+        Text(viewModel.timeEntries[0].start.formatted(date: .complete, time: .omitted))
       }
       Spacer()
       Text(Formatting.timeIntervalFormatter.string(from: viewModel.onTheClock) ?? "")
