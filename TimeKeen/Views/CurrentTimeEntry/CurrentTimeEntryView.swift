@@ -29,12 +29,6 @@ struct CurrentTimeEntryView: View {
     clockInDuration = viewModel.clockInDate.distance(to: input)
   }
   
-  private func startClockIn() {
-    viewModel.clockInDate = getRoundedNow()
-    notes = ""
-    isClockingIn = true
-  }
-  
   func getRoundedNow() -> Date {
     return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
   }
@@ -73,7 +67,7 @@ struct CurrentTimeEntryView: View {
     
     viewModel.quickActionProvider.quickAction = nil
   }
-
+  
   var body: some View {
     VStack {
       Picker("Minute Interval", selection: $minuteInterval) {
@@ -86,7 +80,9 @@ struct CurrentTimeEntryView: View {
       switch viewModel.clockInState {
       case .clockedOut:
         Button {
-          startClockIn()
+          viewModel.clockInDate = getRoundedNow()
+          notes = ""
+          isClockingIn = true
         } label: {
           Text("Clock In...")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -148,8 +144,8 @@ struct CurrentTimeEntryView: View {
               return
             }
             
-            minBreakEndDate = newDate
-            breakEnd = newDate
+            minBreakEndDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
+            breakEnd = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: max(newDate, Date()))
             isEndingBreak = true
           })
           .buttonStyle(.borderedProminent)
@@ -170,14 +166,14 @@ struct CurrentTimeEntryView: View {
     }
     .sheet(isPresented: $isClockingIn) { [viewModel, clockInDate = viewModel.clockInDate, minuteInterval] in
       VStack {
-          Text("Clock In")
-            .font(.headline)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .overlay(alignment: .trailing) {
-              Button("Cancel", role: .cancel) {
-                isClockingIn = false
-              }
+        Text("Clock In")
+          .font(.headline)
+          .frame(maxWidth: .infinity, alignment: .center)
+          .overlay(alignment: .trailing) {
+            Button("Cancel", role: .cancel) {
+              isClockingIn = false
             }
+          }
         IntervalDatePicker(selection: $viewModel.clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
           viewModel.clockIn(at: viewModel.clockInDate)
