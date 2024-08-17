@@ -16,15 +16,10 @@ import SwiftData
     do {
       let descriptor = FetchDescriptor<TimeEntry>(sortBy: [SortDescriptor(\.start, order: .reverse)])
       let allTimeEntries = try context.fetch(descriptor)
-      
       let calendar = Calendar.current
-      
       let timeEntriesPerPayPeriod = allTimeEntries.group(by: schedule, ending: periodEnd)
       
-      var newPayPeriods = [PayPeriodViewModel]()
-      newPayPeriods.reserveCapacity(timeEntriesPerPayPeriod.count)
-      
-      for payPeriod in timeEntriesPerPayPeriod.keys.sorted(by: { $0.lowerBound >= $1.lowerBound } ) {
+      payPeriods = timeEntriesPerPayPeriod.keys.sorted(by: { $0.lowerBound >= $1.lowerBound } ).map { payPeriod in
         let payPeriodTimeEntries = timeEntriesPerPayPeriod[payPeriod]!
         let payPeriodStart = payPeriod.lowerBound
         let payPeriodEnd = payPeriod.upperBound
@@ -36,21 +31,14 @@ import SwiftData
           return calendar.date(from: DateComponents(year: year, month: month, day: day))!
         })
         
-        var newTimeEntryLists = [TimeEntryListViewModel]()
-        newTimeEntryLists.reserveCapacity(timeEntriesPerDay.count)
-        
-        for timeEntriesDay in timeEntriesPerDay.keys.sorted().reversed() {
-          if let dailyTimeEntries = timeEntriesPerDay[timeEntriesDay] {
-            newTimeEntryLists.append(TimeEntryListViewModel(timeEntries: dailyTimeEntries, context: self.context))
-          }
+        let newTimeEntryLists = timeEntriesPerDay.keys.sorted().reversed().map { timeEntriesDay in
+          return timeEntriesPerDay[timeEntriesDay]!
         }
         
         let newPayPeriod = PayPeriodViewModel(from: payPeriodStart, to: payPeriodEnd, with: newTimeEntryLists, context: self.context)
         newPayPeriod.computeProperties()
-        newPayPeriods.append(newPayPeriod)
+        return newPayPeriod
       }
-      
-      payPeriods = newPayPeriods
     } catch {
       print("Fetch failed")
     }

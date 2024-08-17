@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct PayPeriodSection: View {
-  var viewModel: TimeEntryListViewModel
+  var timeEntries: [TimeEntry]
   
-  init(viewModel: TimeEntryListViewModel) {
-    self.viewModel = viewModel
+  init(timeEntries: [TimeEntry]) {
+    self.timeEntries = timeEntries
   }
   
   var body: some View {
-    Section(content: { TimeEntryList(viewModel: viewModel) },
-            header: { DailyTimeEntryListSectionHeader(viewModel: viewModel) })
+    Section(content: { TimeEntryList(timeEntries: timeEntries) },
+            header: { DailyTimeEntryListSectionHeader(timeEntries: timeEntries) })
   }
 }

@@ -1,21 +1,21 @@
 import SwiftUI
 
 struct DailyTimeEntryListSectionHeader: View {
-  var viewModel: TimeEntryListViewModel
-
-  init(viewModel: TimeEntryListViewModel) {
-    self.viewModel = viewModel
+  @State var timeEntries: [TimeEntry]
+  
+  init(timeEntries: [TimeEntry]) {
+    self.timeEntries = timeEntries
   }
 
   var body: some View {
     HStack {
-      if viewModel.timeEntries.isEmpty {
+      if timeEntries.isEmpty {
         Text("---")
       } else {
-        Text(viewModel.timeEntries[0].start.formatted(date: .complete, time: .omitted))
+        Text(timeEntries[0].start.formatted(date: .complete, time: .omitted))
       }
       Spacer()
-      Text(Formatting.timeIntervalFormatter.string(from: viewModel.onTheClock) ?? "")
+      Text(Formatting.timeIntervalFormatter.string(from: timeEntries.reduce(TimeInterval.zero) { $0 + $1.onTheClock }) ?? "")
     }
   }
 }

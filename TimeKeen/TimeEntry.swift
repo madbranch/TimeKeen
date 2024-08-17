@@ -2,7 +2,7 @@ import SwiftData
 import Foundation
 
 @Model
-class TimeEntry: Encodable {
+public class TimeEntry: Encodable {
   var start: Date
   var end: Date
   var notes: String = ""
@@ -17,7 +17,7 @@ class TimeEntry: Encodable {
     case start, end, breaks, notes
   }
   
-  func encode(to encoder: any Encoder) throws {
+  public func encode(to encoder: any Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     
     try container.encode(start, forKey: .start)

@@ -9,7 +9,7 @@ struct PayPeriodDetails: View {
 
   var body: some View {
     List(viewModel.dailyTimeEntryLists) { dailyTimeEntryList in
-      PayPeriodSection(viewModel: dailyTimeEntryList)
+      PayPeriodSection(timeEntries: dailyTimeEntryList)
     }
     .navigationDestination(for: TimeEntry.self) { timeEntry in
       TimeEntryDetails(timeEntry: timeEntry)

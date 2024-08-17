@@ -39,6 +39,7 @@ struct TimeKeenApp: App {
       let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel, payPeriodListViewModel: payPeriodListViewModel)
       
       ContentView(viewModel: viewModel)
+        .modelContainer(container)
         .onChange(of: scenePhase) { _, newPhase in
           switch newPhase {
           case .background:

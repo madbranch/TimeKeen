@@ -1,27 +1,29 @@
 import SwiftUI
 
 struct TimeEntryList: View {
-  var viewModel: TimeEntryListViewModel
-  
+  @Environment(\.modelContext) private var context
   @Environment(\.dismiss) private var dismiss
+  @State var timeEntries: [TimeEntry]
 
-  init(viewModel: TimeEntryListViewModel) {
-    self.viewModel = viewModel
+  init(timeEntries: [TimeEntry]) {
+    self.timeEntries = timeEntries
   }
   
   var body: some View {
-    ForEach(viewModel.timeEntries) { timeEntry in
+    ForEach(timeEntries) { timeEntry in
       NavigationLink(value: timeEntry) {
         TimeEntryRow(timeEntry: timeEntry)
       }
     }
     .onDelete { offsets in
-      viewModel.deleteTimeEntries(at: offsets)
-      
-      if viewModel.timeEntries.isEmpty {
+      for index in offsets {
+        context.delete(timeEntries[index])
+      }
+      timeEntries.remove(atOffsets: offsets)
+
+      if timeEntries.isEmpty {
         dismiss()
       }
     }
-    .onAppear(perform: viewModel.computeProperties)
   }
 }
