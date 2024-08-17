@@ -18,7 +18,7 @@ struct ContentView: View {
         }
         .tag(0)
       NavigationStack(path: $path) {
-        PayPeriodList(viewModel: viewModel.payPeriodListViewModel)
+        PayPeriodList()
           .navigationTitle("Pay Periods")
       }
       .tabItem {

@@ -3,17 +3,12 @@ import SwiftData
 import StoreKit
 
 struct PayPeriodList: View {
-  var viewModel: PayPeriodListViewModel
   @AppStorage(SharedData.Keys.payPeriodSchedule.rawValue, store: SharedData.userDefaults) var payPeriodSchedule = PayPeriodSchedule.Weekly
   @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
   @Query(sort: \TimeEntry.start, order: .reverse) var allTimeEntries: [TimeEntry]
   @State private var isPresentingShareSheet = false
   @State private var isEditingSettings = false
   @State private var isShopping = false
-  
-  init(viewModel: PayPeriodListViewModel) {
-    self.viewModel = viewModel
-  }
   
   var body: some View {
     List(allTimeEntries.group(by: payPeriodSchedule, ending: endOfLastPayPeriod)) { payPeriod in
@@ -62,7 +57,7 @@ struct PayPeriodList: View {
       }
     }
     .sheet(isPresented: $isPresentingShareSheet) {
-      TimeEntrySharingView(viewModel: viewModel.timeEntrySharingViewModel)
+      TimeEntrySharingView(timeEntries: allTimeEntries)
     }
     .sheet(isPresented: $isEditingSettings) {
       VStack {

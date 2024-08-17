@@ -1,11 +1,51 @@
 import SwiftUI
 
-struct TimeEntrySharingView: View {
-  @Bindable var viewModel: TimeEntrySharingViewModel
-  @Environment(\.dismiss) private var dismiss
+struct TimeEntryCsvExport2: Transferable {
+  let timeEntries: [TimeEntry]
   
-  init(viewModel: TimeEntrySharingViewModel) {
-    self.viewModel = viewModel
+  static var transferRepresentation: some TransferRepresentation {
+    DataRepresentation(exportedContentType: .commaSeparatedText) { csvExport in
+      var text = String(localized: "From,To,Number of Breaks,On Break,On the Clock,Notes\n")
+      let dateFormatter = ISO8601DateFormatter()
+      
+      for timeEntry in csvExport.timeEntries {
+        let from = dateFormatter.string(from: timeEntry.start)
+        let to = dateFormatter.string(from: timeEntry.end)
+        let numberOfBreaks = timeEntry.breaks.count
+        let onBreak = Formatting.timeIntervalFormatter.string(from: timeEntry.onBreak) ?? ""
+        let onTheClock = Formatting.timeIntervalFormatter.string(from: timeEntry.onTheClock) ?? ""
+        text.append("\(from),\(to),\(numberOfBreaks),\(onBreak),\(onTheClock),\(timeEntry.notes)\n")
+      }
+      
+      return Data(text.utf8)
+    }
+  }
+}
+
+struct TimeEntryJsonExport2: Transferable {
+  let timeEntries: [TimeEntry]
+  
+  static var transferRepresentation: some TransferRepresentation {
+    DataRepresentation(exportedContentType: .json) { jsonExport in
+      do {
+        let encodedData = try JSONEncoder().encode(jsonExport.timeEntries)
+        return Data(encodedData)
+      } catch {
+        return Data()
+      }
+    }
+  }
+}
+
+struct TimeEntrySharingView: View {
+  @Environment(\.dismiss) private var dismiss
+  @State var from = Date()
+  @State var to = Date()
+  @State var format = TimeEntryExportFormat.csv
+  let timeEntries: [TimeEntry]
+  
+  init(timeEntries: [TimeEntry]) {
+    self.timeEntries = timeEntries
   }
   
   var body: some View {
@@ -21,25 +61,25 @@ struct TimeEntrySharingView: View {
         .padding([.bottom])
       Text("Export all time entries from the selected period in time.")
         .font(.subheadline)
-      DatePicker("From", selection: $viewModel.from, in: ...viewModel.to, displayedComponents: [.date])
+      DatePicker("From", selection: $from, in: ...to, displayedComponents: [.date])
         .datePickerStyle(.compact)
-      DatePicker("To", selection: $viewModel.to, in: viewModel.from..., displayedComponents: [.date])
+      DatePicker("To", selection: $to, in: from..., displayedComponents: [.date])
         .datePickerStyle(.compact)
       LabeledContent("Format") {
-        Picker("Format", selection: $viewModel.format) {
+        Picker("Format", selection: $format) {
           Text("CSV").tag(TimeEntryExportFormat.csv)
           Text("JSON").tag(TimeEntryExportFormat.json)
         }
       }
       Spacer()
-      switch viewModel.format {
+      switch format {
       case .csv:
-        ShareLink(item: viewModel.csvExport, preview: SharePreview("CSV Time Entries", image: Image(systemName: "tablecells"))) {
+        ShareLink(item: TimeEntryCsvExport2(timeEntries: timeEntries.filter { [from, to] in $0.start >= from && $0.start <= to }), preview: SharePreview("CSV Time Entries", image: Image(systemName: "tablecells"))) {
           Label("Export to CSV", systemImage: "square.and.arrow.up")
             .frame(maxWidth: .infinity)
         }
       case .json:
-        ShareLink(item: viewModel.jsonExport, preview: SharePreview("JSON Time Entries", image: Image(systemName: "doc.text"))) {
+        ShareLink(item: TimeEntryJsonExport2(timeEntries: timeEntries.filter { [from, to] in $0.start >= from && $0.start <= to }), preview: SharePreview("JSON Time Entries", image: Image(systemName: "doc.text"))) {
           Label("Export to JSON", systemImage: "square.and.arrow.up")
             .frame(maxWidth: .infinity)
         }
