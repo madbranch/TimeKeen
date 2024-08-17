@@ -24,4 +24,12 @@ extension UserDefaults {
     
     return breaks
   }
+  
+  var breakStart: Date? {
+    return self.object(forKey: SharedData.Keys.breaks.rawValue) as? Date
+  }
+  
+  var clockInDate: Date? {
+    return self.object(forKey: SharedData.Keys.breaks.rawValue) as? Date
+  }
 }

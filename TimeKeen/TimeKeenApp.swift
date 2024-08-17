@@ -29,8 +29,8 @@ struct TimeKeenApp: App {
   var body: some Scene {
     WindowGroup {
       let userDefaults = SharedData.userDefaults ?? UserDefaults.standard
-      let start = userDefaults.object(forKey: "ClockInDate") as? Date
-      let breakStart = userDefaults.object(forKey: "BreakStart") as? Date
+      let start = userDefaults.clockInDate
+      let breakStart = userDefaults.breakStart
       let breaks = userDefaults.breaks
       let context = container.mainContext
       let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, clockedInAt: start, startedBreakAt: breakStart, withBreaks: breaks, userDefaults: userDefaults, quickActionProvider: appDelegate.quickActionProvider)
