@@ -1,6 +1,9 @@
 import Foundation
 
 extension Calendar {
+  func dateOnly(from date: Date) -> Date? {
+    return self.date(from: self.dateComponents([.year, .month, .day], from: date))
+  }
   func previousDay(from date: Date) -> Date? {
     return self.date(byAdding: .day, value: -1, to: date)
   }

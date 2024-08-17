@@ -1,11 +1,12 @@
 import SwiftUI
+import SwiftData
 import StoreKit
 
 struct PayPeriodList: View {
   var viewModel: PayPeriodListViewModel
   @AppStorage(SharedData.Keys.payPeriodSchedule.rawValue, store: SharedData.userDefaults) var payPeriodSchedule = PayPeriodSchedule.Weekly
   @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
-  @Environment(\.scenePhase) var scenePhase
+  @Query(sort: \TimeEntry.start, order: .reverse) var allTimeEntries: [TimeEntry]
   @State private var isPresentingShareSheet = false
   @State private var isEditingSettings = false
   @State private var isShopping = false
@@ -15,21 +16,24 @@ struct PayPeriodList: View {
   }
   
   var body: some View {
-    List(viewModel.payPeriods) { payPeriod in
+    List(allTimeEntries.group2(by: payPeriodSchedule, ending: endOfLastPayPeriod)) { payPeriod in
       NavigationLink(value: payPeriod) {
-        PayPeriodRow(viewModel: payPeriod)
+        HStack {
+          VStack(alignment: .leading) {
+            Text("\(Formatting.yearlessDateformatter.string(from: payPeriod.range.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.range.upperBound))")
+              .font(.headline)
+            Text(payPeriod.timeEntries.count == 1 ? "1 entry" : "\(payPeriod.timeEntries.count) entries")
+              .font(.caption)
+              .foregroundStyle(.secondary)
+          }
+          Spacer()
+          Text(Formatting.timeIntervalFormatter.string(from: payPeriod.timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock }) ?? "")
+            .foregroundStyle(.secondary)
+        }
       }
     }
-    .navigationDestination(for: PayPeriodViewModel.self) { payPeriod in
-      PayPeriodDetails(viewModel: payPeriod)
-    }
-    .onAppear() {
-      viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
-    }
-    .onChange(of: scenePhase) { _, newPhase in
-      if newPhase == .active {
-        viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
-      }
+    .navigationDestination(for: PayPeriod.self) { payPeriod in
+      PayPeriodDetails(payPeriod: payPeriod)
     }
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
@@ -49,7 +53,7 @@ struct PayPeriodList: View {
       }
     }
     .overlay {
-      if viewModel.payPeriods.isEmpty {
+      if allTimeEntries.isEmpty {
         ContentUnavailableView {
           Label("No Time Entries", systemImage: "clock")
         } description: {
@@ -60,7 +64,7 @@ struct PayPeriodList: View {
     .sheet(isPresented: $isPresentingShareSheet) {
       TimeEntrySharingView(viewModel: viewModel.timeEntrySharingViewModel)
     }
-    .sheet(isPresented: $isEditingSettings, onDismiss: refresh) {
+    .sheet(isPresented: $isEditingSettings) {
       VStack {
         Text("Pay Periods")
           .font(.headline)
@@ -96,9 +100,5 @@ struct PayPeriodList: View {
     .sheet(isPresented: $isShopping) {
       TipPickerSheet()
     }
-  }
-  
-  func refresh() {
-    viewModel.fetchTimeEntries(by: payPeriodSchedule, ending: endOfLastPayPeriod)
   }
 }

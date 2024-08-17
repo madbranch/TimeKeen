@@ -4,6 +4,58 @@ extension Array where Element == TimeEntry {
   func group(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> Dictionary<ClosedRange<Date>, [TimeEntry]> {
     return Dictionary(grouping: self, by: PayPeriodGrouping.getGroupByMethod(schedule: schedule, periodEnd: periodEnd))
   }
+  
+  func groupByDay() -> [[TimeEntry]] {
+    if self.isEmpty {
+      return [[TimeEntry]]()
+    }
+    
+    var result = [[TimeEntry]]()
+    let calendar = Calendar.current
+    var day = calendar.dateOnly(from: self[0].start)
+    var dailyTimeEntries = [TimeEntry]()
+    
+    for timeEntry in self {
+      let currentDay = calendar.dateOnly(from: timeEntry.start)
+      
+      if day == currentDay {
+        dailyTimeEntries.append(timeEntry)
+      } else {
+        result.append(dailyTimeEntries)
+        day = currentDay
+        dailyTimeEntries = [timeEntry]
+      }
+    }
+    
+    result.append(dailyTimeEntries)
+    return result;
+  }
+  
+  func group2(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> [PayPeriod] {
+    if self.isEmpty {
+      return [PayPeriod]()
+    }
+    
+    let groupByMethod = PayPeriodGrouping.getGroupByMethod(schedule: schedule, periodEnd: periodEnd)
+    var result = [PayPeriod]()
+    var payPeriodRange = groupByMethod(self[0])
+    var timeEntries = [TimeEntry]()
+    
+    for timeEntry in self {
+      let currentPayPeriodRange = groupByMethod(timeEntry)
+      
+      if payPeriodRange == currentPayPeriodRange {
+        timeEntries.append(timeEntry)
+      } else {
+        result.append(PayPeriod(range: payPeriodRange, timeEntries: timeEntries))
+        payPeriodRange = currentPayPeriodRange
+        timeEntries = [timeEntry]
+      }
+    }
+    
+    result.append(PayPeriod(range: payPeriodRange, timeEntries: timeEntries))
+    return result
+  }
 }
 
 struct PayPeriodGrouping {

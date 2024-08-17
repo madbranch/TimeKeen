@@ -1,19 +1,19 @@
 import SwiftUI
 
 struct PayPeriodDetails: View {
-  var viewModel: PayPeriodViewModel
+  var payPeriod: PayPeriod
 
-  init(viewModel: PayPeriodViewModel) {
-    self.viewModel = viewModel
+  init(payPeriod: PayPeriod) {
+    self.payPeriod = payPeriod
   }
 
   var body: some View {
-    List(viewModel.dailyTimeEntryLists) { dailyTimeEntryList in
+    List(payPeriod.timeEntries.filter { payPeriod.range.contains( $0.start ) }.groupByDay() ) { dailyTimeEntryList in
       PayPeriodSection(timeEntries: dailyTimeEntryList)
     }
     .navigationDestination(for: TimeEntry.self) { timeEntry in
       TimeEntryDetails(timeEntry: timeEntry)
     }
-    .navigationTitle("\(Formatting.yearlessDateformatter.string(from: viewModel.payPeriodStart)) - \(Formatting.yearlessDateformatter.string(from: viewModel.payPeriodEnd))")
+    .navigationTitle("\(Formatting.yearlessDateformatter.string(from: payPeriod.range.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.range.upperBound))")
   }
 }

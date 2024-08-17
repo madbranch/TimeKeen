@@ -12,9 +12,7 @@
 		662294B02C440196005707D1 /* TimeEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294AF2C440196005707D1 /* TimeEntryExtension.swift */; };
 		662294B22C4466B1005707D1 /* TimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B12C4466B1005707D1 /* TimeEntry.swift */; };
 		662294B42C4677B8005707D1 /* PayPeriodListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B32C4677B8005707D1 /* PayPeriodListViewModel.swift */; };
-		662294B62C4678FC005707D1 /* PayPeriodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B52C4678FC005707D1 /* PayPeriodViewModel.swift */; };
 		662294B92C46874F005707D1 /* PayPeriodList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B82C46874F005707D1 /* PayPeriodList.swift */; };
-		662294BB2C47DCB8005707D1 /* PayPeriodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */; };
 		662294BD2C47E904005707D1 /* PayPeriodDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294BC2C47E904005707D1 /* PayPeriodDetails.swift */; };
 		662294BF2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294BE2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift */; };
 		6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125129607279007A5343 /* CurrentTimeEntryView.swift */; };
@@ -52,6 +50,7 @@
 		66B1D8122C60D0460015BD48 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */; };
 		66B1D8152C6AA0210015BD48 /* TipPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D8142C6AA0210015BD48 /* TipPickerSheet.swift */; };
 		66B1D8172C7058760015BD48 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D8162C7058760015BD48 /* ArrayExtension.swift */; };
+		66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,9 +77,7 @@
 		662294AF2C440196005707D1 /* TimeEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryExtension.swift; sourceTree = "<group>"; };
 		662294B12C4466B1005707D1 /* TimeEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntry.swift; sourceTree = "<group>"; };
 		662294B32C4677B8005707D1 /* PayPeriodListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodListViewModel.swift; sourceTree = "<group>"; };
-		662294B52C4678FC005707D1 /* PayPeriodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodViewModel.swift; sourceTree = "<group>"; };
 		662294B82C46874F005707D1 /* PayPeriodList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodList.swift; sourceTree = "<group>"; };
-		662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodRow.swift; sourceTree = "<group>"; };
 		662294BC2C47E904005707D1 /* PayPeriodDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodDetails.swift; sourceTree = "<group>"; };
 		662294BE2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTimeEntryListSectionHeader.swift; sourceTree = "<group>"; };
 		6629125129607279007A5343 /* CurrentTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryView.swift; sourceTree = "<group>"; };
@@ -124,6 +121,7 @@
 		66B1D8132C6783F90015BD48 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
 		66B1D8142C6AA0210015BD48 /* TipPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipPickerSheet.swift; sourceTree = "<group>"; };
 		66B1D8162C7058760015BD48 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +207,7 @@
 				66411CE52C4E6E7D0050FDFB /* Formatting.swift */,
 				6693597829606A3A00DEDD35 /* Info.plist */,
 				66411CFA2C5134490050FDFB /* Localizable.xcstrings */,
+				66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */,
 				66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */,
 				6693597029606A3A00DEDD35 /* Preview Content */,
 				66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */,
@@ -259,9 +258,7 @@
 				66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */,
 				662294B82C46874F005707D1 /* PayPeriodList.swift */,
 				662294B32C4677B8005707D1 /* PayPeriodListViewModel.swift */,
-				662294BA2C47DCB8005707D1 /* PayPeriodRow.swift */,
 				66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */,
-				662294B52C4678FC005707D1 /* PayPeriodViewModel.swift */,
 				66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */,
 				66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */,
 				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
@@ -289,6 +286,8 @@
 			dependencies = (
 			);
 			name = TimeKeen;
+			packageProductDependencies = (
+			);
 			productName = TimeKeen;
 			productReference = 6693596729606A3900DEDD35 /* TimeKeen.app */;
 			productType = "com.apple.product-type.application";
@@ -362,6 +361,8 @@
 				fr,
 			);
 			mainGroup = 6693595E29606A3900DEDD35;
+			packageReferences = (
+			);
 			productRefGroup = 6693596829606A3900DEDD35 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -415,15 +416,14 @@
 				66411CE62C4E6E7D0050FDFB /* Formatting.swift in Sources */,
 				66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */,
 				66411CDE2C4D24CD0050FDFB /* BreakEntry.swift in Sources */,
-				662294BB2C47DCB8005707D1 /* PayPeriodRow.swift in Sources */,
 				66411CF22C4FBE6A0050FDFB /* DateExtension.swift in Sources */,
+				66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */,
 				66411CF02C4F56B50050FDFB /* PayPeriodSchedule.swift in Sources */,
 				66411CDA2C4B003A0050FDFB /* TimeEntryDetails.swift in Sources */,
 				6629125629607CB4007A5343 /* CurrentTimeEntryViewModel.swift in Sources */,
 				662269302C52DD0100E51B69 /* TimeEntryExportFormat.swift in Sources */,
 				662D07452974210B002083F6 /* ContentView.swift in Sources */,
 				662294B22C4466B1005707D1 /* TimeEntry.swift in Sources */,
-				662294B62C4678FC005707D1 /* PayPeriodViewModel.swift in Sources */,
 				66B1D8152C6AA0210015BD48 /* TipPickerSheet.swift in Sources */,
 				662294B92C46874F005707D1 /* PayPeriodList.swift in Sources */,
 				662294BF2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift in Sources */,
