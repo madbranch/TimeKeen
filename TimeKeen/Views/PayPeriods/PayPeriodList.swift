@@ -49,37 +49,7 @@ struct PayPeriodList: View {
       TimeEntrySharingView(timeEntries: allTimeEntries)
     }
     .sheet(isPresented: $isEditingSettings) {
-      VStack {
-        Text("Pay Periods")
-          .font(.headline)
-          .frame(maxWidth: .infinity, alignment: .center)
-          .overlay(alignment: .trailing) {
-            Button("OK") {
-              isEditingSettings = false
-            }
-          }
-          .padding([.bottom])
-        Text("Choose how you want your time entries to be grouped.")
-          .font(.subheadline)
-        Picker("Schedule", selection: $payPeriodSchedule) {
-          Text("Weekly").tag(PayPeriodSchedule.Weekly)
-          Text("Biweekly").tag(PayPeriodSchedule.Biweekly)
-          Text("Monthly").tag(PayPeriodSchedule.Monthly)
-          Text("Every Four Weeks").tag(PayPeriodSchedule.EveryFourWeeks)
-          Text("1st & 16th").tag(PayPeriodSchedule.FirstAndSixteenth)
-        }
-        if payPeriodSchedule == .FirstAndSixteenth {
-          LabeledContent("Period Ends") {
-            Text("Twice Monthly")
-          }
-        } else {
-          DatePicker("Period Ends", selection: $endOfLastPayPeriod, displayedComponents: [.date] )
-            .datePickerStyle(.compact)
-        }
-        Spacer()
-      }
-      .padding()
-      .presentationDetents([.medium])
+      PayPeriodSettingsSheet()
     }
     .sheet(isPresented: $isShopping) {
       TipPickerSheet()
