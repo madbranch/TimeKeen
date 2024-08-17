@@ -1,4 +1,5 @@
-enum ClockInState: Equatable {
+enum ClockInState {
   case clockedOut
-  case clockedIn(BreakState)
+  case clockedInWorking
+  case clockedInTakingABreak
 }

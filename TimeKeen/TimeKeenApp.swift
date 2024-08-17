@@ -80,13 +80,10 @@ struct TimeKeenApp: App {
   func updateQuickActions(currentTimeEntryViewModel: CurrentTimeEntryViewModel) {
     UIApplication.shared.shortcutItems = switch currentTimeEntryViewModel.clockInState {
     case .clockedOut: [TimeKeenApp.clockInQuickAction]
-    case .clockedIn(let breakState):
-      switch breakState {
-      case .takingABreak:
-        [TimeKeenApp.endBreakQuickAction]
-      case .working:
-        [TimeKeenApp.clockOutQuickAction, TimeKeenApp.startBreakQuickAction]
-      }
+    case .clockedInWorking:
+      [TimeKeenApp.clockOutQuickAction, TimeKeenApp.startBreakQuickAction]
+    case .clockedInTakingABreak:
+      [TimeKeenApp.endBreakQuickAction]
     }
   }
 }

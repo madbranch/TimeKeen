@@ -24,7 +24,6 @@
 		66411CD82C4AA27E0050FDFB /* TimeEntryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */; };
 		66411CDA2C4B003A0050FDFB /* TimeEntryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */; };
 		66411CDE2C4D24CD0050FDFB /* BreakEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */; };
-		66411CE02C4D28B40050FDFB /* BreakState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CDF2C4D28B40050FDFB /* BreakState.swift */; };
 		66411CE22C4D3ED10050FDFB /* BreakItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE12C4D3ED10050FDFB /* BreakItem.swift */; };
 		66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */; };
 		66411CE62C4E6E7D0050FDFB /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE52C4E6E7D0050FDFB /* Formatting.swift */; };
@@ -87,7 +86,6 @@
 		66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryList.swift; sourceTree = "<group>"; };
 		66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryDetails.swift; sourceTree = "<group>"; };
 		66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakEntry.swift; sourceTree = "<group>"; };
-		66411CDF2C4D28B40050FDFB /* BreakState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakState.swift; sourceTree = "<group>"; };
 		66411CE12C4D3ED10050FDFB /* BreakItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakItem.swift; sourceTree = "<group>"; };
 		66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakEntryExtension.swift; sourceTree = "<group>"; };
 		66411CE52C4E6E7D0050FDFB /* Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatting.swift; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				66411CE12C4D3ED10050FDFB /* BreakItem.swift */,
-				66411CDF2C4D28B40050FDFB /* BreakState.swift */,
 				669393E32986B2BD00CC661C /* ClockInState.swift */,
 				662912582961A798007A5343 /* ClockOutError.swift */,
 				6629125129607279007A5343 /* CurrentTimeEntryView.swift */,
@@ -405,7 +402,6 @@
 				66411CEE2C4EDE4D0050FDFB /* IntervalDatePicker.swift in Sources */,
 				66ADA40B2C5271F6002E6185 /* TimeEntrySharingView.swift in Sources */,
 				662294BD2C47E904005707D1 /* PayPeriodDetails.swift in Sources */,
-				66411CE02C4D28B40050FDFB /* BreakState.swift in Sources */,
 				662D0747297421D7002083F6 /* ContentViewModel.swift in Sources */,
 				66411CE62C4E6E7D0050FDFB /* Formatting.swift in Sources */,
 				66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */,

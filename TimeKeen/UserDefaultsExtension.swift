@@ -32,4 +32,8 @@ extension UserDefaults {
   var clockInDate: Date? {
     return self.object(forKey: SharedData.Keys.breaks.rawValue) as? Date
   }
+  
+  var clockInState: ClockInState {
+    return self.object(forKey: SharedData.Keys.clockInState.rawValue) as? ClockInState ?? .clockedOut
+  }
 }

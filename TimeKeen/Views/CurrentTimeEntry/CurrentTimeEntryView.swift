@@ -8,14 +8,17 @@ struct CurrentTimeEntryView: View {
       UIDatePicker.appearance().minuteInterval = minuteInterval
     }
   }
+  //@AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) var clockInState = ClockInState.clockedOut
   @State private var clockInDuration: TimeInterval = .zero
   @State private var isClockingIn = false
   @State private var isClockingOut = false
+  @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) var clockInDate = Date()
   @State private var clockOutDate = Date()
   @State private var minClockOutDate = Date()
   @State private var notes = ""
   @State private var isStartingBreak = false
   @State private var isEndingBreak = false
+  @AppStorage(SharedData.Keys.breakStart.rawValue, store: SharedData.userDefaults) var breakStart = Date()
   @State private var breakEnd = Date()
   @State private var minBreakEndDate = Date()
   
@@ -42,17 +45,17 @@ struct CurrentTimeEntryView: View {
       }
       break
     case .clockOut:
-      if viewModel.clockInState == .clockedIn(.working) {
+      if viewModel.clockInState == .clockedInWorking {
         _ = viewModel.clockOut(at: getRoundedNow(), notes: notes)
       }
       break
     case .startBreak:
-      if viewModel.clockInState == .clockedIn(.working) {
+      if viewModel.clockInState == .clockedInWorking {
         viewModel.startBreak(at: getRoundedNow())
       }
       break
     case .endBreak:
-      if viewModel.clockInState == .clockedIn(.takingABreak) {
+      if viewModel.clockInState == .clockedInTakingABreak {
         viewModel.endBreak(at: getRoundedNow())
       }
     }
@@ -93,7 +96,7 @@ struct CurrentTimeEntryView: View {
         .controlSize(.large)
         .buttonBorderShape(.circle)
         .padding()
-      case .clockedIn(let breakState):
+      case .clockedInWorking, .clockedInTakingABreak:
         Spacer()
         Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
           .onAppear { updateClockInDuration(input: Date.now) }
@@ -103,7 +106,7 @@ struct CurrentTimeEntryView: View {
           .minimumScaleFactor(0.01)
           .lineLimit(1)
           .foregroundStyle(clockInDuration < 0 ? .secondary : .primary)
-        if breakState == .takingABreak {
+        if viewModel.clockInState == .clockedInTakingABreak {
           Text("Started Break at \(Formatting.startEndFormatter.string(from: viewModel.breakStart))")
             .foregroundStyle(.secondary)
         }
@@ -111,7 +114,7 @@ struct CurrentTimeEntryView: View {
         TextField("Notes", text: $notes)
           .padding()
           .textFieldStyle(.roundedBorder)
-        if breakState == .working {
+        if viewModel.clockInState == .clockedInWorking {
           Button {
             viewModel.breakStart = getRoundedNow()
             isStartingBreak = true
@@ -124,8 +127,7 @@ struct CurrentTimeEntryView: View {
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
-        switch breakState {
-        case .working:
+        if viewModel.clockInState == .clockedInWorking {
           Button("Clock Out...", action: {
             guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: viewModel.clockInDate) else {
               return
@@ -138,7 +140,7 @@ struct CurrentTimeEntryView: View {
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
-        case .takingABreak:
+        } else if viewModel.clockInState == .clockedInTakingABreak {
           Button("End Break...", action: {
             guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: viewModel.breakStart) else {
               return
@@ -161,7 +163,7 @@ struct CurrentTimeEntryView: View {
     .sensoryFeedback(trigger: viewModel.clockInState) { old, new in
       return switch new {
       case .clockedOut: .success
-      case .clockedIn(_): old == .clockedOut ? .impact : nil
+      case .clockedInWorking, .clockedInTakingABreak: old == .clockedOut ? .impact : nil
       }
     }
     .sheet(isPresented: $isClockingIn) { [viewModel, clockInDate = viewModel.clockInDate, minuteInterval] in
