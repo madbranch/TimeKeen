@@ -248,15 +248,15 @@
 				662294BC2C47E904005707D1 /* PayPeriodDetails.swift */,
 				66411CF32C4FC0790050FDFB /* PayPeriodGrouping.swift */,
 				662294B82C46874F005707D1 /* PayPeriodList.swift */,
+				6671203F2C714DCC0017811E /* PayPeriodRow.swift */,
 				66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */,
+				667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */,
 				66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */,
+				6622692F2C52DD0100E51B69 /* TimeEntryExportFormat.swift */,
 				66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */,
 				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
 				66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */,
-				6622692F2C52DD0100E51B69 /* TimeEntryExportFormat.swift */,
 				66B1D8142C6AA0210015BD48 /* TipPickerSheet.swift */,
-				6671203F2C714DCC0017811E /* PayPeriodRow.swift */,
-				667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */,
 			);
 			path = PayPeriods;
 			sourceTree = "<group>";
