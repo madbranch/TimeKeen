@@ -1,18 +1,18 @@
 import SwiftUI
 
 struct ContentView: View {
-  var viewModel: ContentViewModel
+  var quickActionProvider: QuickActionProvider
   @State private var path: NavigationPath = .init()
   @State private var selectedTab = 0
   @AppStorage(SharedData.Keys.minuteInterval.rawValue, store: SharedData.userDefaults) var minuteInterval = 15
   
-  init(viewModel: ContentViewModel) {
-    self.viewModel = viewModel
+  init(quickActionProvider: QuickActionProvider) {
+    self.quickActionProvider = quickActionProvider
   }
   
   var body: some View {
     TabView(selection: $selectedTab) {
-      CurrentTimeEntryView(viewModel: viewModel.currentTimeEntryViewModel)
+      CurrentTimeEntryView(quickActionProvider: quickActionProvider)
         .tabItem {
           Label("Clock In", systemImage: "clock")
         }

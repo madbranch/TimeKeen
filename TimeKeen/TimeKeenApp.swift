@@ -14,34 +14,18 @@ enum QuickAction: String {
 
 @main
 struct TimeKeenApp: App {
-  let container: ModelContainer
   @Environment(\.scenePhase) var scenePhase
+  @AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) var clockInState = ClockInState.clockedOut
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-  
-  init() {
-    do {
-      container = try ModelContainer(for: TimeEntry.self, BreakEntry.self)
-    } catch {
-      fatalError("Failed to create ModelContainer for TimeEntry")
-    }
-  }
   
   var body: some Scene {
     WindowGroup {
-      let userDefaults = SharedData.userDefaults ?? UserDefaults.standard
-      let start = userDefaults.clockInDate
-      let breakStart = userDefaults.breakStart
-      let breaks = userDefaults.breaks
-      let context = container.mainContext
-      let currentTimeEntryViewModel = CurrentTimeEntryViewModel(context: context, clockedInAt: start, startedBreakAt: breakStart, withBreaks: breaks, userDefaults: userDefaults, quickActionProvider: appDelegate.quickActionProvider)
-      let viewModel = ContentViewModel(currentTimeEntryViewModel: currentTimeEntryViewModel)
-      
-      ContentView(viewModel: viewModel)
-        .modelContainer(container)
+      ContentView(quickActionProvider: appDelegate.quickActionProvider)
+        .modelContainer(for: [TimeEntry.self, BreakEntry.self])
         .onChange(of: scenePhase) { _, newPhase in
           switch newPhase {
           case .background:
-            updateQuickActions(currentTimeEntryViewModel: currentTimeEntryViewModel)
+            updateQuickActions()
           case .inactive:
             break
           case .active:
@@ -77,8 +61,8 @@ struct TimeKeenApp: App {
                               localizedSubtitle: NSLocalizedString("Go back to work", comment: "Quick action sub-title for going back to work"),
                               icon: UIApplicationShortcutIcon(systemImageName: "play.fill"))
 
-  func updateQuickActions(currentTimeEntryViewModel: CurrentTimeEntryViewModel) {
-    UIApplication.shared.shortcutItems = switch currentTimeEntryViewModel.clockInState {
+  func updateQuickActions() {
+    UIApplication.shared.shortcutItems = switch clockInState {
     case .clockedOut: [TimeKeenApp.clockInQuickAction]
     case .clockedInWorking:
       [TimeKeenApp.clockOutQuickAction, TimeKeenApp.startBreakQuickAction]
