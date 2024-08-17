@@ -33,13 +33,8 @@ struct CurrentTimeEntryView: View {
   
   var body: some View {
     VStack {
-      Picker("Minute Interval", selection: $minuteInterval) {
-        Text("1 minute").tag(1)
-        Text("5 minutes").tag(5)
-        Text("10 minutes").tag(10)
-        Text("15 minutes").tag(15)
-      }
-      .padding()
+      minuteIntervalPicker
+        .padding()
       switch clockInState {
       case .clockedOut:
         Button {
@@ -227,6 +222,15 @@ struct CurrentTimeEntryView: View {
       .presentationDetents([.medium])
     }
   }
+    
+  var minuteIntervalPicker: some View {
+    Picker("Minute Interval", selection: $minuteInterval) {
+      Text("1 minute").tag(1)
+      Text("5 minutes").tag(5)
+      Text("10 minutes").tag(10)
+      Text("15 minutes").tag(15)
+    }
+  }
   
   private func updateClockInDuration(input: Date) {
     clockInDuration = clockInDate.distance(to: input)
@@ -283,7 +287,7 @@ struct CurrentTimeEntryView: View {
       clockInState = .clockedInWorking
     }
   }
-    
+  
   func startBreak(at breakStart: Date) {
     switch clockInState {
     case .clockedOut:
