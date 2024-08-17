@@ -16,7 +16,7 @@ struct PayPeriodList: View {
   }
   
   var body: some View {
-    List(allTimeEntries.group2(by: payPeriodSchedule, ending: endOfLastPayPeriod)) { payPeriod in
+    List(allTimeEntries.group(by: payPeriodSchedule, ending: endOfLastPayPeriod)) { payPeriod in
       NavigationLink(value: payPeriod) {
         HStack {
           VStack(alignment: .leading) {

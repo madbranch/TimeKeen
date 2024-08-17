@@ -1,10 +1,6 @@
 import Foundation
 
 extension Array where Element == TimeEntry {
-  func group(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> Dictionary<ClosedRange<Date>, [TimeEntry]> {
-    return Dictionary(grouping: self, by: PayPeriodGrouping.getGroupByMethod(schedule: schedule, periodEnd: periodEnd))
-  }
-  
   func groupByDay() -> [[TimeEntry]] {
     if self.isEmpty {
       return [[TimeEntry]]()
@@ -31,7 +27,7 @@ extension Array where Element == TimeEntry {
     return result;
   }
   
-  func group2(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> [PayPeriod] {
+  func group(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> [PayPeriod] {
     if self.isEmpty {
       return [PayPeriod]()
     }
