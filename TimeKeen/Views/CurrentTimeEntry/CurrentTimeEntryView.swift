@@ -12,6 +12,7 @@ struct CurrentTimeEntryView: View {
   @Environment(\.modelContext) private var context
   @AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) var clockInState = ClockInState.clockedOut
   @State private var clockInDuration: TimeInterval = .zero
+  @State private var sinceClockIn: TimeInterval = .zero
   @State private var isClockingIn = false
   @State private var isClockingOut = false
   @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) var clockInDate = Date()
@@ -20,6 +21,7 @@ struct CurrentTimeEntryView: View {
   @State private var notes = ""
   @State private var isStartingBreak = false
   @State private var isEndingBreak = false
+  @State private var minBreakStart = Date()
   @AppStorage(SharedData.Keys.breakStart.rawValue, store: SharedData.userDefaults) var breakStart = Date()
   @State private var breakEnd = Date()
   @State private var minBreakEndDate = Date()
@@ -71,39 +73,26 @@ struct CurrentTimeEntryView: View {
           .textFieldStyle(.roundedBorder)
         if clockInState == .clockedInWorking {
           Button {
-            breakStart = getRoundedNow()
-            isStartingBreak = true
+            isStartingBreak = startTakingBreak()
           } label: {
             Text("Take a Break...")
               .padding()
           }
         }
-        Text(clockInDuration < 0 ? "Clocking in at \(Formatting.startEndFormatter.string(from: clockInDate))..." : "Clocked in at \(Formatting.startEndFormatter.string(from: clockInDate))")
+        Text(sinceClockIn < 0 ? "Clocking in at \(Formatting.startEndFormatter.string(from: clockInDate))..." : "Clocked in at \(Formatting.startEndFormatter.string(from: clockInDate))")
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
         if clockInState == .clockedInWorking {
           Button("Clock Out...", action: {
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: clockInDate) else {
-              return
-            }
-            
-            minClockOutDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
-            clockOutDate = max(minClockOutDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
-            isClockingOut = true
+            isClockingOut = startClockingOut()
           })
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
           .padding()
         } else if clockInState == .clockedInTakingABreak {
           Button("End Break...", action: {
-            guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: breakStart) else {
-              return
-            }
-            
-            minBreakEndDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
-            breakEnd = max(minBreakEndDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
-            isEndingBreak = true
+            isEndingBreak = startEndingBreak()
           })
           .buttonStyle(.borderedProminent)
           .controlSize(.large)
@@ -158,7 +147,7 @@ struct CurrentTimeEntryView: View {
           }
         IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
-          _ = clockOut(at: clockOutDate, notes: notes)
+          clockOut(at: clockOutDate, notes: notes)
           isClockingOut = false
         }) {
           Text("Clock Out At \(Formatting.startEndFormatter.string(from: clockOutDate))")
@@ -171,7 +160,7 @@ struct CurrentTimeEntryView: View {
       .padding()
       .presentationDetents([.medium])
     }
-    .sheet(isPresented: $isStartingBreak) { [breakStart, clockInDate, minuteInterval] in
+    .sheet(isPresented: $isStartingBreak) { [breakStart, minBreakStart, minuteInterval] in
       VStack {
         Text("Start Break")
           .font(.headline)
@@ -181,7 +170,7 @@ struct CurrentTimeEntryView: View {
               isStartingBreak = false
             }
           }
-        IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: clockInDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+        IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: minBreakStart..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
           startBreak(at: breakStart)
           isStartingBreak = false
@@ -196,7 +185,7 @@ struct CurrentTimeEntryView: View {
       .padding()
       .presentationDetents([.medium])
     }
-    .sheet(isPresented: $isEndingBreak) { [breakStart, breakEnd, minuteInterval] in
+    .sheet(isPresented: $isEndingBreak) { [minBreakEndDate, breakEnd, minuteInterval] in
       VStack {
         Text("End Break")
           .font(.headline)
@@ -206,7 +195,7 @@ struct CurrentTimeEntryView: View {
               isEndingBreak = false
             }
           }
-        IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: breakStart..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+        IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: minBreakEndDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
         Button(action: {
           endBreak(at: breakEnd)
           isEndingBreak = false
@@ -222,7 +211,7 @@ struct CurrentTimeEntryView: View {
       .presentationDetents([.medium])
     }
   }
-    
+  
   var minuteIntervalPicker: some View {
     Picker("Minute Interval", selection: $minuteInterval) {
       Text("1 minute").tag(1)
@@ -232,8 +221,66 @@ struct CurrentTimeEntryView: View {
     }
   }
   
+  private func startClockingOut() -> Bool {
+    guard clockInState == .clockedInWorking else {
+      return false
+    }
+    
+    guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: clockInDate) else {
+      return false
+    }
+    
+    minClockOutDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
+    clockOutDate = max(minClockOutDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
+    return true
+  }
+  
+  private func startTakingBreak() -> Bool {
+    guard clockInState == .clockedInWorking else {
+      return false
+    }
+    
+    guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: clockInDate) else {
+      return false
+    }
+    
+    minBreakStart = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
+    breakStart = max(minBreakStart, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
+    return true
+  }
+  
+  private func startEndingBreak() -> Bool {
+    guard clockInState == .clockedInTakingABreak else {
+      return false
+    }
+    
+    guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: breakStart) else {
+      return false
+    }
+    
+    minBreakEndDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
+    breakEnd = max(minBreakEndDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
+    return true
+  }
+  
   private func updateClockInDuration(input: Date) {
-    clockInDuration = clockInDate.distance(to: input)
+    switch clockInState {
+    case .clockedOut:
+      sinceClockIn = .zero
+      clockInDuration = .zero
+      break
+    case .clockedInWorking:
+      let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
+      sinceClockIn = clockInDate.distance(to: input)
+      clockInDuration = sinceClockIn - onBreak
+      break
+    case .clockedInTakingABreak:
+      let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
+      sinceClockIn = clockInDate.distance(to: input)
+      let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: input))
+      clockInDuration = sinceClockIn - onBreak - sinceBreakStart
+      break
+    }
   }
   
   func getRoundedNow() -> Date {
@@ -243,24 +290,21 @@ struct CurrentTimeEntryView: View {
   private func handle(_ quickAction: QuickAction) {
     switch quickAction {
     case .clockIn:
-      if clockInState == .clockedOut {
-        notes = ""
-        clockIn(at: getRoundedNow())
-      }
+      clockIn(at: getRoundedNow())
       break
     case .clockOut:
-      if clockInState == .clockedInWorking {
-        _ = clockOut(at: getRoundedNow(), notes: notes)
+      if startClockingOut() {
+        clockOut(at: clockOutDate, notes: notes)
       }
       break
     case .startBreak:
-      if clockInState == .clockedInWorking {
-        startBreak(at: getRoundedNow())
+      if startTakingBreak() {
+        startBreak(at: breakStart)
       }
       break
     case .endBreak:
-      if clockInState == .clockedInTakingABreak {
-        endBreak(at: getRoundedNow())
+      if startEndingBreak() {
+        endBreak(at: breakEnd)
       }
     }
   }
@@ -271,65 +315,44 @@ struct CurrentTimeEntryView: View {
     }
     
     handle(quickAction)
-    
     quickActionProvider.quickAction = nil
   }
   
   func clockIn(at clockInDate: Date) {
-    switch clockInState {
-    case .clockedInWorking:
+    guard clockInState == .clockedOut else {
       return
-    case .clockedInTakingABreak:
-      return
-    case .clockedOut:
-      self.clockInDate = clockInDate
-      breaks = [BreakItem]()
-      clockInState = .clockedInWorking
     }
+    self.clockInDate = clockInDate
+    breaks = [BreakItem]()
+    notes = ""
+    clockInState = .clockedInWorking
   }
   
   func startBreak(at breakStart: Date) {
-    switch clockInState {
-    case .clockedOut:
-      return
-    case .clockedInWorking:
-      self.breakStart = breakStart
-      clockInState = .clockedInTakingABreak
-      break
-    case .clockedInTakingABreak:
+    guard clockInState == .clockedInWorking else {
       return
     }
+    
+    self.breakStart = breakStart
+    clockInState = .clockedInTakingABreak
   }
   
   func endBreak(at breakEnd: Date) {
-    switch clockInState {
-    case .clockedOut:
-      return
-    case .clockedInTakingABreak:
-      breaks = breaks + [BreakItem(start: breakStart, end: breakEnd)]
-      clockInState = .clockedInWorking
-      break
-    case .clockedInWorking:
+    guard clockInState == .clockedInTakingABreak else {
       return
     }
+    breaks = breaks + [BreakItem(start: breakStart, end: breakEnd)]
+    clockInState = .clockedInWorking
   }
   
-  func clockOut(at end: Date, notes: String) -> Result<TimeEntry, ClockOutError> {
-    switch clockInState {
-    case .clockedOut:
-      return .failure(.notClockedIn)
-    case .clockedInTakingABreak:
-      return .failure(.notWorking)
-    case .clockedInWorking:
-      guard clockInDate != end else {
-        return .failure(.startAndEndEqual)
-      }
-      
-      let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
-      timeEntry.breaks.append(contentsOf: breaks.map { BreakEntry(start: $0.start, end: $0.end) })
-      context.insert(timeEntry)
-      clockInState = .clockedOut
-      return .success(timeEntry)
+  func clockOut(at end: Date, notes: String) {
+    guard clockInState == .clockedInWorking && clockInDate != end else {
+      return
     }
+    
+    let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
+    timeEntry.breaks.append(contentsOf: breaks.map { BreakEntry(start: $0.start, end: $0.end) })
+    context.insert(timeEntry)
+    clockInState = .clockedOut
   }
 }
