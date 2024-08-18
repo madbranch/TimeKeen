@@ -36,6 +36,8 @@
 		665E7E5A2C5EBB8400E8C43F /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E7E592C5EBB8400E8C43F /* SharedData.swift */; };
 		667120402C714DCC0017811E /* PayPeriodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6671203F2C714DCC0017811E /* PayPeriodRow.swift */; };
 		667120422C714EF60017811E /* PayPeriodSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */; };
+		667120442C71FD460017811E /* TimeEntryCsvExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120432C71FD460017811E /* TimeEntryCsvExport.swift */; };
+		667120462C71FD820017811E /* TimeEntryJsonExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120452C71FD820017811E /* TimeEntryJsonExport.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
@@ -99,6 +101,8 @@
 		665E7E592C5EBB8400E8C43F /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
 		6671203F2C714DCC0017811E /* PayPeriodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodRow.swift; sourceTree = "<group>"; };
 		667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodSettingsSheet.swift; sourceTree = "<group>"; };
+		667120432C71FD460017811E /* TimeEntryCsvExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryCsvExport.swift; sourceTree = "<group>"; };
+		667120452C71FD820017811E /* TimeEntryJsonExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryJsonExport.swift; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -251,8 +255,10 @@
 				6671203F2C714DCC0017811E /* PayPeriodRow.swift */,
 				66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */,
 				667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */,
+				667120432C71FD460017811E /* TimeEntryCsvExport.swift */,
 				66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */,
 				6622692F2C52DD0100E51B69 /* TimeEntryExportFormat.swift */,
+				667120452C71FD820017811E /* TimeEntryJsonExport.swift */,
 				66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */,
 				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
 				66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */,
@@ -411,6 +417,7 @@
 				66411CDA2C4B003A0050FDFB /* TimeEntryDetails.swift in Sources */,
 				662269302C52DD0100E51B69 /* TimeEntryExportFormat.swift in Sources */,
 				662D07452974210B002083F6 /* ContentView.swift in Sources */,
+				667120462C71FD820017811E /* TimeEntryJsonExport.swift in Sources */,
 				662294B22C4466B1005707D1 /* TimeEntry.swift in Sources */,
 				667120422C714EF60017811E /* PayPeriodSettingsSheet.swift in Sources */,
 				66B1D8152C6AA0210015BD48 /* TipPickerSheet.swift in Sources */,
@@ -423,6 +430,7 @@
 				669393E42986B2BD00CC661C /* ClockInState.swift in Sources */,
 				6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */,
 				66411CF42C4FC0790050FDFB /* PayPeriodGrouping.swift in Sources */,
+				667120442C71FD460017811E /* TimeEntryCsvExport.swift in Sources */,
 				66B1D8172C7058760015BD48 /* ArrayExtension.swift in Sources */,
 				665E7E572C5A76C600E8C43F /* CalendarExtension.swift in Sources */,
 				662294AC2C43F840005707D1 /* TimeEntryRow.swift in Sources */,
