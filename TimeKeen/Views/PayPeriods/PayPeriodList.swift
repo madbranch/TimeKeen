@@ -46,7 +46,7 @@ struct PayPeriodList: View {
       }
     }
     .sheet(isPresented: $isPresentingShareSheet) {
-      TimeEntrySharingView(timeEntries: allTimeEntries)
+      TimeEntrySharingView(timeEntries: allTimeEntries, defaultRange: (allTimeEntries.first?.start ?? Date()).getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod))
     }
     .sheet(isPresented: $isEditingSettings) {
       PayPeriodSettingsSheet()

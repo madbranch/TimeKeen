@@ -28,17 +28,17 @@ extension Array where Element == TimeEntry {
   }
   
   func group(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> [PayPeriod] {
-    if self.isEmpty {
+    guard let first = self.first else {
       return [PayPeriod]()
     }
     
     let groupByMethod = PayPeriodGrouping.getGroupByMethod(schedule: schedule, periodEnd: periodEnd)
     var result = [PayPeriod]()
-    var payPeriodRange = groupByMethod(self[0])
+    var payPeriodRange = groupByMethod(first.start)
     var timeEntries = [TimeEntry]()
     
     for timeEntry in self {
-      let currentPayPeriodRange = groupByMethod(timeEntry)
+      let currentPayPeriodRange = groupByMethod(timeEntry.start)
       
       if payPeriodRange == currentPayPeriodRange {
         timeEntries.append(timeEntry)
@@ -54,8 +54,20 @@ extension Array where Element == TimeEntry {
   }
 }
 
+extension TimeEntry {
+  func getPayPeriod(schedule: PayPeriodSchedule, periodEnd: Date) -> ClosedRange<Date> {
+    return PayPeriodGrouping.getGroupByMethod(schedule: schedule, periodEnd: periodEnd)(self.start)
+  }
+}
+
+extension Date {
+  func getPayPeriod(schedule: PayPeriodSchedule, periodEnd: Date) -> ClosedRange<Date> {
+    return PayPeriodGrouping.getGroupByMethod(schedule: schedule, periodEnd: periodEnd)(self)
+  }
+}
+
 struct PayPeriodGrouping {
-  static func getGroupByMethod(schedule: PayPeriodSchedule, periodEnd: Date) -> (TimeEntry) -> ClosedRange<Date> {
+  static func getGroupByMethod(schedule: PayPeriodSchedule, periodEnd: Date) -> (Date) -> ClosedRange<Date> {
     return switch schedule {
     case .Weekly: getGroupByWeekly(periodEnd: periodEnd)
     case .Biweekly: getGroupByNWeekly(periodEnd: periodEnd, nbWeeks: 2)
@@ -65,24 +77,23 @@ struct PayPeriodGrouping {
     }
   }
   
-  private static func getGroupByWeekly(periodEnd: Date) -> (TimeEntry) -> ClosedRange<Date> {
+  private static func getGroupByWeekly(periodEnd: Date) -> (Date) -> ClosedRange<Date> {
     var calendar = Calendar(identifier: Calendar.current.identifier)
     calendar.firstWeekday = (calendar.component(.weekday, from: periodEnd) % calendar.weekdaySymbols.count) + 1
     return {
-      let yearForWeekOfYear = calendar.component(.yearForWeekOfYear, from: $0.start)
-      let weekOfYear = calendar.component(.weekOfYear, from: $0.start)
+      let yearForWeekOfYear = calendar.component(.yearForWeekOfYear, from: $0)
+      let weekOfYear = calendar.component(.weekOfYear, from: $0)
       let currentPeriodStart = calendar.date(from: DateComponents(weekOfYear: weekOfYear, yearForWeekOfYear: yearForWeekOfYear))!
       let currentPeriodEnd = calendar.date(byAdding: .day, value: calendar.weekdaySymbols.count - 1, to: currentPeriodStart)!
       return currentPeriodStart...currentPeriodEnd
     }
   }
   
-  private static func getGroupByNWeekly(periodEnd: Date, nbWeeks: Int) -> (TimeEntry) -> ClosedRange<Date> {
+  private static func getGroupByNWeekly(periodEnd: Date, nbWeeks: Int) -> (Date) -> ClosedRange<Date> {
     let calendar = Calendar.current
     let nbDays = calendar.weekdaySymbols.count * nbWeeks
     let periodStart = calendar.date(byAdding: .day, value: 1, to: periodEnd)!
-    return {
-      let start = $0.start
+    return { start in
       let deltaComponents = calendar.dateComponents([.day], from: periodStart, to: start)
       let deltaDays = deltaComponents.day!
       let delta = (deltaDays / nbDays) * nbDays
@@ -92,11 +103,10 @@ struct PayPeriodGrouping {
     }
   }
   
-  private static func getGroupByMonthly(periodEnd: Date) -> (TimeEntry) -> ClosedRange<Date> {
+  private static func getGroupByMonthly(periodEnd: Date) -> (Date) -> ClosedRange<Date> {
     let calendar = Calendar.current
     let periodEndComponents = calendar.dateComponents([.year, .month, .day], from: periodEnd)
-    return {
-      let start = $0.start
+    return { start in
       let startComponents = calendar.dateComponents([.year, .month, .day], from: start)
       let nbDaysInStartMonth = calendar.range(of: .day, in: .month, for: start)!.count
       let startMonthEndPeriodDay = min(nbDaysInStartMonth, periodEndComponents.day!)
@@ -113,10 +123,9 @@ struct PayPeriodGrouping {
     }
   }
   
-  private static func getGroupByFirstAndSixteenth() -> (TimeEntry) -> ClosedRange<Date> {
+  private static func getGroupByFirstAndSixteenth() -> (Date) -> ClosedRange<Date> {
     let calendar = Calendar.current
-    return {
-      let start = $0.start
+    return { start in
       let components = calendar.dateComponents([.year, .month, .day], from: start)
       
       if components.day! < 16 {

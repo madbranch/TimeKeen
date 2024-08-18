@@ -2,13 +2,15 @@ import SwiftUI
 
 struct TimeEntrySharingView: View {
   @Environment(\.dismiss) private var dismiss
-  @State var from = Date()
-  @State var to = Date()
+  @State var from: Date
+  @State var to: Date
   @State var format = TimeEntryExportFormat.csv
   let timeEntries: [TimeEntry]
   
-  init(timeEntries: [TimeEntry]) {
+  init(timeEntries: [TimeEntry], defaultRange: ClosedRange<Date>) {
     self.timeEntries = timeEntries
+    from = defaultRange.lowerBound
+    to = defaultRange.upperBound
   }
   
   var body: some View {
