@@ -23,3 +23,17 @@ extension Array: RawRepresentable where Element: Codable {
     return result
   }
 }
+
+extension Array where Element: TimeEntry {
+  public func suggestFileNameWithoutExtension() -> String? {
+    guard let first = self.first else {
+      return nil
+    }
+    
+    guard let last = self.last else {
+      return nil
+    }
+    
+    return "\(Formatting.fileNameDateFormatter.string(from: first.start)) - \(Formatting.fileNameDateFormatter.string(from: last.start)).csv"
+  }
+}

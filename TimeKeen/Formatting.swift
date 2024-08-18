@@ -28,4 +28,11 @@ class Formatting {
     formatter.setLocalizedDateFormatFromTemplate("MMM d")
     return formatter
   }()
+  
+  static let fileNameDateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    formatter.timeStyle = .none
+    return formatter
+  }()
 }

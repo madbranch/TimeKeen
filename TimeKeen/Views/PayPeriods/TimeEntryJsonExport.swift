@@ -12,5 +12,16 @@ struct TimeEntryJsonExport: Transferable {
         return Data()
       }
     }
+    .suggestedFileName { jsonExport in
+      jsonExport.suggestFileName()
+    }
+  }
+  
+  func suggestFileName() -> String? {
+    guard let suggestion = timeEntries.suggestFileNameWithoutExtension() else {
+      return nil
+    }
+    
+    return suggestion + ".json"
   }
 }
