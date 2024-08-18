@@ -2,13 +2,13 @@ import Foundation
 
 extension Array where Element == TimeEntry {
   func groupByDay() -> [[TimeEntry]] {
-    if self.isEmpty {
+    guard let first = self.first else {
       return [[TimeEntry]]()
     }
     
     var result = [[TimeEntry]]()
     let calendar = Calendar.current
-    var day = calendar.dateOnly(from: self[0].start)
+    var day = calendar.dateOnly(from: first.start)
     var dailyTimeEntries = [TimeEntry]()
     
     for timeEntry in self {
@@ -84,7 +84,7 @@ struct PayPeriodGrouping {
       let yearForWeekOfYear = calendar.component(.yearForWeekOfYear, from: $0)
       let weekOfYear = calendar.component(.weekOfYear, from: $0)
       let currentPeriodStart = calendar.date(from: DateComponents(weekOfYear: weekOfYear, yearForWeekOfYear: yearForWeekOfYear))!
-      let currentPeriodEnd = calendar.date(byAdding: .day, value: calendar.weekdaySymbols.count - 1, to: currentPeriodStart)!
+      let currentPeriodEnd = calendar.endOfDay(from: calendar.date(byAdding: .day, value: calendar.weekdaySymbols.count - 1, to: currentPeriodStart)!)!
       return currentPeriodStart...currentPeriodEnd
     }
   }
@@ -98,7 +98,7 @@ struct PayPeriodGrouping {
       let deltaDays = deltaComponents.day!
       let delta = (deltaDays / nbDays) * nbDays
       let currentPeriodStart = calendar.date(byAdding: .day, value: delta, to: periodEnd)!
-      let currentPeriodEnd = calendar.date(byAdding: .day, value: nbDays - 1, to: currentPeriodStart)!
+      let currentPeriodEnd = calendar.endOfDay(from: calendar.date(byAdding: .day, value: nbDays - 1, to: currentPeriodStart)!)!
       return currentPeriodStart...currentPeriodEnd
     }
   }
@@ -118,7 +118,7 @@ struct PayPeriodGrouping {
       }
 
       let currentPeriodStart = calendar.nextDay(from: calendar.date(from: DateComponents(year: startComponents.year, month: startComponents.month, day: startMonthEndPeriodDay))!)!
-      let currentPeriodEnd = calendar.periodEnd(starting: currentPeriodStart)!
+      let currentPeriodEnd = calendar.endOfDay(from: calendar.periodEnd(starting: currentPeriodStart)!)!
       return currentPeriodStart...currentPeriodEnd
     }
   }
@@ -132,7 +132,7 @@ struct PayPeriodGrouping {
         return calendar.startMonth(from: start)!...calendar.date(from: DateComponents(year: components.year, month: components.month, day: 15))!
       }
       
-      return calendar.date(from: DateComponents(year: components.year, month: components.month, day: 16))!...calendar.endMonth(from: start)!
+      return calendar.date(from: DateComponents(year: components.year, month: components.month, day: 16))!...calendar.endOfDay(from: calendar.endMonth(from: start)!)!
     }
   }
 }

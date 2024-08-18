@@ -12,6 +12,14 @@ extension Calendar {
     return self.date(byAdding: .day, value: 1, to: date)
   }
   
+  func endOfDay(from date: Date) -> Date? {
+    guard let nextDay = self.nextDay(from: date) else {
+      return nil
+    }
+    
+    return self.date(byAdding: .second, value: -1, to: nextDay)
+  }
+  
   func previousMonth(from date: Date) -> Date? {
     return self.date(byAdding: .month, value: -1, to: date)
   }
