@@ -35,6 +35,7 @@
 		667120422C714EF60017811E /* PayPeriodSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */; };
 		667120442C71FD460017811E /* TimeEntryCsvExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120432C71FD460017811E /* TimeEntryCsvExport.swift */; };
 		667120462C71FD820017811E /* TimeEntryJsonExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120452C71FD820017811E /* TimeEntryJsonExport.swift */; };
+		667120482C729D630017811E /* PayPeriodSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120472C729D630017811E /* PayPeriodSettingsView.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
 		6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693597129606A3A00DEDD35 /* Preview Assets.xcassets */; };
@@ -97,6 +98,7 @@
 		667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodSettingsSheet.swift; sourceTree = "<group>"; };
 		667120432C71FD460017811E /* TimeEntryCsvExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryCsvExport.swift; sourceTree = "<group>"; };
 		667120452C71FD820017811E /* TimeEntryJsonExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryJsonExport.swift; sourceTree = "<group>"; };
+		667120472C729D630017811E /* PayPeriodSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodSettingsView.swift; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
 		6693596E29606A3A00DEDD35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				6671203F2C714DCC0017811E /* PayPeriodRow.swift */,
 				66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */,
 				667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */,
+				667120472C729D630017811E /* PayPeriodSettingsView.swift */,
 				667120432C71FD460017811E /* TimeEntryCsvExport.swift */,
 				66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */,
 				6622692F2C52DD0100E51B69 /* TimeEntryExportFormat.swift */,
@@ -403,6 +406,7 @@
 				66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */,
 				66411CDE2C4D24CD0050FDFB /* BreakEntry.swift in Sources */,
 				66411CF22C4FBE6A0050FDFB /* DateExtension.swift in Sources */,
+				667120482C729D630017811E /* PayPeriodSettingsView.swift in Sources */,
 				66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */,
 				66411CF02C4F56B50050FDFB /* PayPeriodSchedule.swift in Sources */,
 				66411CDA2C4B003A0050FDFB /* TimeEntryDetails.swift in Sources */,

@@ -147,16 +147,6 @@
         }
       }
     },
-    "Choose how you want your time entries to be grouped." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choisi comment tu veux grouper les entrées de temps."
-          }
-        }
-      }
-    },
     "Clock In" : {
       "comment" : "Quick action title for clocking in",
       "localizations" : {
@@ -523,12 +513,12 @@
         }
       }
     },
-    "OK" : {
+    "Pay period scheduling lets you define how to group clocked-in time." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "OK"
+            "value" : "L'horaire des périodes de paie vous permet de définir comment regrouper les entrées de temps travaillé."
           }
         }
       }
@@ -569,6 +559,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Horaire"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paramètres"
           }
         }
       }
