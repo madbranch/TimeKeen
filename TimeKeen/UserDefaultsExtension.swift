@@ -13,12 +13,12 @@ extension UserDefaults {
     return self.object(forKey: SharedData.Keys.endOfLastPayPeriod.rawValue) as? Date ?? Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
   }
   
-  var breaks: [BreakItem]? {
+  var breaks: [BreakEntry]? {
     guard let data = self.object(forKey: SharedData.Keys.breaks.rawValue) as? Data else {
       return nil
     }
     
-    guard let breaks = try? JSONDecoder().decode([BreakItem].self, from: data) else {
+    guard let breaks = try? JSONDecoder().decode([BreakEntry].self, from: data) else {
       return nil
     }
     

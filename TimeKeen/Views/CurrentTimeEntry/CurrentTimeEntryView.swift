@@ -25,7 +25,7 @@ struct CurrentTimeEntryView: View {
   @AppStorage(SharedData.Keys.breakStart.rawValue, store: SharedData.userDefaults) var breakStart = Date()
   @State private var breakEnd = Date()
   @State private var minBreakEndDate = Date()
-  @AppStorage(SharedData.Keys.breaks.rawValue, store: SharedData.userDefaults) var breaks = [BreakItem]()
+  @AppStorage(SharedData.Keys.breaks.rawValue, store: SharedData.userDefaults) var breaks = [BreakEntry]()
   
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
@@ -328,7 +328,7 @@ struct CurrentTimeEntryView: View {
       return
     }
     self.clockInDate = clockInDate
-    breaks = [BreakItem]()
+    breaks = [BreakEntry]()
     notes = ""
     clockInState = .clockedInWorking
   }
@@ -346,7 +346,7 @@ struct CurrentTimeEntryView: View {
     guard clockInState == .clockedInTakingABreak else {
       return
     }
-    breaks = breaks + [BreakItem(start: breakStart, end: breakEnd)]
+    breaks = breaks + [BreakEntry(start: breakStart, end: breakEnd)]
     clockInState = .clockedInWorking
   }
   

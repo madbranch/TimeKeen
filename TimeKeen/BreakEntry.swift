@@ -2,11 +2,18 @@ import Foundation
 import SwiftData
 
 @Model
-class BreakEntry: Encodable {
+class BreakEntry: Codable {
   init(start: Date, end: Date) {
     self.start = start
     self.end = end
   }
+  
+  required init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    start = try container.decode(Date.self, forKey: .start)
+    end = try container.decode(Date.self, forKey: .end)
+  }
+  
   var start: Date
   var end: Date
   
