@@ -49,9 +49,14 @@ struct CurrentTimeEntryView: View {
             .padding()
             .font(.largeTitle)
         }
-        .buttonStyle(.borderedProminent)
+        .background(
+          Circle()
+            .fill(LinearGradient(gradient: Gradient(colors: [Color(red: 31/255, green: 126/255, blue: 161/255), Color(red: 111/255, green: 247/255, blue: 232/255)]), startPoint: .top, endPoint: .bottom))
+        )
+        .foregroundColor(.white)
         .controlSize(.large)
-        .buttonBorderShape(.circle)
+        .contentShape(.circle)
+        .shadow(radius: 10)
         .padding()
       case .clockedInWorking, .clockedInTakingABreak:
         Spacer()
