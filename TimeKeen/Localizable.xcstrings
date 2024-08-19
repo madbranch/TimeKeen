@@ -221,16 +221,6 @@
         }
       }
     },
-    "Clock Out..." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer..."
-          }
-        }
-      }
-    },
     "Clocked in at %@" : {
       "localizations" : {
         "fr" : {
@@ -318,26 +308,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Terminer pause"
-          }
-        }
-      }
-    },
-    "End Break at %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer pause à %@"
-          }
-        }
-      }
-    },
-    "End Break..." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminer pause..."
           }
         }
       }
@@ -523,22 +493,32 @@
         }
       }
     },
-    "Pay Periods" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Périodes de paie"
-          }
-        }
-      }
-    },
     "Period Ends" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fin de période"
+          }
+        }
+      }
+    },
+    "Resume Work" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retour au travail"
+          }
+        }
+      }
+    },
+    "Resume Work At %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retour au travail à %@"
           }
         }
       }
@@ -583,26 +563,6 @@
         }
       }
     },
-    "Start Break" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commencer pause"
-          }
-        }
-      }
-    },
-    "Start Break at %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commencer pause à %@"
-          }
-        }
-      }
-    },
     "Started Break at %@" : {
       "localizations" : {
         "fr" : {
@@ -624,6 +584,16 @@
         }
       }
     },
+    "Take a Break At %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prend une pause à %@"
+          }
+        }
+      }
+    },
     "Take a break now" : {
       "comment" : "Quick action sub-title for taking a break",
       "localizations" : {
@@ -635,12 +605,22 @@
         }
       }
     },
-    "Take a Break..." : {
+    "Time Clock" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Prendre une pause..."
+            "value" : "Pointeuse"
+          }
+        }
+      }
+    },
+    "Time Sheets" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feuilles de temps"
           }
         }
       }

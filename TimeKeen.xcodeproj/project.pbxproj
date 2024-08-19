@@ -45,7 +45,7 @@
 		669393E42986B2BD00CC661C /* ClockInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E32986B2BD00CC661C /* ClockInState.swift */; };
 		66ADA40B2C5271F6002E6185 /* TimeEntrySharingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */; };
 		66B1D8122C60D0460015BD48 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */; };
-		66B1D8152C6AA0210015BD48 /* TipPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D8142C6AA0210015BD48 /* TipPickerSheet.swift */; };
+		66B1D8152C6AA0210015BD48 /* TipStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D8142C6AA0210015BD48 /* TipStoreView.swift */; };
 		66B1D8172C7058760015BD48 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D8162C7058760015BD48 /* ArrayExtension.swift */; };
 		66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */; };
 /* End PBXBuildFile section */
@@ -113,7 +113,7 @@
 		66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntrySharingView.swift; sourceTree = "<group>"; };
 		66B1D8112C60D0460015BD48 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		66B1D8132C6783F90015BD48 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
-		66B1D8142C6AA0210015BD48 /* TipPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipPickerSheet.swift; sourceTree = "<group>"; };
+		66B1D8142C6AA0210015BD48 /* TipStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipStoreView.swift; sourceTree = "<group>"; };
 		66B1D8162C7058760015BD48 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -256,7 +256,7 @@
 				66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */,
 				662294AB2C43F840005707D1 /* TimeEntryRow.swift */,
 				66ADA40A2C5271F6002E6185 /* TimeEntrySharingView.swift */,
-				66B1D8142C6AA0210015BD48 /* TipPickerSheet.swift */,
+				66B1D8142C6AA0210015BD48 /* TipStoreView.swift */,
 			);
 			path = PayPeriods;
 			sourceTree = "<group>";
@@ -415,7 +415,7 @@
 				667120462C71FD820017811E /* TimeEntryJsonExport.swift in Sources */,
 				662294B22C4466B1005707D1 /* TimeEntry.swift in Sources */,
 				667120422C714EF60017811E /* PayPeriodSettingsSheet.swift in Sources */,
-				66B1D8152C6AA0210015BD48 /* TipPickerSheet.swift in Sources */,
+				66B1D8152C6AA0210015BD48 /* TipStoreView.swift in Sources */,
 				662294B92C46874F005707D1 /* PayPeriodList.swift in Sources */,
 				662294BF2C4A8554005707D1 /* DailyTimeEntryListSectionHeader.swift in Sources */,
 				66411CD82C4AA27E0050FDFB /* TimeEntryList.swift in Sources */,
@@ -623,8 +623,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -676,8 +676,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

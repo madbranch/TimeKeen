@@ -8,7 +8,6 @@ struct PayPeriodList: View {
   @Query(sort: \TimeEntry.start, order: .reverse) var allTimeEntries: [TimeEntry]
   @State private var isPresentingShareSheet = false
   @State private var isEditingSettings = false
-  @State private var isShopping = false
   
   var body: some View {
     List(allTimeEntries.group(by: payPeriodSchedule, ending: endOfLastPayPeriod)) { payPeriod in
@@ -26,13 +25,8 @@ struct PayPeriodList: View {
         }
       }
       ToolbarItem(placement: .topBarLeading) {
-        Button("Grouping", systemImage: "slider.horizontal.3") {
+        Button("Grouping", systemImage: "gear") {
           isEditingSettings = true
-        }
-      }
-      ToolbarItem(placement: .topBarLeading) {
-        Button("Tip Jar", systemImage: "storefront") {
-          isShopping = true
         }
       }
     }
@@ -46,13 +40,26 @@ struct PayPeriodList: View {
       }
     }
     .sheet(isPresented: $isPresentingShareSheet) {
-      TimeEntrySharingView(timeEntries: allTimeEntries, defaultRange: (allTimeEntries.first?.start ?? Date()).getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod))
+      timeEntrySharingSheet
     }
     .sheet(isPresented: $isEditingSettings) {
       PayPeriodSettingsSheet()
     }
-    .sheet(isPresented: $isShopping) {
-      TipPickerSheet()
+  }
+  
+  var timeEntrySharingSheet: some View {
+    NavigationStack {
+      TimeEntrySharingView(timeEntries: allTimeEntries, defaultRange: (allTimeEntries.first?.start ?? Date()).getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod))
+        .background(.background.secondary)
+        .navigationTitle("Export")
+        .toolbar {
+          ToolbarItem(placement: .confirmationAction) {
+            Button("Done") {
+              isPresentingShareSheet = false
+            }
+          }
+        }
     }
+    .presentationDetents([.medium])
   }
 }

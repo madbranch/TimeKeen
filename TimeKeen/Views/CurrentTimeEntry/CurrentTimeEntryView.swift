@@ -1,5 +1,21 @@
 import SwiftUI
 
+struct TimeClockButton: ButtonStyle {
+  @Environment(\.isEnabled) var isEnabled
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+      .background(
+        Circle()
+          .fill(LinearGradient(gradient: Gradient(colors: [Color(red: 31/255, green: 126/255, blue: 161/255), Color(red: 111/255, green: 247/255, blue: 232/255)]), startPoint: .top, endPoint: .bottom))
+      )
+      .foregroundColor(.white)
+      .contentShape(.circle)
+      .shadow(radius: 10)
+      .opacity(configuration.isPressed ? 0.5 : 1)
+      .saturation(isEnabled ? 1 : 0)
+  }
+}
+
 struct CurrentTimeEntryView: View {
   var quickActionProvider: QuickActionProvider
   
@@ -35,8 +51,6 @@ struct CurrentTimeEntryView: View {
   
   var body: some View {
     VStack {
-      minuteIntervalPicker
-        .padding()
       switch clockInState {
       case .clockedOut:
         Button {
@@ -49,60 +63,61 @@ struct CurrentTimeEntryView: View {
             .padding()
             .font(.largeTitle)
         }
-        .background(
-          Circle()
-            .fill(LinearGradient(gradient: Gradient(colors: [Color(red: 31/255, green: 126/255, blue: 161/255), Color(red: 111/255, green: 247/255, blue: 232/255)]), startPoint: .top, endPoint: .bottom))
-        )
-        .foregroundColor(.white)
-        .controlSize(.large)
-        .contentShape(.circle)
-        .shadow(radius: 10)
+        .buttonStyle(TimeClockButton())
         .padding()
       case .clockedInWorking, .clockedInTakingABreak:
-        Spacer()
         Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
           .onAppear { updateClockInDuration(input: Date.now) }
           .onReceive(timer, perform: updateClockInDuration)
+          .foregroundStyle((clockInState == .clockedInTakingABreak || clockInDuration < 0) ? .secondary : .primary)
           .font(.system(size: 1000))
-          .scaledToFit()
-          .minimumScaleFactor(0.01)
+          .minimumScaleFactor(0.005)
           .lineLimit(1)
-          .foregroundStyle(clockInDuration < 0 ? .secondary : .primary)
+          .frame(maxHeight: 300)
         if clockInState == .clockedInTakingABreak {
           Text("Started Break at \(Formatting.startEndFormatter.string(from: breakStart))")
-            .foregroundStyle(.secondary)
         }
-        Spacer()
+        Text(sinceClockIn < 0 ? "Clocking in at \(Formatting.startEndFormatter.string(from: clockInDate))..." : "Clocked in at \(Formatting.startEndFormatter.string(from: clockInDate))")
+          .foregroundStyle(clockInState == .clockedInTakingABreak ? .secondary : .primary)
+          .padding()
+        HStack {
+          if clockInState == .clockedInWorking {
+            Button {
+              isStartingBreak = startTakingBreak()
+            } label: {
+              Image(systemName: "pause.fill")
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .font(.largeTitle)
+            }
+            .buttonStyle(TimeClockButton())
+            .padding()
+            Button {
+              isClockingOut = startClockingOut()
+            } label: {
+              Image(systemName: "stop.fill")
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .font(.largeTitle)
+            }
+            .buttonStyle(TimeClockButton())
+            .padding()
+          } else if clockInState == .clockedInTakingABreak {
+            Button {
+              isEndingBreak = startEndingBreak()
+            } label: {
+              Image(systemName: "play.fill")
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .font(.largeTitle)
+            }
+            .buttonStyle(TimeClockButton())
+            .padding()
+          }
+        }
         TextField("Notes", text: $notes)
           .padding()
           .textFieldStyle(.roundedBorder)
-        if clockInState == .clockedInWorking {
-          Button {
-            isStartingBreak = startTakingBreak()
-          } label: {
-            Text("Take a Break...")
-              .padding()
-          }
-        }
-        Text(sinceClockIn < 0 ? "Clocking in at \(Formatting.startEndFormatter.string(from: clockInDate))..." : "Clocked in at \(Formatting.startEndFormatter.string(from: clockInDate))")
-          .buttonStyle(.borderedProminent)
-          .controlSize(.large)
-          .padding()
-        if clockInState == .clockedInWorking {
-          Button("Clock Out...", action: {
-            isClockingOut = startClockingOut()
-          })
-          .buttonStyle(.borderedProminent)
-          .controlSize(.large)
-          .padding()
-        } else if clockInState == .clockedInTakingABreak {
-          Button("End Break...", action: {
-            isEndingBreak = startEndingBreak()
-          })
-          .buttonStyle(.borderedProminent)
-          .controlSize(.large)
-          .padding()
-        }
       }
     }
     .onChange(of: quickActionProvider.quickAction) { _, _ in
@@ -167,7 +182,7 @@ struct CurrentTimeEntryView: View {
     }
     .sheet(isPresented: $isStartingBreak) { [breakStart, minBreakStart, minuteInterval] in
       VStack {
-        Text("Start Break")
+        Text("Take a Break")
           .font(.headline)
           .frame(maxWidth: .infinity, alignment: .center)
           .overlay(alignment: .trailing) {
@@ -180,7 +195,7 @@ struct CurrentTimeEntryView: View {
           startBreak(at: breakStart)
           isStartingBreak = false
         }) {
-          Text("Start Break at \(Formatting.startEndFormatter.string(from: breakStart))")
+          Text("Take a Break At \(Formatting.startEndFormatter.string(from: breakStart))")
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
@@ -192,7 +207,7 @@ struct CurrentTimeEntryView: View {
     }
     .sheet(isPresented: $isEndingBreak) { [minBreakEndDate, breakEnd, minuteInterval] in
       VStack {
-        Text("End Break")
+        Text("Resume Work")
           .font(.headline)
           .frame(maxWidth: .infinity, alignment: .center)
           .overlay(alignment: .trailing) {
@@ -205,7 +220,7 @@ struct CurrentTimeEntryView: View {
           endBreak(at: breakEnd)
           isEndingBreak = false
         }) {
-          Text("End Break at \(Formatting.startEndFormatter.string(from: breakEnd))")
+          Text("Resume Work At \(Formatting.startEndFormatter.string(from: breakEnd))")
             .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
@@ -214,15 +229,6 @@ struct CurrentTimeEntryView: View {
       }
       .padding()
       .presentationDetents([.medium])
-    }
-  }
-  
-  var minuteIntervalPicker: some View {
-    Picker("Minute Interval", selection: $minuteInterval) {
-      Text("1 minute").tag(1)
-      Text("5 minutes").tag(5)
-      Text("10 minutes").tag(10)
-      Text("15 minutes").tag(15)
     }
   }
   

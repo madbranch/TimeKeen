@@ -14,15 +14,15 @@ struct ContentView: View {
     TabView(selection: $selectedTab) {
       CurrentTimeEntryView(quickActionProvider: quickActionProvider)
         .tabItem {
-          Label("Clock In", systemImage: "clock")
+          Label("Time Clock", systemImage: "stopwatch")
         }
         .tag(0)
       NavigationStack(path: $path) {
         PayPeriodList()
-          .navigationTitle("Pay Periods")
+          .navigationTitle("Time Sheets")
       }
       .tabItem {
-        Label("Pay Periods", systemImage: "list.bullet")
+        Label("Time Sheets", systemImage: "list.bullet.rectangle")
       }
       .tag(1)
     }

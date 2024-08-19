@@ -14,6 +14,5 @@ struct PayPeriodSettingsSheet: View {
           }
         }
     }
-    .presentationDetents([.medium])
   }
 }
