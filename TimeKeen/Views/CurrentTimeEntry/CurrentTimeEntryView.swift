@@ -67,6 +67,7 @@ struct CurrentTimeEntryView: View {
         .padding()
       case .clockedInWorking, .clockedInTakingABreak:
         Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
+          .contentTransition(.numericText(value: clockInDuration))
           .onAppear { updateClockInDuration(input: Date.now) }
           .onReceive(timer, perform: updateClockInDuration)
           .foregroundStyle((clockInState == .clockedInTakingABreak || clockInDuration < 0) ? .secondary : .primary)
@@ -281,9 +282,11 @@ struct CurrentTimeEntryView: View {
       clockInDuration = .zero
       break
     case .clockedInWorking:
-      let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
-      sinceClockIn = clockInDate.distance(to: input)
-      clockInDuration = sinceClockIn - onBreak
+      withAnimation {
+        let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
+        sinceClockIn = clockInDate.distance(to: input)
+        clockInDuration = sinceClockIn - onBreak
+      }
       break
     case .clockedInTakingABreak:
       let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
