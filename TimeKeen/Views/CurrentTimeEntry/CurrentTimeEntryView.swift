@@ -57,7 +57,7 @@ struct CurrentTimeEntryView: View {
         Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
           .contentTransition(.numericText(value: clockInDuration))
           .foregroundStyle((clockInState == .clockedInTakingABreak || clockInDuration < 0) ? .secondary : .primary)
-          .font(.system(size: 1000))
+          .font(.system(size: 1000, design: .rounded))
           .minimumScaleFactor(0.005)
           .lineLimit(1)
           .frame(maxHeight: 300)
