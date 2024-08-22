@@ -674,6 +674,22 @@
           }
         }
       }
+    },
+    "Worked %@ since %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Worked %1$@ since %2$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travaillé %1$@ depuis le %2$@"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct CurrentTimeEntryView: View {
   var quickActionProvider: QuickActionProvider
@@ -13,6 +14,7 @@ struct CurrentTimeEntryView: View {
   @AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) var clockInState = ClockInState.clockedOut
   @State private var clockInDuration: TimeInterval = .zero
   @State private var sinceClockIn: TimeInterval = .zero
+  @State private var payPeriod: ClosedRange<Date> = Date()...Date()
   @State private var isClockingIn = false
   @State private var isClockingOut = false
   @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) var clockInDate = Date()
@@ -26,12 +28,19 @@ struct CurrentTimeEntryView: View {
   @State private var breakEnd = Date()
   @State private var minBreakEndDate = Date()
   @AppStorage(SharedData.Keys.breaks.rawValue, store: SharedData.userDefaults) var breaks = [BreakEntry]()
+  @AppStorage(SharedData.Keys.payPeriodSchedule.rawValue, store: SharedData.userDefaults) var payPeriodSchedule = PayPeriodSchedule.Weekly
+  @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
   
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
   init(quickActionProvider: QuickActionProvider) {
     self.quickActionProvider = quickActionProvider
   }
+  
+//  var onTheClockView: some View {
+//    TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
+//      .padding()
+//  }
   
   var body: some View {
     VStack {
@@ -52,8 +61,6 @@ struct CurrentTimeEntryView: View {
       case .clockedInWorking, .clockedInTakingABreak:
         Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
           .contentTransition(.numericText(value: clockInDuration))
-          .onAppear { updateClockInDuration(input: Date.now) }
-          .onReceive(timer, perform: updateClockInDuration)
           .foregroundStyle((clockInState == .clockedInTakingABreak || clockInDuration < 0) ? .secondary : .primary)
           .font(.system(size: 1000))
           .minimumScaleFactor(0.005)
@@ -104,6 +111,8 @@ struct CurrentTimeEntryView: View {
           .padding()
           .textFieldStyle(.roundedBorder)
       }
+      TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
+        .padding()
     }
     .onChange(of: quickActionProvider.quickAction) { _, _ in
       handleQuickAction()
@@ -115,6 +124,8 @@ struct CurrentTimeEntryView: View {
       case .clockedInWorking, .clockedInTakingABreak: old == .clockedOut ? .impact : nil
       }
     }
+    .onAppear { updateClockInDuration(input: Date.now) }
+    .onReceive(timer, perform: updateClockInDuration)
     .sheet(isPresented: $isClockingIn) { [clockInDate, minuteInterval] in
       VStack {
         Text("Clock In")
@@ -260,6 +271,7 @@ struct CurrentTimeEntryView: View {
   }
   
   private func updateClockInDuration(input: Date) {
+    payPeriod = Date().getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
     switch clockInState {
     case .clockedOut:
       sinceClockIn = .zero
