@@ -49,7 +49,6 @@ struct CurrentTimeEntryView: View {
           Text("Clock In...")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .font(.largeTitle)
         }
         .buttonStyle(TimeClockButton())
         .padding()
@@ -75,7 +74,6 @@ struct CurrentTimeEntryView: View {
               Image(systemName: "pause.fill")
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .font(.largeTitle)
             }
             .buttonStyle(TimeClockButton())
             .padding()
@@ -85,7 +83,6 @@ struct CurrentTimeEntryView: View {
               Image(systemName: "stop.fill")
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .font(.largeTitle)
             }
             .buttonStyle(TimeClockButton())
             .padding()
@@ -96,7 +93,6 @@ struct CurrentTimeEntryView: View {
               Image(systemName: "play.fill")
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .font(.largeTitle)
             }
             .buttonStyle(TimeClockButton())
             .padding()
