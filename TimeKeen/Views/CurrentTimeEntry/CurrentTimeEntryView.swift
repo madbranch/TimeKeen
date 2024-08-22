@@ -37,11 +37,6 @@ struct CurrentTimeEntryView: View {
     self.quickActionProvider = quickActionProvider
   }
   
-//  var onTheClockView: some View {
-//    TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
-//      .padding()
-//  }
-  
   var body: some View {
     VStack {
       switch clockInState {
