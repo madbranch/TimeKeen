@@ -17,6 +17,5 @@ struct TimeSheetOnTheClockView: View {
   var body: some View {
     Text("Worked \(Formatting.timeIntervalFormatter.string(from: timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock } + clockInDuration) ?? "") since \(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound))")
       .contentTransition(.numericText(value: clockInDuration))
-      .foregroundStyle(.secondary)
   }
 }
