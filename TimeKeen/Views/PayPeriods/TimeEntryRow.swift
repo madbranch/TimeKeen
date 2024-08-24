@@ -12,6 +12,7 @@ struct TimeEntryRow : View {
       Text("\(Formatting.startEndFormatter.string(from: timeEntry.start)) - \(Formatting.startEndFormatter.string(from: timeEntry.end))")
       Spacer()
       Text(Formatting.timeIntervalFormatter.string(from: timeEntry.onTheClock) ?? "")
+        .foregroundStyle(.secondary)
     }
   }
 }
