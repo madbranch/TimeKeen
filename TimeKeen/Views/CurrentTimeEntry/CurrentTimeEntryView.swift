@@ -101,6 +101,7 @@ struct CurrentTimeEntryView: View {
         TextField("Notes", text: $notes)
           .padding()
           .textFieldStyle(.roundedBorder)
+          .submitLabel(.done)
       }
       TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
         .padding()

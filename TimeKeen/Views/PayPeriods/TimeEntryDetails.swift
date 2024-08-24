@@ -28,6 +28,7 @@ struct TimeEntryDetails: View {
             IntervalDatePicker(selection: $timeEntry.end, minuteInterval: minuteInterval, in: timeEntry.start..., displayedComponents: [.date, .hourAndMinute])
           }
           TextField("Notes", text: $timeEntry.notes, axis: .vertical)
+            .submitLabel(.done)
         } else {
           LabeledContent("Start") {
             Text(Formatting.startEndWithDateFormatter.string(from: timeEntry.start))
