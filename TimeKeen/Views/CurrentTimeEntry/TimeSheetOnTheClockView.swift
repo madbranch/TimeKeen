@@ -15,7 +15,9 @@ struct TimeSheetOnTheClockView: View {
   }
   
   var body: some View {
-    Text("Worked \(Formatting.timeIntervalFormatter.string(from: timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock } + clockInDuration) ?? "") since \(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound))")
+    Label("Worked **\(Formatting.timeIntervalFormatter.string(from: timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock } + clockInDuration) ?? "")** since \(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound))", systemImage: "stopwatch")
       .contentTransition(.numericText(value: clockInDuration))
+      .frame(maxWidth: .infinity)
+      .padding()
   }
 }

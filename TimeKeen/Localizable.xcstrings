@@ -675,18 +675,18 @@
         }
       }
     },
-    "Worked %@ since %@" : {
+    "Worked **%@** since %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Worked %1$@ since %2$@"
+            "value" : "Worked **%1$@** since %2$@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Travaillé %1$@ depuis le %2$@"
+            "value" : "Travaillé **%1$@** depuis %2$@"
           }
         }
       }

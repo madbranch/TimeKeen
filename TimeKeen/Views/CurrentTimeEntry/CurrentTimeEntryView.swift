@@ -104,6 +104,10 @@ struct CurrentTimeEntryView: View {
           .submitLabel(.done)
       }
       TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
+        .background(
+          RoundedRectangle(cornerRadius: 8)
+            .fill(Color(UIColor.secondarySystemBackground))
+        )
         .padding()
     }
     .onChange(of: quickActionProvider.quickAction) { _, _ in

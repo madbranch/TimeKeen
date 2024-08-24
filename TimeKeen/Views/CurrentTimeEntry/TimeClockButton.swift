@@ -6,7 +6,7 @@ struct TimeClockButton: ButtonStyle {
     configuration.label
       .background(
         Circle()
-          .fill(LinearGradient(gradient: Gradient(colors: [Color(red: 31/255, green: 126/255, blue: 161/255), Color(red: 111/255, green: 247/255, blue: 232/255)]), startPoint: .top, endPoint: .bottom))
+          .fill(LinearGradient(gradient: Gradient(colors: [ColorPalette.primary.color, ColorPalette.secondary.color]), startPoint: .top, endPoint: .bottom))
       )
       .font(.system(.largeTitle, design: .rounded))
       .foregroundColor(.white)

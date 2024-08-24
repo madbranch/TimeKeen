@@ -17,6 +17,7 @@
 		6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125129607279007A5343 /* CurrentTimeEntryView.swift */; };
 		662D07452974210B002083F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D07442974210B002083F6 /* ContentView.swift */; };
 		6631C48F2C7609700082D770 /* TimeSheetOnTheClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C48E2C7609700082D770 /* TimeSheetOnTheClockView.swift */; };
+		6631C4912C7A7D0A0082D770 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C4902C7A7D0A0082D770 /* ColorPalette.swift */; };
 		66411CD62C4AA25A0050FDFB /* PayPeriodSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */; };
 		66411CD82C4AA27E0050FDFB /* TimeEntryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */; };
 		66411CDA2C4B003A0050FDFB /* TimeEntryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */; };
@@ -81,6 +82,7 @@
 		6629125129607279007A5343 /* CurrentTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryView.swift; sourceTree = "<group>"; };
 		662D07442974210B002083F6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6631C48E2C7609700082D770 /* TimeSheetOnTheClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetOnTheClockView.swift; sourceTree = "<group>"; };
+		6631C4902C7A7D0A0082D770 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		66411CD52C4AA25A0050FDFB /* PayPeriodSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodSection.swift; sourceTree = "<group>"; };
 		66411CD72C4AA27E0050FDFB /* TimeEntryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryList.swift; sourceTree = "<group>"; };
 		66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryDetails.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 		6611F1B22961D22A0089B49B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6631C4902C7A7D0A0082D770 /* ColorPalette.swift */,
 				662D07442974210B002083F6 /* ContentView.swift */,
 				6611F1B62961E9320089B49B /* CurrentTimeEntry */,
 				66411CED2C4EDE4D0050FDFB /* IntervalDatePicker.swift */,
@@ -415,6 +418,7 @@
 				66411CF22C4FBE6A0050FDFB /* DateExtension.swift in Sources */,
 				667120482C729D630017811E /* PayPeriodSettingsView.swift in Sources */,
 				66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */,
+				6631C4912C7A7D0A0082D770 /* ColorPalette.swift in Sources */,
 				66411CF02C4F56B50050FDFB /* PayPeriodSchedule.swift in Sources */,
 				66411CDA2C4B003A0050FDFB /* TimeEntryDetails.swift in Sources */,
 				662269302C52DD0100E51B69 /* TimeEntryExportFormat.swift in Sources */,
