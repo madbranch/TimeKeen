@@ -261,6 +261,9 @@
         }
       }
     },
+    "Delete Time Entry" : {
+
+    },
     "Done" : {
       "localizations" : {
         "fr" : {

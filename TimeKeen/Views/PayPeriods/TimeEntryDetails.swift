@@ -2,16 +2,20 @@ import SwiftUI
 
 struct TimeEntryDetails: View {
   @Bindable var timeEntry: TimeEntry
+  @Environment(\.modelContext) private var context
   @Environment(\.editMode) private var editMode
+  @Environment(\.dismiss) private var dismiss
   @AppStorage(SharedData.Keys.minuteInterval.rawValue, store: SharedData.userDefaults) var minuteInterval = 15
   @State var isEditingBreak = false
   @State var isAddingBreak = false
   @State var breakStart = Date()
   @State var breakEnd = Date()
   @State var breakEntry: BreakEntry?
+  private let onDelete: (TimeEntry) -> Void
   
-  init(timeEntry: TimeEntry) {
+  init(timeEntry: TimeEntry, _ onDelete: @escaping (TimeEntry) -> Void) {
     self.timeEntry = timeEntry
+    self.onDelete = onDelete
   }
   
   var body: some View {
@@ -62,6 +66,13 @@ struct TimeEntryDetails: View {
         }
         .onDelete { offsets in
           timeEntry.breaks.remove(atOffsets: offsets)
+        }
+      }
+      if editMode?.wrappedValue.isEditing == true {
+        Button("Delete Time Entry", role: .destructive) {
+          context.delete(timeEntry)
+          dismiss()
+          onDelete(timeEntry)
         }
       }
     }
