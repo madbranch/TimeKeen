@@ -19,5 +19,9 @@ struct TimeSheetOnTheClockView: View {
       .contentTransition(.numericText(value: clockInDuration))
       .frame(maxWidth: .infinity)
       .padding()
+      .background(
+        RoundedRectangle(cornerRadius: 8)
+          .fill(Color(UIColor.secondarySystemBackground))
+      )
   }
 }

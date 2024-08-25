@@ -30,6 +30,8 @@ struct CurrentTimeEntryView: View {
   @AppStorage(SharedData.Keys.breaks.rawValue, store: SharedData.userDefaults) var breaks = [BreakEntry]()
   @AppStorage(SharedData.Keys.payPeriodSchedule.rawValue, store: SharedData.userDefaults) var payPeriodSchedule = PayPeriodSchedule.Weekly
   @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
+  @FocusState private var isEditingNotes: Bool
+  @State private var isOntheClockTimeVisible = true
   
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
@@ -102,13 +104,17 @@ struct CurrentTimeEntryView: View {
           .padding()
           .textFieldStyle(.roundedBorder)
           .submitLabel(.done)
+          .focused($isEditingNotes)
+          .onChange(of: isEditingNotes) { _, newValue in
+            withAnimation {
+              isOntheClockTimeVisible = !newValue
+            }
+          }
       }
-      TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
-        .background(
-          RoundedRectangle(cornerRadius: 8)
-            .fill(Color(UIColor.secondarySystemBackground))
-        )
-        .padding()
+      if isOntheClockTimeVisible {
+        TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
+          .padding()
+      }
     }
     .onChange(of: quickActionProvider.quickAction) { _, _ in
       handleQuickAction()
