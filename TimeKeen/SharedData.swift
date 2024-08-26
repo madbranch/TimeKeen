@@ -9,6 +9,7 @@ class SharedData {
     case endOfLastPayPeriod = "EndOfLastPayPeriod"
     case breaks = "Breaks"
     case breakStart = "BreakStart"
+    case notes = "Notes"
     case clockInDate = "ClockInDate"
     case clockInState = "ClockInState"
   }

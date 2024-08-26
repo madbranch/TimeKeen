@@ -20,7 +20,7 @@ struct CurrentTimeEntryView: View {
   @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) var clockInDate = Date()
   @State private var clockOutDate = Date()
   @State private var minClockOutDate = Date()
-  @State private var notes = ""
+  @AppStorage(SharedData.Keys.notes.rawValue, store: SharedData.userDefaults) private var notes = ""
   @State private var isStartingBreak = false
   @State private var isEndingBreak = false
   @State private var minBreakStart = Date()
