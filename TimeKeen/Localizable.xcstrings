@@ -241,6 +241,9 @@
         }
       }
     },
+    "Clocking in at %@" : {
+
+    },
     "Clocking in at %@..." : {
       "localizations" : {
         "fr" : {
@@ -391,6 +394,9 @@
           }
         }
       }
+    },
+    "Failed to clock in." : {
+
     },
     "Format" : {
       "localizations" : {
@@ -695,6 +701,12 @@
         }
       }
     },
+    "When" : {
+
+    },
+    "When to clock in." : {
+
+    },
     "Worked **%@** since %@" : {
       "localizations" : {
         "en" : {
@@ -710,6 +722,9 @@
           }
         }
       }
+    },
+    "You're already clocked in." : {
+
     }
   },
   "version" : "1.0"
