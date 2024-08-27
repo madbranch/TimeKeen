@@ -242,7 +242,14 @@
       }
     },
     "Clocking in at %@" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commence à %@"
+          }
+        }
+      }
     },
     "Clocking in at %@..." : {
       "localizations" : {
@@ -250,6 +257,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commencera à %@..."
+          }
+        }
+      }
+    },
+    "Clocking in on %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commence le %@"
           }
         }
       }
@@ -396,7 +413,14 @@
       }
     },
     "Failed to clock in." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échoué à commencer à travailler."
+          }
+        }
+      }
     },
     "Format" : {
       "localizations" : {

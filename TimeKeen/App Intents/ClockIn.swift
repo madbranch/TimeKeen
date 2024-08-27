@@ -18,13 +18,16 @@ struct ClockIn: AppIntent {
       return .result(dialog: "You're already clocked in.")
     }
     
-    let clockInDate = Calendar.current.getRoundedDate(minuteInterval: userDefaults.minuteInterval, from: when)
+    let calendar = Calendar.current
+    let clockInDate = calendar.getRoundedDate(minuteInterval: userDefaults.minuteInterval, from: when)
     
     userDefaults.notes = ""
     userDefaults.breaks = [BreakEntry]()
     userDefaults.clockInDate = clockInDate
     userDefaults.clockInState = .clockedInWorking
     
-    return .result(dialog: "Clocking in at \(Formatting.startEndFormatter.string(from: clockInDate))")
+    return calendar.isDate(clockInDate, inSameDayAs: Date())
+    ? .result(dialog: "Clocking in at \(Formatting.startEndFormatter.string(from: clockInDate))")
+    : .result(dialog: "Clocking in on \(Formatting.startEndWithDateFormatter.string(from: clockInDate))")
   }
 }
