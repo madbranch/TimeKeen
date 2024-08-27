@@ -159,7 +159,14 @@
       }
     },
     "Clock in and start working." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer à travailler."
+          }
+        }
+      }
     },
     "Clock In At %@" : {
       "localizations" : {
@@ -265,7 +272,14 @@
       }
     },
     "Delete Time Entry" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer entrée de temps"
+          }
+        }
+      }
     },
     "Done" : {
       "localizations" : {

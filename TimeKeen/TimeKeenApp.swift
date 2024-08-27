@@ -18,6 +18,10 @@ struct TimeKeenApp: App {
   @AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) var clockInState = ClockInState.clockedOut
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
   
+  init() {
+    TimeKeenShortcuts.updateAppShortcutParameters()
+  }
+  
   var body: some Scene {
     WindowGroup {
       ContentView(quickActionProvider: appDelegate.quickActionProvider)

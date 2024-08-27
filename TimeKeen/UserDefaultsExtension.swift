@@ -2,7 +2,11 @@ import Foundation
 
 extension UserDefaults {
   func date(forKey defaultName: String) -> Date? {
-    return self.object(forKey: defaultName) as? Date
+    guard let rawValue = self.string(forKey: defaultName) else {
+      return nil
+    }
+    
+    return Date(rawValue: rawValue)
   }
   
   var minuteInterval: Int {
@@ -35,7 +39,7 @@ extension UserDefaults {
       return self.date(forKey: SharedData.Keys.endOfLastPayPeriod.rawValue) ?? Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
     }
     set(newEndOfLastPayPeriod) {
-      self.set(newEndOfLastPayPeriod, forKey: SharedData.Keys.endOfLastPayPeriod.rawValue)
+      self.set(newEndOfLastPayPeriod.rawValue, forKey: SharedData.Keys.endOfLastPayPeriod.rawValue)
     }
   }
   
@@ -67,7 +71,7 @@ extension UserDefaults {
         return
       }
       
-      self.set(breakStart, forKey: SharedData.Keys.breakStart.rawValue)
+      self.set(breakStart.rawValue, forKey: SharedData.Keys.breakStart.rawValue)
     }
   }
   
@@ -94,16 +98,20 @@ extension UserDefaults {
         self.removeObject(forKey: SharedData.Keys.clockInDate.rawValue)
         return
       }
-      self.set(clockInDate, forKey: SharedData.Keys.clockInDate.rawValue)
+      self.set(clockInDate.rawValue, forKey: SharedData.Keys.clockInDate.rawValue)
     }
   }
   
   var clockInState: ClockInState {
     get {
-      return self.object(forKey: SharedData.Keys.clockInState.rawValue) as? ClockInState ?? .clockedOut
+      guard let rawValue = self.string(forKey: SharedData.Keys.clockInState.rawValue) else {
+        return .clockedOut
+      }
+      
+      return ClockInState(rawValue: rawValue) ?? .clockedOut
     }
     set(newClockInState) {
-      self.set(newClockInState, forKey: SharedData.Keys.clockInState.rawValue)
+      self.set(newClockInState.rawValue, forKey: SharedData.Keys.clockInState.rawValue)
     }
   }
 }
