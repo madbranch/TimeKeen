@@ -9,5 +9,12 @@ class TimeKeenShortcuts: AppShortcutsProvider {
     ],
     shortTitle: "Clock In",
     systemImageName: "stopwatch")
+    
+    AppShortcut(intent: ClockOut(), phrases: [
+      "Clock out",
+      "Stop working"
+    ],
+    shortTitle: "Clock Out",
+    systemImageName: "stopwatch")
   }
 }

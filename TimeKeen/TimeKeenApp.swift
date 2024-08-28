@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import AppIntents
 
 enum QuickAction: String {
   case clockIn
@@ -12,6 +13,15 @@ enum QuickAction: String {
   var quickAction: QuickAction?
 }
 
+// globals are lazy
+fileprivate let modelContainer: ModelContainer = {
+  do {
+    return try ModelContainer(for: TimeEntry.self, BreakEntry.self, configurations: ModelConfiguration())
+  } catch {
+    fatalError("Failed to configure SwiftData container.")
+  }
+}()
+
 @main
 struct TimeKeenApp: App {
   @Environment(\.scenePhase) var scenePhase
@@ -19,13 +29,14 @@ struct TimeKeenApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
   
   init() {
+    AppDependencyManager.shared.add(dependency: modelContainer)
     TimeKeenShortcuts.updateAppShortcutParameters()
   }
   
   var body: some Scene {
     WindowGroup {
       ContentView(quickActionProvider: appDelegate.quickActionProvider)
-        .modelContainer(for: [TimeEntry.self, BreakEntry.self])
+        .modelContainer(modelContainer)
         .onChange(of: scenePhase) { _, newPhase in
           switch newPhase {
           case .background:

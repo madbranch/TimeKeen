@@ -210,6 +210,16 @@
         }
       }
     },
+    "Clock out and stop working." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter de travailler."
+          }
+        }
+      }
+    },
     "Clock Out At %@" : {
       "localizations" : {
         "fr" : {
@@ -267,6 +277,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commence le %@"
+          }
+        }
+      }
+    },
+    "Clocking out at %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter à %@"
+          }
+        }
+      }
+    },
+    "Clocking out on %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêtera à %@"
           }
         }
       }
@@ -418,6 +448,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Échoué à commencer à travailler."
+          }
+        }
+      }
+    },
+    "Failed to clock out." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échéc d'ârrêter de travailler."
           }
         }
       }
@@ -726,10 +766,34 @@
       }
     },
     "When" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quand"
+          }
+        }
+      }
     },
     "When to clock in." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quand commencer."
+          }
+        }
+      }
+    },
+    "When to clock out." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quand arrêter."
+          }
+        }
+      }
     },
     "Worked **%@** since %@" : {
       "localizations" : {
@@ -748,7 +812,34 @@
       }
     },
     "You're already clocked in." : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous travaillez déjà."
+          }
+        }
+      }
+    },
+    "You're not properly clocked in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre arrivée n'est pas correctement entrée."
+          }
+        }
+      }
+    },
+    "You're not working." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous ne travaillez pas."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

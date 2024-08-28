@@ -363,7 +363,7 @@ struct CurrentTimeEntryView: View {
     }
     
     let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
-    timeEntry.breaks.append(contentsOf: breaks.map { BreakEntry(start: $0.start, end: $0.end) })
+    timeEntry.breaks.append(contentsOf: breaks)
     context.insert(timeEntry)
     clockInState = .clockedOut
   }
