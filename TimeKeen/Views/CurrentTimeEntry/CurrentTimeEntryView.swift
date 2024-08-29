@@ -129,103 +129,87 @@ struct CurrentTimeEntryView: View {
     .onAppear { updateClockInDuration(input: Date.now) }
     .onReceive(timer, perform: updateClockInDuration)
     .sheet(isPresented: $isClockingIn) { [clockInDate, minuteInterval] in
-      VStack {
-        Text("Clock In")
-          .font(.headline)
-          .frame(maxWidth: .infinity, alignment: .center)
-          .overlay(alignment: .trailing) {
-            Button("Cancel", role: .cancel) {
-              isClockingIn = false
+      NavigationStack {
+        IntervalDatePicker(selection: $clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute], style: .wheels)
+          .navigationTitle("Clock In")
+          .navigationBarTitleDisplayMode(.inline)
+          .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+              Button("Start") {
+                clockIn(at: clockInDate)
+                isClockingIn = false
+              }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+              Button("Cancel", role: .cancel) {
+                isClockingIn = false
+              }
             }
           }
-        IntervalDatePicker(selection: $clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute], style: .wheels)
-        Button(action: {
-          clockIn(at: clockInDate)
-          isClockingIn = false
-        }) {
-          Text("Clock In At \(Formatting.startEndFormatter.string(from: clockInDate))")
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
-        .frame(maxHeight: .infinity, alignment: .bottom)
       }
-      .padding()
       .presentationDetents([.medium])
     }
     .sheet(isPresented: $isClockingOut) { [clockOutDate, minClockOutDate, minuteInterval] in
-      VStack {
-        Text("Clock Out")
-          .font(.headline)
-          .frame(maxWidth: .infinity, alignment: .center)
-          .overlay(alignment: .trailing) {
-            Button("Cancel", role: .cancel) {
-              isClockingOut = false
+      NavigationStack {
+        IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+          .navigationTitle("Clock Out")
+          .navigationBarTitleDisplayMode(.inline)
+          .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+              Button("Stop") {
+                clockOut(at: clockOutDate, notes: notes)
+                isClockingOut = false
+              }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+              Button("Cancel", role: .cancel) {
+                isClockingOut = false
+              }
             }
           }
-        IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
-        Button(action: {
-          clockOut(at: clockOutDate, notes: notes)
-          isClockingOut = false
-        }) {
-          Text("Clock Out At \(Formatting.startEndFormatter.string(from: clockOutDate))")
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
-        .frame(maxHeight: .infinity, alignment: .bottom)
       }
-      .padding()
       .presentationDetents([.medium])
     }
     .sheet(isPresented: $isStartingBreak) { [breakStart, minBreakStart, minuteInterval] in
-      VStack {
-        Text("Take a Break")
-          .font(.headline)
-          .frame(maxWidth: .infinity, alignment: .center)
-          .overlay(alignment: .trailing) {
-            Button("Cancel", role: .cancel) {
-              isStartingBreak = false
+      NavigationStack {
+        IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: minBreakStart..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+          .navigationTitle("Take a Break")
+          .navigationBarTitleDisplayMode(.inline)
+          .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+              Button("Pause") {
+                startBreak(at: breakStart)
+                isStartingBreak = false
+              }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+              Button("Cancel", role: .cancel) {
+                isStartingBreak = false
+              }
             }
           }
-        IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: minBreakStart..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
-        Button(action: {
-          startBreak(at: breakStart)
-          isStartingBreak = false
-        }) {
-          Text("Take a Break At \(Formatting.startEndFormatter.string(from: breakStart))")
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
-        .frame(maxHeight: .infinity, alignment: .bottom)
       }
-      .padding()
       .presentationDetents([.medium])
     }
     .sheet(isPresented: $isEndingBreak) { [minBreakEndDate, breakEnd, minuteInterval] in
-      VStack {
-        Text("Resume Work")
-          .font(.headline)
-          .frame(maxWidth: .infinity, alignment: .center)
-          .overlay(alignment: .trailing) {
-            Button("Cancel", role: .cancel) {
-              isEndingBreak = false
+      NavigationStack {
+        IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: minBreakEndDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+          .navigationTitle("Go back to work")
+          .navigationBarTitleDisplayMode(.inline)
+          .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+              Button("Resume") {
+                endBreak(at: breakEnd)
+                isEndingBreak = false
+              }
+            }
+            ToolbarItem(placement: .cancellationAction) {
+              Button("Cancel", role: .cancel) {
+                isEndingBreak = false
+              }
             }
           }
-        IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: minBreakEndDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
-        Button(action: {
-          endBreak(at: breakEnd)
-          isEndingBreak = false
-        }) {
-          Text("Resume Work At \(Formatting.startEndFormatter.string(from: breakEnd))")
-            .frame(maxWidth: .infinity)
-        }
-        .buttonStyle(.borderedProminent)
-        .controlSize(.large)
-        .frame(maxHeight: .infinity, alignment: .bottom)
       }
-      .padding()
       .presentationDetents([.medium])
     }
   }

@@ -168,16 +168,6 @@
         }
       }
     },
-    "Clock In At %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Commencer à %@"
-          }
-        }
-      }
-    },
     "Clock in now" : {
       "comment" : "Quick action sub-title for clocking in",
       "localizations" : {
@@ -216,16 +206,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arrêter de travailler."
-          }
-        }
-      }
-    },
-    "Clock Out At %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Arrêter à %@"
           }
         }
       }
@@ -573,6 +553,16 @@
         }
       }
     },
+    "Pause" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        }
+      }
+    },
     "Pay period scheduling lets you define how to group clocked-in time." : {
       "localizations" : {
         "fr" : {
@@ -593,22 +583,12 @@
         }
       }
     },
-    "Resume Work" : {
+    "Resume" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retour au travail"
-          }
-        }
-      }
-    },
-    "Resume Work At %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Retour au travail à %@"
+            "value" : "Reprendre"
           }
         }
       }
@@ -648,7 +628,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Commencer"
+            "value" : "Débuter"
           }
         }
       }
@@ -663,6 +643,16 @@
         }
       }
     },
+    "Stop" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrêter"
+          }
+        }
+      }
+    },
     "Take a Break" : {
       "comment" : "Quick action title for taking a break",
       "localizations" : {
@@ -670,16 +660,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Prend une pause"
-          }
-        }
-      }
-    },
-    "Take a Break At %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Prend une pause à %@"
           }
         }
       }
