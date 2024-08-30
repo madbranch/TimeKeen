@@ -1,37 +1,69 @@
 import SwiftUI
 import SwiftData
 
+enum PayPeriodListValue {
+  case payPeriodList
+}
+
+extension ClosedRange: Identifiable where Bound == Date  {
+  public var id: Self { self }
+}
+
 struct ContentView: View {
   var quickActionProvider: QuickActionProvider
   @State private var path: NavigationPath = .init()
-  @State private var selectedTab = 0
   @AppStorage(SharedData.Keys.minuteInterval.rawValue, store: SharedData.userDefaults) var minuteInterval = 15
   @Environment(\.modelContext) private var context
+  @State private var isEditingSettings = false
+  @State private var payPeriod: ClosedRange<Date>?
   
   init(quickActionProvider: QuickActionProvider) {
     self.quickActionProvider = quickActionProvider
   }
   
   var body: some View {
-    TabView(selection: $selectedTab) {
+    NavigationStack(path: $path) {
       CurrentTimeEntryView(quickActionProvider: quickActionProvider, navigate: navigate)
-        .tabItem {
-          Label("Time Clock", systemImage: "stopwatch")
+        .navigationTitle("Time Clock")
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            Button("Settings", systemImage: "gear") {
+              isEditingSettings = true
+            }
+          }
+          ToolbarItem(placement: .topBarTrailing) {
+            NavigationLink(value: PayPeriodListValue.payPeriodList, label: {
+              Label("Time Sheets", systemImage: "list.bullet.rectangle")
+            })
+          }
         }
-        .tag(0)
-      NavigationStack(path: $path) {
-        PayPeriodList()
-          .navigationTitle("Time Sheets")
-      }
-      .tabItem {
-        Label("Time Sheets", systemImage: "list.bullet.rectangle")
-      }
-      .tag(1)
-    }
-    .onChange(of: selectedTab) { oldValue, newValue in
-      if oldValue == 1 {
-        path = .init()
-      }
+        .navigationDestination(for: PayPeriodListValue.self) { _ in
+          PayPeriodList()
+        }
+        .navigationDestination(for: PayPeriod.self) { payPeriod in
+          PayPeriodDetails(for: payPeriod.range)
+        }
+        .navigationDestination(for: TimeEntry.self) { timeEntry in
+          TimeEntryDetails(for: timeEntry)
+        }
+        .sheet(isPresented: $isEditingSettings) {
+          PayPeriodSettingsSheet()
+        }
+        .sheet(item: $payPeriod) { payPeriod in
+          NavigationStack {
+            PayPeriodDetails(for: payPeriod)
+              .navigationDestination(for: TimeEntry.self) { timeEntry in
+                TimeEntryDetails(for: timeEntry)
+              }
+              .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                  Button("Done") {
+                    self.payPeriod = nil
+                  }
+                }
+              }
+          }
+        }
     }
     .onAppear {
       UIDatePicker.appearance().minuteInterval = minuteInterval
@@ -39,19 +71,6 @@ struct ContentView: View {
   }
   
   func navigate(to range: ClosedRange<Date>) {
-    let fetchDescriptor = FetchDescriptor<TimeEntry>(predicate: #Predicate { [range = range] timeEntry in
-      return timeEntry.start >= range.lowerBound && timeEntry.start <= range.upperBound
-    })
-    
-    do {
-      let timeEntries = try context.fetch(fetchDescriptor)
-      let payPeriod = PayPeriod(range: range, timeEntries: timeEntries)
-      selectedTab = 1
-      path = .init()
-      path.append(payPeriod)
-    } catch {
-      selectedTab = 0
-      path = .init()
-    }
+    payPeriod = range
   }
 }

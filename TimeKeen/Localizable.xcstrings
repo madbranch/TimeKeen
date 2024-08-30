@@ -483,16 +483,6 @@
         }
       }
     },
-    "Grouping" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Groupement"
-          }
-        }
-      }
-    },
     "JSON" : {
       "localizations" : {
         "fr" : {
