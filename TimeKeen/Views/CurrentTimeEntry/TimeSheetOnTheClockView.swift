@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct TimeSheetOnTheClockView: View {
+  @Environment(\.colorScheme) var colorScheme
   @Query var timeEntries: [TimeEntry]
   @Binding var clockInDuration: TimeInterval
   @Binding var payPeriod: ClosedRange<Date>
@@ -24,7 +25,7 @@ struct TimeSheetOnTheClockView: View {
         .padding()
         .background(
           RoundedRectangle(cornerRadius: 12)
-            .fill(Color(UIColor.systemBackground))
+            .fill(Color(colorScheme == .light ? UIColor.systemBackground : UIColor.secondarySystemBackground))
         )
         .shadow(radius: 10)
         .transition(.slide)
