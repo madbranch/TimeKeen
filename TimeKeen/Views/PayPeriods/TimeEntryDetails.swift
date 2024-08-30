@@ -11,11 +11,9 @@ struct TimeEntryDetails: View {
   @State var breakStart = Date()
   @State var breakEnd = Date()
   @State var breakEntry: BreakEntry?
-  private let onDelete: (TimeEntry) -> Void
   
-  init(timeEntry: TimeEntry, _ onDelete: @escaping (TimeEntry) -> Void) {
+  init(for timeEntry: TimeEntry) {
     self.timeEntry = timeEntry
-    self.onDelete = onDelete
   }
   
   var body: some View {
@@ -72,7 +70,6 @@ struct TimeEntryDetails: View {
         Button("Delete Time Entry", role: .destructive) {
           context.delete(timeEntry)
           dismiss()
-          onDelete(timeEntry)
         }
       }
     }

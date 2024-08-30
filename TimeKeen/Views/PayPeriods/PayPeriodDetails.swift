@@ -1,17 +1,22 @@
 import SwiftUI
+import SwiftData
 
 struct PayPeriodDetails: View {
-  @State var payPeriod: PayPeriod
   @Environment(\.modelContext) private var context
   @Environment(\.dismiss) private var dismiss
+  @Query var timeEntries: [TimeEntry]
+  private let payPeriod: ClosedRange<Date>
 
-  init(payPeriod: PayPeriod) {
+  init(for payPeriod: ClosedRange<Date>) {
     self.payPeriod = payPeriod
+    _timeEntries = Query(filter: #Predicate<TimeEntry> { [payPeriod = self.payPeriod] timeEntry in
+      return timeEntry.start >= payPeriod.lowerBound && timeEntry.start <= payPeriod.upperBound
+    }, sort: \TimeEntry.start, order: .reverse)
   }
   
   var body: some View {
     List {
-      ForEach(payPeriod.timeEntries.filter { payPeriod.range.contains( $0.start ) }.groupByDay()) { timeEntries in
+      ForEach(timeEntries.filter { payPeriod.contains( $0.start ) }.groupByDay()) { timeEntries in
         Section {
           ForEach(timeEntries) { timeEntry in
             NavigationLink(value: timeEntry) {
@@ -24,24 +29,16 @@ struct PayPeriodDetails: View {
       }
       .onDelete { offsets in
         for index in offsets {
-          context.delete(payPeriod.timeEntries[index])
+          context.delete(timeEntries[index])
         }
-        payPeriod.timeEntries.remove(atOffsets: offsets)
+        
+        _timeEntries.update()
 
-        if payPeriod.timeEntries.isEmpty {
+        if timeEntries.isEmpty {
           dismiss()
         }
       }
     }
-    .navigationDestination(for: TimeEntry.self) { timeEntry in
-      TimeEntryDetails(timeEntry: timeEntry) { timeEntry in
-        payPeriod = PayPeriod(range: payPeriod.range, timeEntries: payPeriod.timeEntries.filter { [timeEntry] in $0 != timeEntry })
-      }
-    }
-    .navigationTitle("\(Formatting.yearlessDateformatter.string(from: payPeriod.range.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.range.upperBound))")
-  }
-  
-  private func onDelete() {
-    print("huh")
+    .navigationTitle("\(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.upperBound))")
   }
 }

@@ -16,7 +16,10 @@ struct PayPeriodList: View {
       }
     }
     .navigationDestination(for: PayPeriod.self) { payPeriod in
-      PayPeriodDetails(payPeriod: payPeriod)
+      PayPeriodDetails(for: payPeriod.range)
+    }
+    .navigationDestination(for: TimeEntry.self) { timeEntry in
+      TimeEntryDetails(for: timeEntry)
     }
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {

@@ -32,11 +32,13 @@ struct CurrentTimeEntryView: View {
   @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
   @FocusState private var isEditingNotes: Bool
   @State private var isOntheClockTimeVisible = true
+  private let navigate: (ClosedRange<Date>) -> Void
   
   let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
-  init(quickActionProvider: QuickActionProvider) {
+  init(quickActionProvider: QuickActionProvider, navigate: @escaping (ClosedRange<Date>) -> Void) {
     self.quickActionProvider = quickActionProvider
+    self.navigate = navigate
   }
   
   var body: some View {
@@ -114,6 +116,9 @@ struct CurrentTimeEntryView: View {
       if isOntheClockTimeVisible {
         TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
           .padding()
+          .onTapGesture {
+            navigate(payPeriod)
+          }
       }
     }
     .onChange(of: quickActionProvider.quickAction) { _, _ in
