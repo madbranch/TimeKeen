@@ -257,7 +257,9 @@ struct CurrentTimeEntryView: View {
   }
   
   private func updateClockInDuration(input: Date) {
-    payPeriod = Date().getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
+    withAnimation {
+      payPeriod = Date().getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
+    }
     switch clockInState {
     case .clockedOut:
       sinceClockIn = .zero
