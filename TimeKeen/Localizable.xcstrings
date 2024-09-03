@@ -665,16 +665,6 @@
         }
       }
     },
-    "Time Clock" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pointeuse"
-          }
-        }
-      }
-    },
     "Time Sheets" : {
       "localizations" : {
         "fr" : {

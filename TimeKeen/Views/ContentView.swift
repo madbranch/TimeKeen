@@ -24,7 +24,7 @@ struct ContentView: View {
   var body: some View {
     NavigationStack(path: $path) {
       CurrentTimeEntryView(quickActionProvider: quickActionProvider, navigate: navigate)
-        .navigationTitle("Time Clock")
+        //.navigationTitle("Time Clock")
         .toolbar {
           ToolbarItem(placement: .topBarLeading) {
             Button("Settings", systemImage: "gear") {
