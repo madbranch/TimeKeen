@@ -329,6 +329,7 @@ struct CurrentTimeEntryView: View {
     breaks = [BreakEntry]()
     notes = ""
     clockInState = .clockedInWorking
+    updateClockInDuration(input: Date.now)
   }
   
   func startBreak(at breakStart: Date) {
@@ -338,6 +339,7 @@ struct CurrentTimeEntryView: View {
     
     self.breakStart = breakStart
     clockInState = .clockedInTakingABreak
+    updateClockInDuration(input: Date.now)
   }
   
   func endBreak(at breakEnd: Date) {
@@ -346,6 +348,7 @@ struct CurrentTimeEntryView: View {
     }
     breaks = breaks + [BreakEntry(start: breakStart, end: breakEnd)]
     clockInState = .clockedInWorking
+    updateClockInDuration(input: Date.now)
   }
   
   func clockOut(at end: Date, notes: String) {
@@ -357,5 +360,6 @@ struct CurrentTimeEntryView: View {
     timeEntry.breaks.append(contentsOf: breaks)
     context.insert(timeEntry)
     clockInState = .clockedOut
+    updateClockInDuration(input: Date.now)
   }
 }
