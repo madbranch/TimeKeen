@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct TimeEntryRow : View {
   var timeEntry: TimeEntry
@@ -15,4 +16,14 @@ struct TimeEntryRow : View {
         .foregroundStyle(.secondary)
     }
   }
+}
+
+#Preview {
+  let calendar = Calendar.current
+  let from = calendar.date(from: DateComponents(year: 2024, month: 9, day: 5, hour: 5, minute: 30)) ?? Date.now
+  let to = calendar.date(from: DateComponents(year: 2024, month: 9, day: 5, hour: 7, minute: 0)) ?? Date.now
+  let container = Previewing.modelContainer
+
+  return TimeEntryRow(timeEntry: TimeEntry(from: from, to: to, notes: "Some notes"))
+    .modelContainer(container)
 }
