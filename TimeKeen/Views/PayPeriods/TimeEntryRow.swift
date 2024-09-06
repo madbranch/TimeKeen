@@ -19,11 +19,9 @@ struct TimeEntryRow : View {
 }
 
 #Preview {
-  let calendar = Calendar.current
-  let from = calendar.date(from: DateComponents(year: 2024, month: 9, day: 5, hour: 5, minute: 30)) ?? Date.now
-  let to = calendar.date(from: DateComponents(year: 2024, month: 9, day: 5, hour: 7, minute: 0)) ?? Date.now
   let container = Previewing.modelContainer
+  let timeEntry = Previewing.someTimeEntry
 
-  return TimeEntryRow(timeEntry: TimeEntry(from: from, to: to, notes: "Some notes"))
+  return TimeEntryRow(timeEntry: timeEntry)
     .modelContainer(container)
 }
