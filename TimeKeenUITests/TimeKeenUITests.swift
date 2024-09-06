@@ -1,17 +1,9 @@
-//
-//  TimeKeenUITests.swift
-//  TimeKeenUITests
-//
-//  Created by Adam Labranche on 2022-12-31.
-//
-
 import XCTest
 
 final class TimeKeenUITests: XCTestCase {
-    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
+
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         
@@ -22,20 +14,20 @@ final class TimeKeenUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testExample() throws {
+    func testClockInButton() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
+        app.launchArguments.append("clear")
         app.launch()
         
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+        let clockInButton = app.buttons["ClockInButton"]
+        clockInButton.tap()
+        
+        let clockInStartButton = app.buttons["ClockInStartButton"]
+        clockInStartButton.tap()
+        
+        let clockInDurationText = app.staticTexts["ClockInDurationText"]
+        XCTAssertTrue(clockInDurationText.exists)
     }
 }

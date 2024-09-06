@@ -56,6 +56,7 @@ struct CurrentTimeEntryView: View {
                 }
                 .buttonStyle(TimeClockButton())
                 .padding()
+                .accessibilityIdentifier("ClockInButton")
             case .clockedInWorking, .clockedInTakingABreak:
                 Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
                     .contentTransition(.numericText(value: clockInDuration))
@@ -64,6 +65,7 @@ struct CurrentTimeEntryView: View {
                     .minimumScaleFactor(0.005)
                     .lineLimit(1)
                     .frame(maxHeight: 300)
+                    .accessibilityIdentifier("ClockInDurationText")
                 if clockInState == .clockedInTakingABreak {
                     Text("Started Break at \(Formatting.startEndFormatter.string(from: breakStart))")
                 }
@@ -144,6 +146,7 @@ struct CurrentTimeEntryView: View {
                                 clockIn(at: clockInDate)
                                 isClockingIn = false
                             }
+                            .accessibilityIdentifier("ClockInStartButton")
                         }
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel", role: .cancel) {

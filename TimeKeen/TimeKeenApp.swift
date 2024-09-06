@@ -29,6 +29,14 @@ struct TimeKeenApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     init() {
+        let shouldClearUserDefaults = CommandLine.arguments.contains("clear")
+        
+        if shouldClearUserDefaults {
+            if let userDefaults = SharedData.userDefaults  {
+                SharedData.Keys.allCases.forEach { userDefaults.removeObject(forKey: $0.rawValue)}
+            }
+        }
+        
         AppDependencyManager.shared.add(dependency: modelContainer)
         TimeKeenShortcuts.updateAppShortcutParameters()
     }
