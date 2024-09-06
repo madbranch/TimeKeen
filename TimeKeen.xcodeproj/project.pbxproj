@@ -194,6 +194,7 @@
 				6693596829606A3900DEDD35 /* Products */,
 			);
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		6693596829606A3900DEDD35 /* Products */ = {
 			isa = PBXGroup;

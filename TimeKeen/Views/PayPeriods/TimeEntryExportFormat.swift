@@ -1,3 +1,3 @@
 enum TimeEntryExportFormat {
-  case csv, json
+    case csv, json
 }
