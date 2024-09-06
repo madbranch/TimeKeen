@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 import SwiftData
 
@@ -41,4 +42,17 @@ struct PayPeriodDetails: View {
     }
     .navigationTitle("\(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.upperBound))")
   }
+}
+
+#Preview {
+  let container = Previewing.modelContainer
+  for timeEntry in Previewing.someTimeEntries {
+    container.mainContext.insert(timeEntry)
+  }
+  let calendar = Calendar.current
+  let from = calendar.date(from: DateComponents(year: 2024, month: 9, day: 5)) ?? Date.now
+  let to = calendar.date(from: DateComponents(year: 2024, month: 9, day: 12)) ?? Date.now
+
+  return PayPeriodDetails(for: from...to)
+    .modelContainer(container)
 }
