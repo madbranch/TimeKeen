@@ -17,6 +17,8 @@ final class TimeKeenUITests: XCTestCase {
     func testClockInButton() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(en)"]
+        app.launchArguments += ["-AppleLocale", "en_US"]
         app.launchArguments.append("clear")
         app.launch()
         
@@ -24,6 +26,13 @@ final class TimeKeenUITests: XCTestCase {
         let clockInButton = app.buttons["ClockInButton"]
         clockInButton.tap()
         
+        let clockInDatePicker = app.datePickers["ClockInDatePicker"]
+        XCTAssertTrue(clockInDatePicker.exists)
+        let clockInDatePickerWheels = clockInDatePicker.pickerWheels
+        clockInDatePickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Sep 5")
+        clockInDatePickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "07")
+        clockInDatePickerWheels.element(boundBy: 2).adjust(toPickerWheelValue: "15")
+
         let clockInStartButton = app.buttons["ClockInStartButton"]
         clockInStartButton.tap()
         

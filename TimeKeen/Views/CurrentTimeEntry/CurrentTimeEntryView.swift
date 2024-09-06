@@ -138,6 +138,7 @@ struct CurrentTimeEntryView: View {
         .sheet(isPresented: $isClockingIn) { [clockInDate, minuteInterval] in
             NavigationStack {
                 IntervalDatePicker(selection: $clockInDate, minuteInterval: minuteInterval, displayedComponents: [.date, .hourAndMinute], style: .wheels)
+                    .accessibilityIdentifier("ClockInDatePicker")
                     .navigationTitle("Clock In")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
