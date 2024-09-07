@@ -79,6 +79,12 @@
             ReferencedContainer = "container:TimeKeen.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "enable-testing"
+            isEnabled = "NO">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <StoreKitConfigurationFileReference
          identifier = "../../TimeKeen/Store.storekit">
       </StoreKitConfigurationFileReference>

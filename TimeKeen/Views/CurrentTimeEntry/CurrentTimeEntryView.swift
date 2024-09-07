@@ -11,22 +11,23 @@ struct CurrentTimeEntryView: View {
     }
     
     @Environment(\.modelContext) private var context
+    @Environment(\.dateProvider) private var dateProvider
     @AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) var clockInState = ClockInState.clockedOut
     @State private var clockInDuration: TimeInterval = .zero
     @State private var sinceClockIn: TimeInterval = .zero
-    @State private var payPeriod: ClosedRange<Date> = Date()...Date()
+    @State private var payPeriod: ClosedRange<Date> = Date.now...Date.now
     @State private var isClockingIn = false
     @State private var isClockingOut = false
-    @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) var clockInDate = Date()
-    @State private var clockOutDate = Date()
-    @State private var minClockOutDate = Date()
+    @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) var clockInDate = Date.now
+    @State private var clockOutDate = Date.now
+    @State private var minClockOutDate = Date.now
     @AppStorage(SharedData.Keys.notes.rawValue, store: SharedData.userDefaults) private var notes = ""
     @State private var isStartingBreak = false
     @State private var isEndingBreak = false
-    @State private var minBreakStart = Date()
-    @AppStorage(SharedData.Keys.breakStart.rawValue, store: SharedData.userDefaults) var breakStart = Date()
-    @State private var breakEnd = Date()
-    @State private var minBreakEndDate = Date()
+    @State private var minBreakStart = Date.now
+    @AppStorage(SharedData.Keys.breakStart.rawValue, store: SharedData.userDefaults) var breakStart = Date.now
+    @State private var breakEnd = Date.now
+    @State private var minBreakEndDate = Date.now
     @AppStorage(SharedData.Keys.breaks.rawValue, store: SharedData.userDefaults) var breaks = [BreakEntry]()
     @AppStorage(SharedData.Keys.payPeriodSchedule.rawValue, store: SharedData.userDefaults) var payPeriodSchedule = PayPeriodSchedule.Weekly
     @AppStorage(SharedData.Keys.endOfLastPayPeriod.rawValue, store: SharedData.userDefaults) var endOfLastPayPeriod = Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
@@ -133,7 +134,7 @@ struct CurrentTimeEntryView: View {
             case .clockedInWorking, .clockedInTakingABreak: old == .clockedOut ? .impact : nil
             }
         }
-        .onAppear { updateClockInDuration(input: Date.now) }
+        .onAppear { updateClockInDuration(input: dateProvider.now) }
         .onReceive(timer, perform: updateClockInDuration)
         .sheet(isPresented: $isClockingIn) { [clockInDate, minuteInterval] in
             NavigationStack {
@@ -233,7 +234,7 @@ struct CurrentTimeEntryView: View {
         }
         
         minClockOutDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
-        clockOutDate = max(minClockOutDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
+        clockOutDate = max(minClockOutDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now))
         return true
     }
     
@@ -247,7 +248,7 @@ struct CurrentTimeEntryView: View {
         }
         
         minBreakStart = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
-        breakStart = max(minBreakStart, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
+        breakStart = max(minBreakStart, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now))
         return true
     }
     
@@ -261,13 +262,13 @@ struct CurrentTimeEntryView: View {
         }
         
         minBreakEndDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
-        breakEnd = max(minBreakEndDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date()))
+        breakEnd = max(minBreakEndDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now))
         return true
     }
     
     private func updateClockInDuration(input: Date) {
         withAnimation {
-            payPeriod = Date().getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
+            payPeriod = dateProvider.now.getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
         }
         switch clockInState {
         case .clockedOut:
@@ -277,21 +278,23 @@ struct CurrentTimeEntryView: View {
         case .clockedInWorking:
             withAnimation {
                 let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
-                sinceClockIn = clockInDate.distance(to: input)
+                let clockInDate = clockInDate
+                let sinceClockIn = clockInDate.distance(to: dateProvider.now)
+                self.sinceClockIn = sinceClockIn
                 clockInDuration = sinceClockIn - onBreak
             }
             break
         case .clockedInTakingABreak:
             let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
-            sinceClockIn = clockInDate.distance(to: input)
-            let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: input))
+            sinceClockIn = clockInDate.distance(to: dateProvider.now)
+            let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: dateProvider.now))
             clockInDuration = sinceClockIn - onBreak - sinceBreakStart
             break
         }
     }
     
     func getRoundedNow() -> Date {
-        return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: Date())
+        return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now)
     }
     
     private func handle(_ quickAction: QuickAction) {
@@ -333,7 +336,7 @@ struct CurrentTimeEntryView: View {
         breaks = [BreakEntry]()
         notes = ""
         clockInState = .clockedInWorking
-        updateClockInDuration(input: Date.now)
+        updateClockInDuration(input: dateProvider.now)
     }
     
     func startBreak(at breakStart: Date) {
@@ -343,7 +346,7 @@ struct CurrentTimeEntryView: View {
         
         self.breakStart = breakStart
         clockInState = .clockedInTakingABreak
-        updateClockInDuration(input: Date.now)
+        updateClockInDuration(input: dateProvider.now)
     }
     
     func endBreak(at breakEnd: Date) {
@@ -352,7 +355,7 @@ struct CurrentTimeEntryView: View {
         }
         breaks = breaks + [BreakEntry(start: breakStart, end: breakEnd)]
         clockInState = .clockedInWorking
-        updateClockInDuration(input: Date.now)
+        updateClockInDuration(input: dateProvider.now)
     }
     
     func clockOut(at end: Date, notes: String) {
@@ -364,6 +367,6 @@ struct CurrentTimeEntryView: View {
         timeEntry.breaks.append(contentsOf: breaks)
         context.insert(timeEntry)
         clockInState = .clockedOut
-        updateClockInDuration(input: Date.now)
+        updateClockInDuration(input: dateProvider.now)
     }
 }

@@ -2,21 +2,21 @@ import SwiftUI
 import SwiftData
 import AppIntents
 
-enum QuickAction: String {
-    case clockIn
-    case clockOut
-    case startBreak
-    case endBreak
-}
-
-@Observable class QuickActionProvider {
-    var quickAction: QuickAction?
-}
-
 // globals are lazy
 fileprivate let modelContainer: ModelContainer = {
+    var inMemory = false
+    
+#if DEBUG
+    if CommandLine.arguments.contains("enable-testing") {
+        inMemory = true
+        if let userDefaults = SharedData.userDefaults  {
+            SharedData.Keys.allCases.forEach { userDefaults.removeObject(forKey: $0.rawValue)}
+        }
+    }
+#endif
+    
     do {
-        return try ModelContainer(for: TimeEntry.self, BreakEntry.self, configurations: ModelConfiguration())
+        return try ModelContainer(for: TimeEntry.self, BreakEntry.self, configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory))
     } catch {
         fatalError("Failed to configure SwiftData container.")
     }
@@ -27,24 +27,32 @@ struct TimeKeenApp: App {
     @Environment(\.scenePhase) var scenePhase
     @AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) var clockInState = ClockInState.clockedOut
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    private let dateProvider: DateProvider
     
     init() {
-        let shouldClearUserDefaults = CommandLine.arguments.contains("clear")
-        
-        if shouldClearUserDefaults {
+#if DEBUG
+        if CommandLine.arguments.contains("enable-testing") {
             if let userDefaults = SharedData.userDefaults  {
                 SharedData.Keys.allCases.forEach { userDefaults.removeObject(forKey: $0.rawValue)}
             }
+            
+            dateProvider = FakeDateProvider()
+        } else {
+            dateProvider = RealDateProvider()
         }
+#else
+        dateProvider = RealDateProvider()
+#endif
         
         AppDependencyManager.shared.add(dependency: modelContainer)
-        TimeKeenShortcuts.updateAppShortcutParameters()
+        TimeKeenShortcuts.updateAppShortcutParameters(dateProvider)
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView(quickActionProvider: appDelegate.quickActionProvider)
                 .modelContainer(modelContainer)
+                .dateProvider(dateProvider)
                 .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {
                     case .background:

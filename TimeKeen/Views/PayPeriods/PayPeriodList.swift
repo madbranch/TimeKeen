@@ -39,7 +39,7 @@ struct PayPeriodList: View {
     
     var timeEntrySharingSheet: some View {
         NavigationStack {
-            TimeEntrySharingView(timeEntries: allTimeEntries, defaultRange: (allTimeEntries.first?.start ?? Date()).getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod))
+            TimeEntrySharingView(timeEntries: allTimeEntries, defaultRange: (allTimeEntries.first?.start ?? Date.now).getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod))
                 .background(.background.secondary)
                 .navigationTitle("Export")
                 .toolbar {

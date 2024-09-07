@@ -8,8 +8,8 @@ struct TimeEntryDetails: View {
     @AppStorage(SharedData.Keys.minuteInterval.rawValue, store: SharedData.userDefaults) var minuteInterval = 15
     @State var isEditingBreak = false
     @State var isAddingBreak = false
-    @State var breakStart = Date()
-    @State var breakEnd = Date()
+    @State var breakStart = Date.now
+    @State var breakEnd = Date.now
     @State var breakEntry: BreakEntry?
     
     init(for timeEntry: TimeEntry) {

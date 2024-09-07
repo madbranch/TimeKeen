@@ -19,16 +19,23 @@ struct TimeSheetOnTheClockView: View {
         let t = timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock } + max(0, clockInDuration)
         
         if t > 0 {
-            Label("Worked **\(Formatting.timeIntervalFormatter.string(from: t) ?? "")** since \(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound))", systemImage: "stopwatch")
-                .contentTransition(.numericText(value: clockInDuration))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(colorScheme == .light ? UIColor.systemBackground : UIColor.secondarySystemBackground))
-                )
-                .shadow(radius: 10)
-                .transition(.slide)
+            HStack {
+                Label("Worked **\(Formatting.timeIntervalFormatter.string(from: t) ?? "")** since \(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound))", systemImage: "stopwatch")
+                    .contentTransition(.numericText(value: clockInDuration))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                Image(systemName: "chevron.forward")
+                    .foregroundStyle(.tertiary)
+                    .font(.system(.callout))
+                    .fontWeight(.medium)
+                    .padding()
+            }
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(colorScheme == .light ? UIColor.systemBackground : UIColor.secondarySystemBackground))
+            )
+            .shadow(radius: 10)
+            .transition(.slide)
         }
     }
 }
