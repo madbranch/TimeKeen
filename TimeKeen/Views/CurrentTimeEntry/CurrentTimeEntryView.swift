@@ -82,6 +82,7 @@ struct CurrentTimeEntryView: View {
                                 .padding()
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
+                        .accessibilityIdentifier("StartBreakButton")
                         .buttonStyle(TimeClockButton())
                         .padding()
                         Button {
@@ -91,6 +92,7 @@ struct CurrentTimeEntryView: View {
                                 .padding()
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
+                        .accessibilityIdentifier("ClockOutButton")
                         .buttonStyle(TimeClockButton())
                         .padding()
                     } else if clockInState == .clockedInTakingABreak {
@@ -101,6 +103,7 @@ struct CurrentTimeEntryView: View {
                                 .padding()
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
+                        .accessibilityIdentifier("EndBreakButton")
                         .buttonStyle(TimeClockButton())
                         .padding()
                     }
@@ -162,6 +165,7 @@ struct CurrentTimeEntryView: View {
         .sheet(isPresented: $isClockingOut) { [clockOutDate, minClockOutDate, minuteInterval] in
             NavigationStack {
                 IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+                    .accessibilityIdentifier("ClockOutDatePicker")
                     .navigationTitle("Clock Out")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -170,6 +174,7 @@ struct CurrentTimeEntryView: View {
                                 clockOut(at: clockOutDate, notes: notes)
                                 isClockingOut = false
                             }
+                            .accessibilityIdentifier("ClockOutStopButton")
                         }
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel", role: .cancel) {
@@ -183,6 +188,7 @@ struct CurrentTimeEntryView: View {
         .sheet(isPresented: $isStartingBreak) { [breakStart, minBreakStart, minuteInterval] in
             NavigationStack {
                 IntervalDatePicker(selection: $breakStart, minuteInterval: minuteInterval, in: minBreakStart..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+                    .accessibilityIdentifier("StartBreakDatePicker")
                     .navigationTitle("Take a Break")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -191,6 +197,7 @@ struct CurrentTimeEntryView: View {
                                 startBreak(at: breakStart)
                                 isStartingBreak = false
                             }
+                            .accessibilityIdentifier("StartBreakStartButton")
                         }
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel", role: .cancel) {
@@ -204,6 +211,7 @@ struct CurrentTimeEntryView: View {
         .sheet(isPresented: $isEndingBreak) { [minBreakEndDate, breakEnd, minuteInterval] in
             NavigationStack {
                 IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: minBreakEndDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+                    .accessibilityIdentifier("EndBreakDatePicker")
                     .navigationTitle("Go back to work")
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
@@ -212,6 +220,7 @@ struct CurrentTimeEntryView: View {
                                 endBreak(at: breakEnd)
                                 isEndingBreak = false
                             }
+                            .accessibilityIdentifier("EndBreakStopButton")
                         }
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel", role: .cancel) {

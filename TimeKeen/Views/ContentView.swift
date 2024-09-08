@@ -24,7 +24,6 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             CurrentTimeEntryView(quickActionProvider: quickActionProvider, navigate: navigate)
-            //.navigationTitle("Time Clock")
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button("Settings", systemImage: "gear") {
@@ -35,6 +34,7 @@ struct ContentView: View {
                         NavigationLink(value: PayPeriodListValue.payPeriodList, label: {
                             Label("Time Sheets", systemImage: "list.bullet.rectangle")
                         })
+                        .accessibilityIdentifier("TimeSheetsButton")
                     }
                 }
                 .navigationDestination(for: PayPeriodListValue.self) { _ in
