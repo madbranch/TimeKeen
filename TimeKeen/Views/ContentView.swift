@@ -5,7 +5,7 @@ enum PayPeriodListValue {
     case payPeriodList
 }
 
-extension ClosedRange: Identifiable where Bound == Date  {
+extension ClosedRange: @retroactive Identifiable where Bound == Date  {
     public var id: Self { self }
 }
 

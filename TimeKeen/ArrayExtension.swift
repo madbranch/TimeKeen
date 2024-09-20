@@ -1,10 +1,10 @@
 import Foundation
 
-extension Array: Identifiable where Element: Hashable {
+extension Array: @retroactive Identifiable where Element: Hashable {
     public var id: Self { self }
 }
 
-extension Array: RawRepresentable where Element: Codable {
+extension Array: @retroactive RawRepresentable where Element: Codable {
     public init?(rawValue: String) {
         guard let data = rawValue.data(using: .utf8),
               let result = try? JSONDecoder().decode([Element].self, from: data)
