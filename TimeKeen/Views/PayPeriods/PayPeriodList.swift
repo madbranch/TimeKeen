@@ -13,6 +13,7 @@ struct PayPeriodList: View {
             NavigationLink(value: payPeriod) {
                 PayPeriodRow(payPeriod: payPeriod)
             }
+            .accessibilityIdentifier("PayPeriodLink")
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

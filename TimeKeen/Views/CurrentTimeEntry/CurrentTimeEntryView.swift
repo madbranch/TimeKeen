@@ -125,6 +125,7 @@ struct CurrentTimeEntryView: View {
                     .onTapGesture {
                         navigate(payPeriod)
                     }
+                    .accessibilityIdentifier("OnTheClockViewButton")
             }
         }
         .onChange(of: quickActionProvider.quickAction) { _, _ in

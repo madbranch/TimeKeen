@@ -1,0 +1,55 @@
+{
+  "default": {
+    "keyword": {
+      "fonts": [
+        {
+          "font": "./fonts/JosefinSans-VariableFont_wght.ttf",
+          "supported": ["en", "fr"]
+        }
+      ]
+    },
+    "title": {
+      "fonts": [
+        {
+          "font": "./fonts/JosefinSans-VariableFont_wght.ttf",
+          "supported": ["en", "fr"]
+        }
+      ],
+      "color": "#000000"
+    },
+    "background": "./background.jpg",
+    "padding": 50
+  },
+  "data": [
+    {
+      "filter": "01ClockedOut",
+      "keyword": {
+        "color": "#222222"
+      }
+    },
+    {
+      "filter": "02ClockedIn",
+      "keyword": {
+        "color": "#222222"
+      }
+    },
+    {
+      "filter": "03ClockedOut",
+      "keyword": {
+        "color": "#222222"
+      }
+    },
+    {
+      "filter": "04CurrentTimeSheet",
+      "keyword": {
+        "color": "#222222"
+      }
+    },
+    {
+      "filter": "05TimeSheets",
+      "keyword": {
+        "color": "#222222"
+      }
+    }
+  ]
+}

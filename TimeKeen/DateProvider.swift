@@ -13,7 +13,7 @@ final class RealDateProvider: DateProvider {
 
 final class FakeDateProvider: DateProvider {
     private let fakeNow: Date = {
-        let dateComponents = DateComponents(year: 2024, month: 8, day: 11, hour: 9, minute: 41)
+        let dateComponents = DateComponents(year: 2024, month: 9, day: 11, hour: 9, minute: 41)
         return Calendar.current.date(from: dateComponents)!
     }()
     

@@ -73,12 +73,17 @@ final class TimeKeenUISnapshots: XCTestCase {
         app.addSomeTimeEntries()
         
         snapshot("01ClockedOut")
-        app.clockIn(at: UIDate(day: "Aug 11", hour: "07", minute: "15"))
+        app.clockIn(at: UIDate(day: "Sep 11", hour: "07", minute: "15"))
         snapshot("02ClockedIn")
-        app.clockOut(at: UIDate(day: "Aug 11", hour: "09", minute: "45"))
+        app.clockOut(at: UIDate(day: "Sep 11", hour: "09", minute: "45"))
         snapshot("03ClockedOut")
         
+        app.staticTexts["OnTheClockViewButton"].tap()
+        snapshot("04CurrentTimeSheet")
+        
+        app.navigationBars["Sep 9 - Sep 15"].buttons.element(boundBy: 0).tap()
+
         app.buttons["TimeSheetsButton"].tap()
-        snapshot("04TimeSheets")
+        snapshot("05TimeSheets")
     }
 }

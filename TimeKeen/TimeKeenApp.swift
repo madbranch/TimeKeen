@@ -37,6 +37,16 @@ struct TimeKeenApp: App {
             }
             
             dateProvider = FakeDateProvider()
+            
+            do {
+                try modelContainer.mainContext.transaction {
+                    for timeEntry in Previewing.someTimeEntries {
+                        modelContainer.mainContext.insert(timeEntry)
+                    }
+                }
+            } catch {
+                fatalError("Failed to add testing data")
+            }
         } else {
             dateProvider = RealDateProvider()
         }
