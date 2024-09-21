@@ -2,8 +2,8 @@ import Foundation
 import AppIntents
 
 struct ClockIn: AppIntent {
-    static var title: LocalizedStringResource = "Clock In"
-    static var description = IntentDescription("Clock in and start working.")
+    static let title: LocalizedStringResource = "Clock In"
+    static let description = IntentDescription("Clock in and start working.")
     
     @Parameter(title: "When", description: "When to clock in.")
     var when: Date

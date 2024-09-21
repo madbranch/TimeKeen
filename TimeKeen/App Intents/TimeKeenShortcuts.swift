@@ -2,7 +2,7 @@ import Foundation
 import AppIntents
 
 class TimeKeenShortcuts: AppShortcutsProvider {
-    private static var dateProvider: DateProvider = RealDateProvider()
+    @MainActor private static var dateProvider: DateProvider = RealDateProvider()
     
     static var appShortcuts: [AppShortcut] {
         AppShortcut(intent: ClockIn(), phrases: [
@@ -20,7 +20,7 @@ class TimeKeenShortcuts: AppShortcutsProvider {
                     systemImageName: "stopwatch")
     }
     
-    static func updateAppShortcutParameters(_ dateProvider: DateProvider) {
+    @MainActor static func updateAppShortcutParameters(_ dateProvider: DateProvider) {
         TimeKeenShortcuts.dateProvider = dateProvider
         TimeKeenShortcuts.updateAppShortcutParameters()
     }

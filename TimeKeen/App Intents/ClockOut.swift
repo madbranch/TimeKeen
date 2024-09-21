@@ -3,8 +3,8 @@ import SwiftData
 import AppIntents
 
 struct ClockOut: AppIntent {
-    static var title: LocalizedStringResource = "Clock Out"
-    static var description = IntentDescription("Clock out and stop working.")
+    static let title: LocalizedStringResource = "Clock Out"
+    static let description = IntentDescription("Clock out and stop working.")
     
     @Parameter(title: "When", description: "When to clock out.")
     var when: Date

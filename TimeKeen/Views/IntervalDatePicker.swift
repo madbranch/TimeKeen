@@ -80,7 +80,7 @@ struct IntervalDatePicker: UIViewRepresentable {
             self.datePicker = datePicker
         }
         
-        @objc func dateChanged(_ sender: UIDatePicker) {
+        @MainActor @objc func dateChanged(_ sender: UIDatePicker) {
             datePicker.selection = sender.date
         }
     }

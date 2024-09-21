@@ -1,7 +1,7 @@
 import Foundation
 
 class SharedData {
-    static let userDefaults: UserDefaults? = UserDefaults(suiteName: "group.com.timekeen.maingroup")
+    static var userDefaults: UserDefaults? { UserDefaults(suiteName: "group.com.timekeen.maingroup") }
     
     enum Keys: String, CaseIterable {
         case minuteInterval = "MinuteInterval"
