@@ -22,11 +22,37 @@ class Formatting {
         return formatter
     }()
     
-    static let yearlessDateformatter = {
+    static func getYearlessDateFormatter(locale: Locale) -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.locale = Locale.current
+        formatter.locale = locale
         formatter.setLocalizedDateFormatFromTemplate("MMM d")
         return formatter
+    }
+    
+    static let yearlessDateformatter = {
+        return getYearlessDateFormatter(locale: Locale.current)
+    }()
+    
+    static func getHourFormatter(locale: Locale) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.locale = locale
+        formatter.setLocalizedDateFormatFromTemplate("HH")
+        return formatter
+    }
+    
+    static let hourFormatter = {
+        return getHourFormatter(locale: Locale.current)
+    }()
+    
+    static func getMinuteFormatter(locale: Locale) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.locale = locale
+        formatter.setLocalizedDateFormatFromTemplate("mm")
+        return formatter
+    }
+    
+    static let minuteFormatter = {
+        return getMinuteFormatter(locale: Locale.current)
     }()
     
     static let fileNameDateFormatter = {

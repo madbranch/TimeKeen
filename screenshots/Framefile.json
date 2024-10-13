@@ -3,7 +3,7 @@
     "keyword": {
       "fonts": [
         {
-          "font": "./fonts/JosefinSans-VariableFont_wght.ttf",
+          "font": "./fonts/JosefinSans-Bold.ttf",
           "supported": ["en", "fr"]
         }
       ]
@@ -11,7 +11,7 @@
     "title": {
       "fonts": [
         {
-          "font": "./fonts/JosefinSans-VariableFont_wght.ttf",
+          "font": "./fonts/JosefinSans-Bold.ttf",
           "supported": ["en", "fr"]
         }
       ],

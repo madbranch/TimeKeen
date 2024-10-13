@@ -1,11 +1,11 @@
 
-"01ClockedOut" = "Clock-in and Clock-out";
+"01ClockedOut" = "Clock In";
 
-"02ClockedIn" = "Take Breaks";
+"02ClockedIn" = "Work";
 
-"03ClockedOut" = "Take Notes";
+"03ClockedOut" = "Clock Out";
 
 "04CurrentTimeSheet" = "Review Logged Time";
 
-"05TimeSheets" = "Easy to Tweak";
+"05TimeSheets" = "Check Previous Time Sheets";
 

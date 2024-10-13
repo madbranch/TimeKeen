@@ -34,6 +34,7 @@ struct CurrentTimeEntryView: View {
     @FocusState private var isEditingNotes: Bool
     @State private var isOntheClockTimeVisible = true
     private let navigate: (ClosedRange<Date>) -> Void
+    private static let bigButtonPadding: CGFloat = 35
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -56,7 +57,7 @@ struct CurrentTimeEntryView: View {
                         .padding()
                 }
                 .buttonStyle(TimeClockButton())
-                .padding()
+                .padding(CurrentTimeEntryView.bigButtonPadding)
                 .accessibilityIdentifier("ClockInButton")
             case .clockedInWorking, .clockedInTakingABreak:
                 Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
@@ -105,7 +106,7 @@ struct CurrentTimeEntryView: View {
                         }
                         .accessibilityIdentifier("EndBreakButton")
                         .buttonStyle(TimeClockButton())
-                        .padding()
+                        .padding(CurrentTimeEntryView.bigButtonPadding)
                     }
                 }
                 TextField("Notes", text: $notes)
