@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,22 @@
 		6631C4942C7B50A70082D770 /* ClockIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C4932C7B50A70082D770 /* ClockIn.swift */; };
 		6631C4962C7D385D0082D770 /* TimeKeenShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C4952C7D385D0082D770 /* TimeKeenShortcuts.swift */; };
 		6631C4982C7ECC3B0082D770 /* ClockOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C4972C7ECC3B0082D770 /* ClockOut.swift */; };
+		664113252CD646AB0065E014 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664113242CD646AB0065E014 /* WidgetKit.framework */; };
+		664113272CD646AB0065E014 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 664113262CD646AB0065E014 /* SwiftUI.framework */; };
+		664113322CD646AC0065E014 /* TimeKeenWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 664113222CD646AB0065E014 /* TimeKeenWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		664113382CD64D860065E014 /* ClockIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C4932C7B50A70082D770 /* ClockIn.swift */; };
+		664113392CD64DAA0065E014 /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D2C5A52C8C54D4004C145D /* DateProvider.swift */; };
+		6641133A2CD64DBD0065E014 /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E7E592C5EBB8400E8C43F /* SharedData.swift */; };
+		6641133B2CD64DC90065E014 /* ClockInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669393E32986B2BD00CC661C /* ClockInState.swift */; };
+		6641133C2CD64DD60065E014 /* BreakEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */; };
+		6641133D2CD64DE50065E014 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */; };
+		6641133E2CD64DF60065E014 /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE52C4E6E7D0050FDFB /* Formatting.swift */; };
+		6641133F2CD64E020065E014 /* CalendarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E7E562C5A76C600E8C43F /* CalendarExtension.swift */; };
+		664113402CD64E1B0065E014 /* PayPeriodSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */; };
+		664113412CD64E620065E014 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CF12C4FBE6A0050FDFB /* DateExtension.swift */; };
+		664113422CD64E750065E014 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D8162C7058760015BD48 /* ArrayExtension.swift */; };
+		664113432CD64E840065E014 /* TimeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294B12C4466B1005707D1 /* TimeEntry.swift */; };
+		664113442CD7A1F90065E014 /* QuickActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D2C5A72C8C550A004C145D /* QuickActionProvider.swift */; };
 		66411CDA2C4B003A0050FDFB /* TimeEntryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */; };
 		66411CDE2C4D24CD0050FDFB /* BreakEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */; };
 		66411CE42C4D3FAD0050FDFB /* BreakEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */; };
@@ -40,6 +56,7 @@
 		667120462C71FD820017811E /* TimeEntryJsonExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120452C71FD820017811E /* TimeEntryJsonExport.swift */; };
 		667120482C729D630017811E /* PayPeriodSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120472C729D630017811E /* PayPeriodSettingsView.swift */; };
 		6671204A2C744CB10017811E /* TimeClockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120492C744CB10017811E /* TimeClockButton.swift */; };
+		668248F72CE0D5610063EB33 /* BreakEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */; };
 		6687E7A72C89C44900D03D4A /* Previewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6687E7A62C89C44900D03D4A /* Previewing.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
 		6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6693596E29606A3A00DEDD35 /* Assets.xcassets */; };
@@ -60,6 +77,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		664113302CD646AC0065E014 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6693595F29606A3900DEDD35 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 664113212CD646AB0065E014;
+			remoteInfo = TimeKeenWidgetExtensionExtension;
+		};
 		6693597E29606A3A00DEDD35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6693595F29606A3900DEDD35 /* Project object */;
@@ -83,6 +107,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		664113332CD646AC0065E014 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				664113322CD646AC0065E014 /* TimeKeenWidgetExtensionExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		6622692F2C52DD0100E51B69 /* TimeEntryExportFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryExportFormat.swift; sourceTree = "<group>"; };
 		662294AA2C43DC98005707D1 /* TimeKeen.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TimeKeen.xctestplan; sourceTree = "<group>"; };
@@ -99,6 +137,9 @@
 		6631C4932C7B50A70082D770 /* ClockIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockIn.swift; sourceTree = "<group>"; };
 		6631C4952C7D385D0082D770 /* TimeKeenShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenShortcuts.swift; sourceTree = "<group>"; };
 		6631C4972C7ECC3B0082D770 /* ClockOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockOut.swift; sourceTree = "<group>"; };
+		664113222CD646AB0065E014 /* TimeKeenWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimeKeenWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		664113242CD646AB0065E014 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		664113262CD646AB0065E014 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		66411CD92C4B003A0050FDFB /* TimeEntryDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryDetails.swift; sourceTree = "<group>"; };
 		66411CDD2C4D24CD0050FDFB /* BreakEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakEntry.swift; sourceTree = "<group>"; };
 		66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakEntryExtension.swift; sourceTree = "<group>"; };
@@ -118,6 +159,7 @@
 		667120452C71FD820017811E /* TimeEntryJsonExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryJsonExport.swift; sourceTree = "<group>"; };
 		667120472C729D630017811E /* PayPeriodSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodSettingsView.swift; sourceTree = "<group>"; };
 		667120492C744CB10017811E /* TimeClockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeClockButton.swift; sourceTree = "<group>"; };
+		668248F62CDF97140063EB33 /* TimeKeenWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeKeenWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		6687E7A62C89C44900D03D4A /* Previewing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previewing.swift; sourceTree = "<group>"; };
 		6693596729606A3900DEDD35 /* TimeKeen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeKeen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6693596A29606A3900DEDD35 /* TimeKeenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenApp.swift; sourceTree = "<group>"; };
@@ -143,7 +185,30 @@
 		66D2C5A72C8C550A004C145D /* QuickActionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		664113362CD646AC0065E014 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 664113212CD646AB0065E014 /* TimeKeenWidgetExtensionExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		664113282CD646AB0065E014 /* TimeKeenWidgetExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (664113362CD646AC0065E014 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TimeKeenWidgetExtension; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		6641131F2CD646AB0065E014 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				664113272CD646AB0065E014 /* SwiftUI.framework in Frameworks */,
+				664113252CD646AB0065E014 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6693596429606A3900DEDD35 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -208,14 +273,26 @@
 			path = "App Intents";
 			sourceTree = "<group>";
 		};
+		664113232CD646AB0065E014 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				664113242CD646AB0065E014 /* WidgetKit.framework */,
+				664113262CD646AB0065E014 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6693595E29606A3900DEDD35 = {
 			isa = PBXGroup;
 			children = (
+				668248F62CDF97140063EB33 /* TimeKeenWidgetExtensionExtension.entitlements */,
 				66CBF2122C8BFAF0002DB7B9 /* TimeKeenUISnapshots */,
 				662294AA2C43DC98005707D1 /* TimeKeen.xctestplan */,
 				6693596929606A3900DEDD35 /* TimeKeen */,
 				6693598029606A3A00DEDD35 /* TimeKeenTests */,
 				6693598A29606A3A00DEDD35 /* TimeKeenUITests */,
+				664113282CD646AB0065E014 /* TimeKeenWidgetExtension */,
+				664113232CD646AB0065E014 /* Frameworks */,
 				6693596829606A3900DEDD35 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -228,6 +305,7 @@
 				6693597D29606A3A00DEDD35 /* TimeKeenTests.xctest */,
 				6693598729606A3A00DEDD35 /* TimeKeenUITests.xctest */,
 				66CBF2112C8BFA3B002DB7B9 /* TimeKeenUISnapshots.xctest */,
+				664113222CD646AB0065E014 /* TimeKeenWidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -322,6 +400,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		664113212CD646AB0065E014 /* TimeKeenWidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 664113372CD646AC0065E014 /* Build configuration list for PBXNativeTarget "TimeKeenWidgetExtensionExtension" */;
+			buildPhases = (
+				6641131E2CD646AB0065E014 /* Sources */,
+				6641131F2CD646AB0065E014 /* Frameworks */,
+				664113202CD646AB0065E014 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				664113282CD646AB0065E014 /* TimeKeenWidgetExtension */,
+			);
+			name = TimeKeenWidgetExtensionExtension;
+			packageProductDependencies = (
+			);
+			productName = TimeKeenWidgetExtensionExtension;
+			productReference = 664113222CD646AB0065E014 /* TimeKeenWidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		6693596629606A3900DEDD35 /* TimeKeen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6693599129606A3A00DEDD35 /* Build configuration list for PBXNativeTarget "TimeKeen" */;
@@ -329,10 +429,12 @@
 				6693596329606A3900DEDD35 /* Sources */,
 				6693596429606A3900DEDD35 /* Frameworks */,
 				6693596529606A3900DEDD35 /* Resources */,
+				664113332CD646AC0065E014 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				664113312CD646AC0065E014 /* PBXTargetDependency */,
 			);
 			name = TimeKeen;
 			packageProductDependencies = (
@@ -402,9 +504,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					664113212CD646AB0065E014 = {
+						CreatedOnToolsVersion = 16.1;
+					};
 					6693596629606A3900DEDD35 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -438,11 +543,19 @@
 				6693597C29606A3A00DEDD35 /* TimeKeenTests */,
 				6693598629606A3A00DEDD35 /* TimeKeenUITests */,
 				66CBF2052C8BFA3B002DB7B9 /* TimeKeenUISnapshots */,
+				664113212CD646AB0065E014 /* TimeKeenWidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		664113202CD646AB0065E014 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6693596529606A3900DEDD35 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -478,6 +591,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6641131E2CD646AB0065E014 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6641133E2CD64DF60065E014 /* Formatting.swift in Sources */,
+				664113412CD64E620065E014 /* DateExtension.swift in Sources */,
+				6641133C2CD64DD60065E014 /* BreakEntry.swift in Sources */,
+				664113442CD7A1F90065E014 /* QuickActionProvider.swift in Sources */,
+				6641133D2CD64DE50065E014 /* UserDefaultsExtension.swift in Sources */,
+				664113432CD64E840065E014 /* TimeEntry.swift in Sources */,
+				664113382CD64D860065E014 /* ClockIn.swift in Sources */,
+				664113392CD64DAA0065E014 /* DateProvider.swift in Sources */,
+				668248F72CE0D5610063EB33 /* BreakEntryExtension.swift in Sources */,
+				664113402CD64E1B0065E014 /* PayPeriodSchedule.swift in Sources */,
+				6641133B2CD64DC90065E014 /* ClockInState.swift in Sources */,
+				6641133A2CD64DBD0065E014 /* SharedData.swift in Sources */,
+				6641133F2CD64E020065E014 /* CalendarExtension.swift in Sources */,
+				664113422CD64E750065E014 /* ArrayExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6693596329606A3900DEDD35 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -555,6 +689,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		664113312CD646AC0065E014 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 664113212CD646AB0065E014 /* TimeKeenWidgetExtensionExtension */;
+			targetProxy = 664113302CD646AC0065E014 /* PBXContainerItemProxy */;
+		};
 		6693597F29606A3A00DEDD35 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6693596629606A3900DEDD35 /* TimeKeen */;
@@ -573,6 +712,69 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		664113342CD646AC0065E014 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimeKeenWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A2M6WJ4ZXF;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TimeKeenWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TimeKeenWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timekeen.TimeKeen.TimeKeenWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		664113352CD646AC0065E014 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimeKeenWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = A2M6WJ4ZXF;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TimeKeenWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TimeKeenWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.timekeen.TimeKeen.TimeKeenWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		6693598F29606A3A00DEDD35 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -732,7 +934,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -790,7 +992,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -948,6 +1150,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		664113372CD646AC0065E014 /* Build configuration list for PBXNativeTarget "TimeKeenWidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				664113342CD646AC0065E014 /* Debug */,
+				664113352CD646AC0065E014 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6693596229606A3900DEDD35 /* Build configuration list for PBXProject "TimeKeen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

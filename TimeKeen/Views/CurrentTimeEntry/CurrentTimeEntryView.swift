@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct CurrentTimeEntryView: View {
     var quickActionProvider: QuickActionProvider
@@ -308,7 +309,7 @@ struct CurrentTimeEntryView: View {
         return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now)
     }
     
-    private func handle(_ quickAction: QuickAction) {
+    private func handle(_ quickAction: WorkAction) {
         switch quickAction {
         case .clockIn:
             clockIn(at: getRoundedNow())
@@ -339,6 +340,10 @@ struct CurrentTimeEntryView: View {
         quickActionProvider.quickAction = nil
     }
     
+    func reloadWidget() {
+        WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
+    }
+
     func clockIn(at clockInDate: Date) {
         guard clockInState == .clockedOut else {
             return
@@ -348,6 +353,7 @@ struct CurrentTimeEntryView: View {
         notes = ""
         clockInState = .clockedInWorking
         updateClockInDuration(input: dateProvider.now)
+        reloadWidget()
     }
     
     func startBreak(at breakStart: Date) {
@@ -358,6 +364,7 @@ struct CurrentTimeEntryView: View {
         self.breakStart = breakStart
         clockInState = .clockedInTakingABreak
         updateClockInDuration(input: dateProvider.now)
+        reloadWidget()
     }
     
     func endBreak(at breakEnd: Date) {
@@ -367,6 +374,7 @@ struct CurrentTimeEntryView: View {
         breaks = breaks + [BreakEntry(start: breakStart, end: breakEnd)]
         clockInState = .clockedInWorking
         updateClockInDuration(input: dateProvider.now)
+        reloadWidget()
     }
     
     func clockOut(at end: Date, notes: String) {
@@ -379,5 +387,6 @@ struct CurrentTimeEntryView: View {
         context.insert(timeEntry)
         clockInState = .clockedOut
         updateClockInDuration(input: dateProvider.now)
+        reloadWidget()
     }
 }

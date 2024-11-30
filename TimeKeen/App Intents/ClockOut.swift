@@ -1,6 +1,7 @@
 import Foundation
 import SwiftData
 import AppIntents
+import WidgetKit
 
 struct ClockOut: AppIntent {
     static let title: LocalizedStringResource = "Clock Out"
@@ -42,6 +43,8 @@ struct ClockOut: AppIntent {
         modelContainer.mainContext.insert(timeEntry)
         userDefaults.clockInState = .clockedOut
         
+        WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
+
         return calendar.isDate(clockInDate, inSameDayAs: dateProvider.now)
         ? .result(dialog: "Clocking out at \(Formatting.startEndFormatter.string(from: clockOutDate))")
         : .result(dialog: "Clocking out on \(Formatting.startEndWithDateFormatter.string(from: clockOutDate))")

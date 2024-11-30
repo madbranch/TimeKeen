@@ -1,12 +1,13 @@
 import Foundation
 import AppIntents
+import WidgetKit
 
-struct ClockIn: AppIntent {
+struct ClockIn: AppIntent, WidgetConfigurationIntent {
     static let title: LocalizedStringResource = "Clock In"
     static let description = IntentDescription("Clock in and start working.")
     
     @Parameter(title: "When", description: "When to clock in.")
-    var when: Date
+    var when: Date?
     private let dateProvider: DateProvider
     
     init() {
@@ -27,14 +28,26 @@ struct ClockIn: AppIntent {
             return .result(dialog: "You're already clocked in.")
         }
         
+        var actualWhen = when
+        
+        if actualWhen == nil {
+            do {
+                actualWhen = try await $when.requestValue("When do you want to clock in?")
+            } catch {
+                return .result(dialog: "wut")
+            }
+        }
+        
         let calendar = Calendar.current
-        let clockInDate = calendar.getRoundedDate(minuteInterval: userDefaults.minuteInterval, from: when)
+        let clockInDate = calendar.getRoundedDate(minuteInterval: userDefaults.minuteInterval, from: actualWhen!)
         
         userDefaults.notes = ""
         userDefaults.breaks = [BreakEntry]()
         userDefaults.clockInDate = clockInDate
         userDefaults.clockInState = .clockedInWorking
         
+        WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
+
         return calendar.isDate(clockInDate, inSameDayAs: dateProvider.now)
         ? .result(dialog: "Clocking in at \(Formatting.startEndFormatter.string(from: clockInDate))")
         : .result(dialog: "Clocking in on \(Formatting.startEndWithDateFormatter.string(from: clockInDate))")

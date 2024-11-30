@@ -79,25 +79,25 @@ struct TimeKeenApp: App {
     }
     
     static let clockInQuickAction =
-    UIApplicationShortcutItem(type: QuickAction.clockIn.rawValue,
+    UIApplicationShortcutItem(type: WorkAction.clockIn.rawValue,
                               localizedTitle: NSLocalizedString("Clock In", comment: "Quick action title for clocking in"),
                               localizedSubtitle: NSLocalizedString("Clock in now", comment: "Quick action sub-title for clocking in"),
                               icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill.rtl"))
     
     static let clockOutQuickAction =
-    UIApplicationShortcutItem(type: QuickAction.clockOut.rawValue,
+    UIApplicationShortcutItem(type: WorkAction.clockOut.rawValue,
                               localizedTitle: NSLocalizedString("Clock Out", comment: "Quick action title for clocking out"),
                               localizedSubtitle: NSLocalizedString("Clock out now", comment: "Quick action sub-title for clocking out"),
                               icon: UIApplicationShortcutIcon(systemImageName: "arrowshape.turn.up.backward.badge.clock.fill"))
     
     static let startBreakQuickAction =
-    UIApplicationShortcutItem(type: QuickAction.startBreak.rawValue,
+    UIApplicationShortcutItem(type: WorkAction.startBreak.rawValue,
                               localizedTitle: NSLocalizedString("Take a Break", comment: "Quick action title for taking a break"),
                               localizedSubtitle: NSLocalizedString("Take a break now", comment: "Quick action sub-title for taking a break"),
                               icon: UIApplicationShortcutIcon(systemImageName: "pause.fill"))
     
     static let endBreakQuickAction =
-    UIApplicationShortcutItem(type: QuickAction.endBreak.rawValue,
+    UIApplicationShortcutItem(type: WorkAction.endBreak.rawValue,
                               localizedTitle: NSLocalizedString("End Break", comment: "Quick action title for going back to work"),
                               localizedSubtitle: NSLocalizedString("Go back to work", comment: "Quick action sub-title for going back to work"),
                               icon: UIApplicationShortcutIcon(systemImageName: "play.fill"))
@@ -118,7 +118,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         if let type = options.shortcutItem?.type {
-            quickActionProvider.quickAction = QuickAction(rawValue: type)
+            quickActionProvider.quickAction = WorkAction(rawValue: type)
         } else {
             quickActionProvider.quickAction = nil
         }
@@ -134,7 +134,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         if let quickActionProvider = windowScene.session.userInfo?["quickActionProvider"] as? QuickActionProvider {
-            quickActionProvider.quickAction = QuickAction(rawValue: shortcutItem.type)
+            quickActionProvider.quickAction = WorkAction(rawValue: shortcutItem.type)
         }
     }
 }

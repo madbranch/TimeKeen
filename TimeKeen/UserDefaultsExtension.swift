@@ -2,11 +2,7 @@ import Foundation
 
 extension UserDefaults {
     func date(forKey defaultName: String) -> Date? {
-        guard let rawValue = self.string(forKey: defaultName) else {
-            return nil
-        }
-        
-        return Date(rawValue: rawValue)
+        return self.object(forKey: defaultName) as? Date
     }
     
     var minuteInterval: Int {
@@ -39,7 +35,7 @@ extension UserDefaults {
             return self.date(forKey: SharedData.Keys.endOfLastPayPeriod.rawValue) ?? Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!
         }
         set(newEndOfLastPayPeriod) {
-            self.set(newEndOfLastPayPeriod.rawValue, forKey: SharedData.Keys.endOfLastPayPeriod.rawValue)
+            self.set(newEndOfLastPayPeriod, forKey: SharedData.Keys.endOfLastPayPeriod.rawValue)
         }
     }
     
@@ -71,7 +67,7 @@ extension UserDefaults {
                 return
             }
             
-            self.set(breakStart.rawValue, forKey: SharedData.Keys.breakStart.rawValue)
+            self.set(breakStart, forKey: SharedData.Keys.breakStart.rawValue)
         }
     }
     
@@ -98,7 +94,7 @@ extension UserDefaults {
                 self.removeObject(forKey: SharedData.Keys.clockInDate.rawValue)
                 return
             }
-            self.set(clockInDate.rawValue, forKey: SharedData.Keys.clockInDate.rawValue)
+            self.set(clockInDate, forKey: SharedData.Keys.clockInDate.rawValue)
         }
     }
     
