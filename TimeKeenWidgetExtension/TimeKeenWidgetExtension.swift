@@ -12,28 +12,11 @@ struct Provider: TimelineProvider {
     
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<SimpleEntry>) -> Void) {
         let entry = Self.getUpdatedEntry()
-        // let policy = Self.getTimelineReloadPolicy(for: entry)
         completion(Timeline(entries: [entry], policy: .never))
     }
     
     static func getEmptyEntry() -> SimpleEntry {
         SimpleEntry(date: .now, clockInState: .clockedOut, clockInDate: .now, breakStart: .now, onBreak: TimeInterval())
-    }
-    
-    static func getDuration(for entry: SimpleEntry) -> TimeInterval {
-        switch entry.clockInState {
-        case .clockedOut:
-            return .zero
-        case .clockedInWorking:
-            let sinceClockIn = entry.clockInDate.distance(to: .now)
-            let clockInDuration = sinceClockIn - entry.onBreak
-            return clockInDuration
-        case .clockedInTakingABreak:
-            let sinceClockIn = entry.clockInDate.distance(to: .now)
-            let clockInDuration = sinceClockIn - entry.onBreak
-            let sinceBreakStart = max(TimeInterval(), entry.breakStart.distance(to: .now))
-            return sinceBreakStart
-        }
     }
     
     static func getUpdatedEntry() -> SimpleEntry {
@@ -57,7 +40,6 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     var date: Date
-    
     let clockInState: ClockInState
     let clockInDate: Date
     let breakStart: Date
@@ -84,6 +66,7 @@ struct TimeKeenWidgetExtensionEntryView : View {
             case .clockedInWorking:
                 VStack {
                     Text("Working")
+                        .font(.caption)
                     
                     let timerDate = entry.clockInDate + entry.onBreak
                     
@@ -93,6 +76,7 @@ struct TimeKeenWidgetExtensionEntryView : View {
                     else {
                         Text("\(timerDate, style: .timer)")
                             .multilineTextAlignment(.center)
+                            .font(.headline)
                     }
                 }
             case .clockedInTakingABreak:
