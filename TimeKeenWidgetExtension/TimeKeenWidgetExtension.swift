@@ -29,7 +29,7 @@ struct Provider: TimelineProvider {
         
         return getUpdatedEntry(from: userDefaults)
     }
-   
+    
     static func getUpdatedEntry(from userDefaults: UserDefaults) -> SimpleEntry {
         let clockInState = userDefaults.clockInState
         let clockInDate = userDefaults.clockInDate ?? .now
@@ -56,16 +56,16 @@ struct SimpleEntry: TimelineEntry {
 struct TimeKeenWidgetExtensionEntryView : View {
     var entry: Provider.Entry
     @Query var timeEntries: [TimeEntry]
-
+    
     init(entry: Provider.Entry) {
         self.entry = entry
         _timeEntries = Query(filter: #Predicate<TimeEntry> { [payPeriod = self.entry.payPeriod] timeEntry in
             return timeEntry.start >= payPeriod.lowerBound && timeEntry.start <= payPeriod.upperBound
         })
     }
-
+    
     @Environment(\.widgetFamily) var family
-
+    
     var body: some View {
         switch family {
         case .accessoryCircular:
@@ -80,24 +80,24 @@ struct TimeKeenWidgetExtensionEntryView : View {
                 Text("Clocked Out")
             case .clockedInWorking:
                 VStack {
-                    Text("Working")
-                        .font(.caption)
-                    
                     let timerDate = entry.clockInDate + entry.onBreak
                     
                     if timerDate > .now {
                         Text("--")
+                            .frame(maxHeight: .infinity, alignment: .topLeading)
                     } else {
                         Text("\(timerDate, style: .timer)")
-                            .multilineTextAlignment(.center)
-                            .font(.headline)
+                            .font(.largeTitle)
+                            .fontDesign(.rounded)
+                            .minimumScaleFactor(0.005)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     }
                     
                     let payPeriodOnTheClock: TimeInterval = timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock }
                     let payPeriodTimerDate = entry.clockInDate + entry.onBreak - payPeriodOnTheClock
                     
-                    Text( "Total \(payPeriodTimerDate, style: .timer)")
-                        .multilineTextAlignment(.center)
+                    Text( "**\(payPeriodTimerDate, style: .timer)**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
                         .font(.caption)
                 }
             case .clockedInTakingABreak:
@@ -130,16 +130,15 @@ struct TimeKeenWidgetExtension: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             TimeKeenWidgetExtensionEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
                 .modelContainer(modelContainer)
         }
-        #if os(watchOS)
+#if os(watchOS)
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
-        #elseif os(iOS)
+#elseif os(iOS)
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
-        #else
+#else
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .systemExtraLarge])
-        #endif
+#endif
     }
 }
 

@@ -58,6 +58,7 @@
 		6671204A2C744CB10017811E /* TimeClockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120492C744CB10017811E /* TimeClockButton.swift */; };
 		667EE8142D1ADA2500BE3614 /* PayPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */; };
 		667EE8152D1AE05000BE3614 /* TimeEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662294AF2C440196005707D1 /* TimeEntryExtension.swift */; };
+		667EE8162D1AEDE600BE3614 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C4902C7A7D0A0082D770 /* ColorPalette.swift */; };
 		668248F72CE0D5610063EB33 /* BreakEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE32C4D3FAD0050FDFB /* BreakEntryExtension.swift */; };
 		6687E7A72C89C44900D03D4A /* Previewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6687E7A62C89C44900D03D4A /* Previewing.swift */; };
 		6693596B29606A3900DEDD35 /* TimeKeenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693596A29606A3900DEDD35 /* TimeKeenApp.swift */; };
@@ -613,6 +614,7 @@
 				664113402CD64E1B0065E014 /* PayPeriodSchedule.swift in Sources */,
 				6641133B2CD64DC90065E014 /* ClockInState.swift in Sources */,
 				6641133A2CD64DBD0065E014 /* SharedData.swift in Sources */,
+				667EE8162D1AEDE600BE3614 /* ColorPalette.swift in Sources */,
 				6641133F2CD64E020065E014 /* CalendarExtension.swift in Sources */,
 				664113422CD64E750065E014 /* ArrayExtension.swift in Sources */,
 			);
