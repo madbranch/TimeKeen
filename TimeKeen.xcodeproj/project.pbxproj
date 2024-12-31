@@ -19,6 +19,7 @@
 		6623FA912D24261F005BE907 /* TimeKeenWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6623FA8E2D24261F005BE907 /* TimeKeenWidgetExtension.swift */; };
 		6623FA922D24261F005BE907 /* TimeKeenWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6623FA8F2D24261F005BE907 /* TimeKeenWidgetExtensionBundle.swift */; };
 		6623FA932D24261F005BE907 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6623FA8C2D24261F005BE907 /* Assets.xcassets */; };
+		6623FA952D2435F9005BE907 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 66411CFA2C5134490050FDFB /* Localizable.xcstrings */; };
 		6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125129607279007A5343 /* CurrentTimeEntryView.swift */; };
 		662D07452974210B002083F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D07442974210B002083F6 /* ContentView.swift */; };
 		6631C48F2C7609700082D770 /* TimeSheetOnTheClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C48E2C7609700082D770 /* TimeSheetOnTheClockView.swift */; };
@@ -570,6 +571,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6623FA952D2435F9005BE907 /* Localizable.xcstrings in Resources */,
 				6623FA932D24261F005BE907 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

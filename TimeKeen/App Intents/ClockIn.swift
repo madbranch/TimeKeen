@@ -34,7 +34,7 @@ struct ClockIn: AppIntent, WidgetConfigurationIntent {
             do {
                 actualWhen = try await $when.requestValue("When do you want to clock in?")
             } catch {
-                return .result(dialog: "wut")
+                return .result(dialog: "Failed to clock in.")
             }
         }
         

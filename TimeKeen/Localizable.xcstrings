@@ -11,6 +11,32 @@
         }
       }
     },
+    "**--**\nsince %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**—** depuis %@"
+          }
+        }
+      }
+    },
+    "**%@**\nsince %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "**%1$@**\nsince %2$@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**%1$@** depuis %2$@"
+          }
+        }
+      }
+    },
     "%@" : {
       "localizations" : {
         "fr" : {
@@ -137,6 +163,9 @@
         }
       }
     },
+    "C" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "fr" : {
@@ -230,6 +259,9 @@
           }
         }
       }
+    },
+    "Clocked in taking a break" : {
+
     },
     "Clocking in at %@" : {
       "localizations" : {
@@ -483,6 +515,9 @@
         }
       }
     },
+    "Inline" : {
+
+    },
     "JSON" : {
       "localizations" : {
         "fr" : {
@@ -573,6 +608,9 @@
         }
       }
     },
+    "Rect" : {
+
+    },
     "Resume" : {
       "localizations" : {
         "fr" : {
@@ -624,7 +662,14 @@
       }
     },
     "Start Break" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer pause"
+          }
+        }
+      }
     },
     "Started Break at %@" : {
       "localizations" : {
@@ -718,6 +763,16 @@
         }
       }
     },
+    "Unsupported widget family" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Famille de widget non supportée"
+          }
+        }
+      }
+    },
     "Weekly" : {
       "localizations" : {
         "fr" : {
@@ -739,7 +794,14 @@
       }
     },
     "When do you want to clock in?" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quand voulez-vous commencer?"
+          }
+        }
+      }
     },
     "When to clock in." : {
       "localizations" : {
@@ -762,7 +824,14 @@
       }
     },
     "Work Action" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Action de travail"
+          }
+        }
+      }
     },
     "Worked **%@** since %@" : {
       "localizations" : {
@@ -779,9 +848,6 @@
           }
         }
       }
-    },
-    "wut" : {
-
     },
     "You're already clocked in." : {
       "localizations" : {
