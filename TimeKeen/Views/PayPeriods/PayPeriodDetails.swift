@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 struct PayPeriodDetails: View {
     @Environment(\.modelContext) private var context
@@ -34,7 +35,8 @@ struct PayPeriodDetails: View {
                 }
                 
                 _timeEntries.update()
-                
+                WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
+
                 if timeEntries.isEmpty {
                     dismiss()
                 }

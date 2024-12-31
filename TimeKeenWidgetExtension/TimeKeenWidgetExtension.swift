@@ -4,33 +4,21 @@ import SwiftData
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        Self.getEmptyEntry()
+        return SimpleEntry.placeholderEntry
     }
     
     func getSnapshot(in context: Context, completion: @escaping @Sendable (SimpleEntry) -> Void) {
-        completion(Self.getUpdatedEntry())
+        completion(SimpleEntry.placeholderEntry)
     }
     
     func getTimeline(in context: Context, completion: @escaping @Sendable (Timeline<SimpleEntry>) -> Void) {
-        let entry = Self.getUpdatedEntry()
-        // We specify to request a new timeline at the end of the pay period to make sure the current pay period is always up-to-date.
-        completion(Timeline(entries: [entry], policy: .after(entry.payPeriod.upperBound)))
-    }
-    
-    static func getEmptyEntry() -> SimpleEntry {
-        let emptyPayPeriod = Date.now.getPayPeriod(schedule: .Weekly, periodEnd: Calendar.current.date(from: DateComponents(year: 2024, month: 07, day: 21))!)
-        return SimpleEntry(date: .now, clockInState: .clockedOut, clockInDate: .now, breakStart: .now, onBreak: TimeInterval(), payPeriod: emptyPayPeriod)
-    }
-    
-    static func getUpdatedEntry() -> SimpleEntry {
         guard let userDefaults = SharedData.userDefaults else {
-            return Self.getEmptyEntry()
+            let timeline = Timeline(entries: [SimpleEntry.placeholderEntry], policy: .never)
+            completion(timeline)
+            return
         }
         
-        return getUpdatedEntry(from: userDefaults)
-    }
-    
-    static func getUpdatedEntry(from userDefaults: UserDefaults) -> SimpleEntry {
+        // We fetch information from user defaults.
         let clockInState = userDefaults.clockInState
         let clockInDate = userDefaults.clockInDate ?? .now
         let breakStart = userDefaults.breakStart ?? .now
@@ -39,29 +27,43 @@ struct Provider: TimelineProvider {
         let payPeriodSchedule = userDefaults.payPeriodSchedule
         let endOfLastPayPeriod = userDefaults.endOfLastPayPeriod
         let payPeriod = Date.now.getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
-        let entry = SimpleEntry(date: .now, clockInState: clockInState, clockInDate: clockInDate, breakStart: breakStart, onBreak: onBreak, payPeriod: payPeriod)
-        return entry
+        
+        // We fetch data from SwiftData
+        let fetchDescriptor = FetchDescriptor(predicate: #Predicate<TimeEntry> { timeEntry in
+            return timeEntry.start >= payPeriod.lowerBound && timeEntry.start <= payPeriod.upperBound
+        })
+        let modelContext = ModelContext(DataModel.shared.modelContainer)
+        let timeEntries = (try? modelContext.fetch(fetchDescriptor)) ?? []
+        let payPeriodOnTheClock = timeEntries.reduce(TimeInterval()) { $0 + $1.interval }
+        
+        let entry = SimpleEntry(date: .now, clockInState: clockInState, clockInDate: clockInDate, breakStart: breakStart, onBreak: onBreak, payPeriod: payPeriod, payPeriodOnTheClock: payPeriodOnTheClock)
+        
+        // We specify to request a new timeline at the end of the pay period to make sure the current pay period is always up-to-date.
+        let timeline = Timeline(entries: [entry], policy: .after(entry.payPeriod.upperBound))
+        completion(timeline)
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     var date: Date
+    
     let clockInState: ClockInState
     let clockInDate: Date
     let breakStart: Date
     let onBreak: TimeInterval
     let payPeriod: ClosedRange<Date>
+    let payPeriodOnTheClock: TimeInterval
+    
+    static var placeholderEntry: SimpleEntry {
+        return SimpleEntry(date: .now, clockInState: .clockedOut, clockInDate: .now, breakStart: .now, onBreak: .zero, payPeriod: Date.now...Date.now, payPeriodOnTheClock: .zero)
+    }
 }
 
 struct TimeKeenWidgetExtensionEntryView : View {
     var entry: Provider.Entry
-    @Query var timeEntries: [TimeEntry]
     
     init(entry: Provider.Entry) {
         self.entry = entry
-        _timeEntries = Query(filter: #Predicate<TimeEntry> { [payPeriod = self.entry.payPeriod] timeEntry in
-            return timeEntry.start >= payPeriod.lowerBound && timeEntry.start <= payPeriod.upperBound
-        })
     }
     
     @Environment(\.widgetFamily) var family
@@ -77,7 +79,11 @@ struct TimeKeenWidgetExtensionEntryView : View {
         case .systemSmall:
             switch entry.clockInState {
             case .clockedOut:
-                Text("Clocked Out")
+                if (entry.payPeriodOnTheClock <= TimeInterval.zero) {
+                    Text("**--**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
+                } else {
+                    Text("**\(Formatting.timeIntervalFormatter.string(from: max(entry.payPeriodOnTheClock, TimeInterval())) ?? "--")**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
+                }
             case .clockedInWorking:
                 VStack {
                     let timerDate = entry.clockInDate + entry.onBreak
@@ -94,35 +100,18 @@ struct TimeKeenWidgetExtensionEntryView : View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     }
                     
-                    let payPeriodOnTheClock: TimeInterval = timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock }
-                    let payPeriodTimerDate = entry.clockInDate + entry.onBreak - payPeriodOnTheClock
+                    let payPeriodTimerDate = entry.clockInDate + entry.onBreak - entry.payPeriodOnTheClock
                     
                     Text( "**\(payPeriodTimerDate, style: .timer)**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
-                        .font(.caption)
                 }
             case .clockedInTakingABreak:
                 Text("On Break")
             }
-        case .systemMedium:
-            Text("Medium")
-        case .systemLarge:
-            Text("Large")
-        case .systemExtraLarge:
-            Text("XLarge")
-        @unknown default:
-            Text("Unknown widget family")
+        default:
+            Text("Unsupported widget family")
         }
     }
 }
-
-// globals are lazy
-fileprivate let modelContainer: ModelContainer = {
-    do {
-        return try ModelContainer(for: TimeEntry.self, BreakEntry.self, configurations: ModelConfiguration(isStoredInMemoryOnly: false))
-    } catch {
-        fatalError("Failed to configure SwiftData container.")
-    }
-}()
 
 struct TimeKeenWidgetExtension: Widget {
     let kind: String = "TimeKeenWidgetExtension"
@@ -130,7 +119,8 @@ struct TimeKeenWidgetExtension: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             TimeKeenWidgetExtensionEntryView(entry: entry)
-                .modelContainer(modelContainer)
+                .containerBackground(ColorPalette.primary.color.gradient, for: .widget)
+                .foregroundStyle(.white)
         }
 #if os(watchOS)
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
@@ -143,5 +133,5 @@ struct TimeKeenWidgetExtension: Widget {
 #Preview(as: .systemSmall) {
     TimeKeenWidgetExtension()
 } timeline: {
-    Provider.getEmptyEntry()
+    SimpleEntry.placeholderEntry
 }

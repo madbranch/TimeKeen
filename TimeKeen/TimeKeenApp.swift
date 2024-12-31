@@ -1,26 +1,7 @@
 import SwiftUI
 import SwiftData
 import AppIntents
-
-// globals are lazy
-fileprivate let modelContainer: ModelContainer = {
-    var inMemory = false
-    
-#if DEBUG
-    if CommandLine.arguments.contains("enable-testing") {
-        inMemory = true
-        if let userDefaults = SharedData.userDefaults  {
-            SharedData.Keys.allCases.forEach { userDefaults.removeObject(forKey: $0.rawValue)}
-        }
-    }
-#endif
-    
-    do {
-        return try ModelContainer(for: TimeEntry.self, BreakEntry.self, configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory))
-    } catch {
-        fatalError("Failed to configure SwiftData container.")
-    }
-}()
+import WidgetKit
 
 @main
 struct TimeKeenApp: App {
@@ -39,9 +20,9 @@ struct TimeKeenApp: App {
             dateProvider = FakeDateProvider()
             
             do {
-                try modelContainer.mainContext.transaction {
+                try DataModel.shared.modelContainer.mainContext.transaction {
                     for timeEntry in Previewing.someTimeEntries {
-                        modelContainer.mainContext.insert(timeEntry)
+                        DataModel.shared.modelContainer.mainContext.insert(timeEntry)
                     }
                 }
             } catch {
@@ -54,14 +35,14 @@ struct TimeKeenApp: App {
         dateProvider = RealDateProvider()
 #endif
         
-        AppDependencyManager.shared.add(dependency: modelContainer)
+        AppDependencyManager.shared.add(dependency: DataModel.shared.modelContainer)
         TimeKeenShortcuts.updateAppShortcutParameters(dateProvider)
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView(quickActionProvider: appDelegate.quickActionProvider)
-                .modelContainer(modelContainer)
+                .modelContainer(DataModel.shared.modelContainer)
                 .dateProvider(dateProvider)
                 .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {
@@ -70,6 +51,7 @@ struct TimeKeenApp: App {
                     case .inactive:
                         break
                     case .active:
+                        WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
                         break
                     @unknown default:
                         break

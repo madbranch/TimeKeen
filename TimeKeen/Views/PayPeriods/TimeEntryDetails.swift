@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 struct TimeEntryDetails: View {
     @Bindable var timeEntry: TimeEntry
@@ -11,6 +12,10 @@ struct TimeEntryDetails: View {
     @State var breakStart = Date.now
     @State var breakEnd = Date.now
     @State var breakEntry: BreakEntry?
+    
+    private var isEditing: Bool {
+        return editMode?.wrappedValue.isEditing == true
+    }
     
     init(for timeEntry: TimeEntry) {
         self.timeEntry = timeEntry
@@ -82,6 +87,12 @@ struct TimeEntryDetails: View {
                 }
             }
             EditButton()
+        }
+        .onChange(of: isEditing) {
+            // We reload the widgets when done editing the entry.
+            if !isEditing {
+                WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
+            }
         }
         .navigationTitle("\(timeEntry.start.formatted(date: .abbreviated, time: .omitted))")
         .sheet(isPresented: $isAddingBreak) {
