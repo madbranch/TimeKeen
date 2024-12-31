@@ -77,35 +77,31 @@ struct TimeKeenWidgetExtensionEntryView : View {
         case .accessoryInline:
             Text("Inline")
         case .systemSmall:
-            switch entry.clockInState {
-            case .clockedOut:
+            let timerDate = entry.clockInDate + entry.onBreak
+            
+            if entry.clockInState == .clockedOut || (entry.clockInState == .clockedInWorking && timerDate > .now) {
                 if (entry.payPeriodOnTheClock <= TimeInterval.zero) {
                     Text("**--**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 } else {
                     Text("**\(Formatting.timeIntervalFormatter.string(from: max(entry.payPeriodOnTheClock, TimeInterval())) ?? "--")**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 }
-            case .clockedInWorking:
+            } else if entry.clockInState == .clockedInWorking && timerDate <= .now {
                 VStack {
-                    let timerDate = entry.clockInDate + entry.onBreak
-                    
-                    if timerDate > .now {
-                        Text("--")
-                            .frame(maxHeight: .infinity, alignment: .topLeading)
-                    } else {
-                        Text("\(timerDate, style: .timer)")
-                            .font(.largeTitle)
-                            .fontDesign(.rounded)
-                            .minimumScaleFactor(0.005)
-                            .lineLimit(1)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                    }
+                    Text("\(timerDate, style: .timer)")
+                        .font(.largeTitle)
+                        .fontDesign(.rounded)
+                        .minimumScaleFactor(0.005)
+                        .lineLimit(1)
                     
                     let payPeriodTimerDate = entry.clockInDate + entry.onBreak - entry.payPeriodOnTheClock
                     
                     Text( "**\(payPeriodTimerDate, style: .timer)**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 }
-            case .clockedInTakingABreak:
-                Text("On Break")
+            } else {
+                Text("Clocked in taking a break")
             }
         default:
             Text("Unsupported widget family")
