@@ -134,10 +134,8 @@ struct TimeKeenWidgetExtension: Widget {
         }
 #if os(watchOS)
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
-#elseif os(iOS)
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
 #else
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .systemExtraLarge])
+        .supportedFamilies([.systemSmall])
 #endif
     }
 }
