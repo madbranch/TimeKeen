@@ -260,9 +260,6 @@
         }
       }
     },
-    "Clocked in taking a break" : {
-
-    },
     "Clocking in at %@" : {
       "localizations" : {
         "fr" : {
@@ -578,6 +575,16 @@
         }
       }
     },
+    "On break for %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En pause pour %@"
+          }
+        }
+      }
+    },
     "Pause" : {
       "localizations" : {
         "fr" : {
@@ -677,6 +684,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Commencée la pause à %@"
+          }
+        }
+      }
+    },
+    "Starting break in %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer la pause dans %@"
           }
         }
       }

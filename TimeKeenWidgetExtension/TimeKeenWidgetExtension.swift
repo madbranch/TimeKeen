@@ -37,9 +37,21 @@ struct Provider: TimelineProvider {
         let payPeriodOnTheClock = timeEntries.reduce(TimeInterval()) { $0 + $1.interval }
         
         let entry = SimpleEntry(date: .now, clockInState: clockInState, clockInDate: clockInDate, breakStart: breakStart, onBreak: onBreak, payPeriod: payPeriod, payPeriodOnTheClock: payPeriodOnTheClock)
+        var entries = [entry]
+        
+        if entry.clockInState == .clockedInWorking {
+            let timer = entry.clockInDate + entry.onBreak
+            if timer > .now {
+                entries.append(SimpleEntry(date: timer, clockInState: clockInState, clockInDate: clockInDate, breakStart: breakStart, onBreak: onBreak, payPeriod: payPeriod, payPeriodOnTheClock: payPeriodOnTheClock));
+            }
+        } else if entry.clockInState == .clockedInTakingABreak {
+            if entry.breakStart > .now {
+                entries.append(SimpleEntry(date: entry.breakStart, clockInState: clockInState, clockInDate: clockInDate, breakStart: breakStart, onBreak: onBreak, payPeriod: payPeriod, payPeriodOnTheClock: payPeriodOnTheClock));
+            }
+        }
         
         // We specify to request a new timeline at the end of the pay period to make sure the current pay period is always up-to-date.
-        let timeline = Timeline(entries: [entry], policy: .after(entry.payPeriod.upperBound))
+        let timeline = Timeline(entries: entries, policy: .after(entry.getTimelineUpdate()))
         completion(timeline)
     }
 }
@@ -56,6 +68,17 @@ struct SimpleEntry: TimelineEntry {
     
     static var placeholderEntry: SimpleEntry {
         return SimpleEntry(date: .now, clockInState: .clockedOut, clockInDate: .now, breakStart: .now, onBreak: .zero, payPeriod: Date.now...Date.now, payPeriodOnTheClock: .zero)
+    }
+    
+    func getTimelineUpdate() -> Date {
+        return switch clockInState {
+        case .clockedInWorking where (clockInDate + onBreak) > .now:
+            clockInDate + onBreak
+        case .clockedInTakingABreak where breakStart > .now:
+            breakStart
+        default:
+            payPeriod.upperBound
+        }
     }
 }
 
@@ -100,8 +123,13 @@ struct TimeKeenWidgetExtensionEntryView : View {
                     Text( "**\(payPeriodTimerDate, style: .timer)**\nsince \(Formatting.yearlessDateformatter.string(from: entry.payPeriod.lowerBound))")
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
                 }
-            } else {
-                Text("Clocked in taking a break")
+            } else if entry.clockInState == .clockedInTakingABreak {
+                if entry.breakStart > .now {
+                    // Starting break in a few minutes...
+                    Text("Starting break in \(entry.breakStart, style: .timer)")
+                } else {
+                    Text("On break for \(entry.breakStart, style: .timer)")
+                }
             }
         default:
             Text("Unsupported widget family")
