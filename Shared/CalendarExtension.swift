@@ -46,19 +46,11 @@ extension Calendar {
     
     func getRoundedDate(minuteInterval: Int, from date: Date) -> Date {
         let components = self.dateComponents([.minute], from: date)
-        
-        guard let minute = components.minute else {
-            return date
-        }
-        
-        let roundedMinutes = Int((Double(minute) / Double(minuteInterval)).rounded(.toNearestOrAwayFromZero)) * minuteInterval
-        
-        guard let roundedMinutesDate = self.date(byAdding: .minute, value: roundedMinutes - minute, to: date) else {
-            return date
-        }
-        
-        var roundedComponents = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: roundedMinutesDate)
-        roundedComponents.second = 0;
+        let minutes = components.minute ?? 0
+        let roundedMinutes = ((minutes + (minuteInterval / 2)) / minuteInterval) * minuteInterval
+        var roundedComponents = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        roundedComponents.minute = roundedMinutes
+        roundedComponents.second = 0
         return self.date(from: roundedComponents) ?? date
     }
 }
