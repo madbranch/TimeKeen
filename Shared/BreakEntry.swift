@@ -4,6 +4,8 @@ import SwiftData
 @Model
 class BreakEntry: Codable {
     init(start: Date, end: Date) {
+        assert(BreakEntry.isZeroSecond(start))
+        assert(BreakEntry.isZeroSecond(end))
         self.start = start
         self.end = end
     }
@@ -26,5 +28,13 @@ class BreakEntry: Codable {
         
         try container.encode(start, forKey: .start)
         try container.encode(end, forKey: .end)
+    }
+    
+    private static func isZeroSecond(_ date: Date) -> Bool {
+        switch Calendar.current.dateComponents([.second], from: date).second {
+        case 0: true
+        case nil: true
+        default: false
+        }
     }
 }
