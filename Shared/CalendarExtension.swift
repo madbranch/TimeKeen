@@ -57,8 +57,8 @@ extension Calendar {
             return date
         }
         
-        let roundedComponents = self.dateComponents([.year, .month, .day, .hour, .minute], from: roundedMinutesDate)
-        
+        var roundedComponents = self.dateComponents([.year, .month, .day, .hour, .minute, .second], from: roundedMinutesDate)
+        roundedComponents.second = 0;
         return self.date(from: roundedComponents) ?? date
     }
 }
