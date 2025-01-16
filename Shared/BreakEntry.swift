@@ -3,7 +3,7 @@ import SwiftData
 
 @Model
 class BreakEntry: Codable {
-    init(start: Date, end: Date) {
+    init(start: Date, end: Date, timeEntry: TimeEntry? = nil) {
         assert(BreakEntry.isZeroSecond(start))
         assert(BreakEntry.isZeroSecond(end))
         self.start = start
@@ -16,6 +16,7 @@ class BreakEntry: Codable {
         end = try container.decode(Date.self, forKey: .end)
     }
     
+    var timeEntry: TimeEntry?
     var start: Date
     var end: Date
     

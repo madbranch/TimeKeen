@@ -6,6 +6,7 @@ public class TimeEntry: Encodable {
     var start: Date
     var end: Date
     var notes: String = ""
+    @Relationship(deleteRule: .cascade, inverse: \BreakEntry.timeEntry)
     var breaks = [BreakEntry]()
     init(from start: Date, to end: Date, notes: String = "") {
         self.start = start
