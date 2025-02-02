@@ -57,7 +57,7 @@ struct CurrentTimeEntryView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding()
                 }
-                .buttonStyle(TimeClockButton())
+                .buttonStyle(TopTimeClockButton())
                 .padding(CurrentTimeEntryView.bigButtonPadding)
                 .accessibilityIdentifier("ClockInButton")
             case .clockedInWorking, .clockedInTakingABreak:
@@ -85,7 +85,7 @@ struct CurrentTimeEntryView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .accessibilityIdentifier("StartBreakButton")
-                        .buttonStyle(TimeClockButton())
+                        .buttonStyle(TopTimeClockButton())
                         .padding()
                         Button {
                             isClockingOut = startClockingOut()
@@ -95,7 +95,7 @@ struct CurrentTimeEntryView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .accessibilityIdentifier("ClockOutButton")
-                        .buttonStyle(TimeClockButton())
+                        .buttonStyle(TopTimeClockButton())
                         .padding()
                     } else if clockInState == .clockedInTakingABreak {
                         Button {
@@ -106,7 +106,7 @@ struct CurrentTimeEntryView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                         .accessibilityIdentifier("EndBreakButton")
-                        .buttonStyle(TimeClockButton())
+                        .buttonStyle(TopTimeClockButton())
                         .padding(CurrentTimeEntryView.bigButtonPadding)
                     }
                 }
