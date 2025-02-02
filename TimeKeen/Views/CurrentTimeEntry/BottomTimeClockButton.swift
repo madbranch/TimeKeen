@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TopHalfCircle: Shape {
+struct BottomHalfCircle: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let radius = min(rect.width, rect.height) * 0.4
@@ -11,12 +11,12 @@ struct TopHalfCircle: Shape {
     }
 }
 
-struct TopTimeClockButton: ButtonStyle {
+struct BottomTimeClockButton: ButtonStyle {
     @Environment(\.isEnabled) var isEnabled
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .background(
-                TopHalfCircle()
+                BottomHalfCircle()
                     .fill(LinearGradient(gradient: Gradient(colors: [ColorPalette.primary.color, ColorPalette.secondary.color]), startPoint: .top, endPoint: .bottom))
             )
             .font(.system(.largeTitle, design: .rounded))
@@ -35,5 +35,5 @@ struct TopTimeClockButton: ButtonStyle {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
     }
-    .buttonStyle(TopTimeClockButton())
+    .buttonStyle(BottomTimeClockButton())
 }
