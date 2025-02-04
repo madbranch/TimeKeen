@@ -143,6 +143,16 @@
         }
       }
     },
+    "At %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À %@"
+          }
+        }
+      }
+    },
     "Biweekly" : {
       "localizations" : {
         "fr" : {

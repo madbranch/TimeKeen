@@ -1,23 +1,23 @@
 import SwiftUI
 
-struct BottomHalfCircle: Shape {
+struct TopHalfCircle: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         let radius = min(rect.width, rect.height) * 0.5
-        let center = CGPoint(x: rect.midX, y: rect.minY)
-        path.addArc(center: center, radius: radius, startAngle: .degrees(0), endAngle: .degrees(180), clockwise: false)
+        let center = CGPoint(x: rect.midX, y: rect.maxY)
+        path.addArc(center: center, radius: radius, startAngle: .degrees(0), endAngle: .degrees(180), clockwise: true)
         path.closeSubpath()
         return path
     }
 }
 
-struct BottomTimeClockButton: ButtonStyle {
+struct TopTimeClockButton: ButtonStyle {
     @Environment(\.isEnabled) var isEnabled
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .background(
-                BottomHalfCircle()
-                    .fill(LinearGradient(gradient: Gradient(colors: [ColorPalette.primary.color, ColorPalette.secondary.color]), startPoint: UnitPoint(x: 0.5, y: -0.5), endPoint: .center))
+                TopHalfCircle()
+                    .fill(LinearGradient(gradient: Gradient(colors: [ColorPalette.primary.color, ColorPalette.secondary.color]), startPoint: .center, endPoint: UnitPoint(x: 0.5, y: 1.5)))
             )
             .font(.system(.largeTitle, design: .rounded))
             .foregroundColor(.white)
@@ -35,5 +35,5 @@ struct BottomTimeClockButton: ButtonStyle {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
     }
-    .buttonStyle(BottomTimeClockButton())
+    .buttonStyle(TopTimeClockButton())
 }
