@@ -22,7 +22,7 @@
 		6623FA952D2435F9005BE907 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 66411CFA2C5134490050FDFB /* Localizable.xcstrings */; };
 		6629125229607279007A5343 /* CurrentTimeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6629125129607279007A5343 /* CurrentTimeEntryView.swift */; };
 		662CB0312D4FC31E00F2A070 /* BottomTimeClockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662CB0302D4FC31E00F2A070 /* BottomTimeClockButton.swift */; };
-		662CB0332D4FC36E00F2A070 /* TopTimeClockButton 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662CB0322D4FC36E00F2A070 /* TopTimeClockButton 2.swift */; };
+		662CB0332D4FC36E00F2A070 /* TopTimeClockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662CB0322D4FC36E00F2A070 /* TopTimeClockButton.swift */; };
 		662D07452974210B002083F6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662D07442974210B002083F6 /* ContentView.swift */; };
 		6631C48F2C7609700082D770 /* TimeSheetOnTheClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C48E2C7609700082D770 /* TimeSheetOnTheClockView.swift */; };
 		6631C4912C7A7D0A0082D770 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6631C4902C7A7D0A0082D770 /* ColorPalette.swift */; };
@@ -149,7 +149,7 @@
 		6623FA8F2D24261F005BE907 /* TimeKeenWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenWidgetExtensionBundle.swift; sourceTree = "<group>"; };
 		6629125129607279007A5343 /* CurrentTimeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTimeEntryView.swift; sourceTree = "<group>"; };
 		662CB0302D4FC31E00F2A070 /* BottomTimeClockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTimeClockButton.swift; sourceTree = "<group>"; };
-		662CB0322D4FC36E00F2A070 /* TopTimeClockButton 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopTimeClockButton 2.swift"; sourceTree = "<group>"; };
+		662CB0322D4FC36E00F2A070 /* TopTimeClockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTimeClockButton.swift; sourceTree = "<group>"; };
 		662D07442974210B002083F6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6631C48E2C7609700082D770 /* TimeSheetOnTheClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetOnTheClockView.swift; sourceTree = "<group>"; };
 		6631C4902C7A7D0A0082D770 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 			children = (
 				6629125129607279007A5343 /* CurrentTimeEntryView.swift */,
 				667120492C744CB10017811E /* TimeClockButton.swift */,
-				662CB0322D4FC36E00F2A070 /* TopTimeClockButton 2.swift */,
+				662CB0322D4FC36E00F2A070 /* TopTimeClockButton.swift */,
 				662CB0302D4FC31E00F2A070 /* BottomTimeClockButton.swift */,
 				6631C48E2C7609700082D770 /* TimeSheetOnTheClockView.swift */,
 			);
@@ -660,7 +660,7 @@
 				66411CDE2C4D24CD0050FDFB /* BreakEntry.swift in Sources */,
 				66411CF22C4FBE6A0050FDFB /* DateExtension.swift in Sources */,
 				667120482C729D630017811E /* PayPeriodSettingsView.swift in Sources */,
-				662CB0332D4FC36E00F2A070 /* TopTimeClockButton 2.swift in Sources */,
+				662CB0332D4FC36E00F2A070 /* TopTimeClockButton.swift in Sources */,
 				662CB0312D4FC31E00F2A070 /* BottomTimeClockButton.swift in Sources */,
 				66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */,
 				6631C4912C7A7D0A0082D770 /* ColorPalette.swift in Sources */,
