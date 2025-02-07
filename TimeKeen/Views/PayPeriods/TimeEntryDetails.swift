@@ -112,7 +112,7 @@ struct TimeEntryDetails: View {
                     IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: timeEntry.start...timeEntry.end, displayedComponents: [.date, .hourAndMinute])
                 }
                 Button(action: {
-                    timeEntry.breaks.append(BreakEntry(start: breakStart, end: breakEnd, timeEntry: timeEntry))
+                    timeEntry.breaks.append(BreakEntry(start: breakStart, end: breakEnd, timeEntry: timeEntry, category: timeEntry.category))
                     isAddingBreak = false
                 }) {
                     Text("Add Break")

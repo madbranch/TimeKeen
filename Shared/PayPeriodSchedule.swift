@@ -1,5 +1,5 @@
 
-enum PayPeriodSchedule: String {
+enum PayPeriodSchedule: String, Codable {
     case Weekly
     case Biweekly
     case Monthly

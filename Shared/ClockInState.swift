@@ -1,4 +1,4 @@
-enum ClockInState: String {
+enum ClockInState: String, Codable {
     case clockedOut
     case clockedInWorking
     case clockedInTakingABreak

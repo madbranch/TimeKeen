@@ -84,6 +84,8 @@
 		66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */; };
 		66CBF20B2C8BFA3B002DB7B9 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CBF2032C8BF95C002DB7B9 /* SnapshotHelper.swift */; };
 		66CBF2142C8BFB08002DB7B9 /* TimeKeenUISnapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CBF2132C8BFB08002DB7B9 /* TimeKeenUISnapshots.swift */; };
+		66D2335C2D56AE3D00F9B0CD /* TimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D2335B2D56AE0F00F9B0CD /* TimeCategory.swift */; };
+		66D2335D2D56AE3D00F9B0CD /* TimeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D2335B2D56AE0F00F9B0CD /* TimeCategory.swift */; };
 		66D2C5A62C8C54D4004C145D /* DateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D2C5A52C8C54D4004C145D /* DateProvider.swift */; };
 		66D2C5A82C8C550A004C145D /* QuickActionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D2C5A72C8C550A004C145D /* QuickActionProvider.swift */; };
 /* End PBXBuildFile section */
@@ -200,6 +202,7 @@
 		66CBF2032C8BF95C002DB7B9 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		66CBF2112C8BFA3B002DB7B9 /* TimeKeenUISnapshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeKeenUISnapshots.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66CBF2132C8BFB08002DB7B9 /* TimeKeenUISnapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeKeenUISnapshots.swift; sourceTree = "<group>"; };
+		66D2335B2D56AE0F00F9B0CD /* TimeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCategory.swift; sourceTree = "<group>"; };
 		66D2C5A52C8C54D4004C145D /* DateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProvider.swift; sourceTree = "<group>"; };
 		66D2C5A72C8C550A004C145D /* QuickActionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,6 +284,7 @@
 				66B1D81B2C70B3DB0015BD48 /* PayPeriod.swift */,
 				66411CEF2C4F56B50050FDFB /* PayPeriodSchedule.swift */,
 				665E7E592C5EBB8400E8C43F /* SharedData.swift */,
+				66D2335B2D56AE0F00F9B0CD /* TimeCategory.swift */,
 				662294B12C4466B1005707D1 /* TimeEntry.swift */,
 				662294AF2C440196005707D1 /* TimeEntryExtension.swift */,
 				66411CE72C4E907B0050FDFB /* UserDefaultsExtension.swift */,
@@ -635,6 +639,7 @@
 				66984B562D187658006C0886 /* PayPeriodGrouping.swift in Sources */,
 				6623FA8B2D242614005BE907 /* DataModel.swift in Sources */,
 				664113402CD64E1B0065E014 /* PayPeriodSchedule.swift in Sources */,
+				66D2335D2D56AE3D00F9B0CD /* TimeCategory.swift in Sources */,
 				6623FA912D24261F005BE907 /* TimeKeenWidgetExtension.swift in Sources */,
 				6623FA922D24261F005BE907 /* TimeKeenWidgetExtensionBundle.swift in Sources */,
 				6641133B2CD64DC90065E014 /* ClockInState.swift in Sources */,
@@ -663,6 +668,7 @@
 				662CB0332D4FC36E00F2A070 /* TopTimeClockButton.swift in Sources */,
 				662CB0312D4FC31E00F2A070 /* BottomTimeClockButton.swift in Sources */,
 				66B1D81C2C70B3DB0015BD48 /* PayPeriod.swift in Sources */,
+				66D2335C2D56AE3D00F9B0CD /* TimeCategory.swift in Sources */,
 				6631C4912C7A7D0A0082D770 /* ColorPalette.swift in Sources */,
 				66D2C5A62C8C54D4004C145D /* DateProvider.swift in Sources */,
 				66411CF02C4F56B50050FDFB /* PayPeriodSchedule.swift in Sources */,

@@ -3,11 +3,13 @@ import SwiftData
 
 @Model
 class BreakEntry: Codable {
-    init(start: Date, end: Date, timeEntry: TimeEntry? = nil) {
+    init(start: Date, end: Date, timeEntry: TimeEntry? = nil, category: TimeCategory? = nil) {
         assert(BreakEntry.isZeroSecond(start))
         assert(BreakEntry.isZeroSecond(end))
         self.start = start
         self.end = end
+        self.timeEntry = timeEntry
+        self.category = category
     }
     
     required init(from decoder: Decoder) throws {
@@ -17,6 +19,7 @@ class BreakEntry: Codable {
     }
     
     var timeEntry: TimeEntry?
+    var category: TimeCategory?
     var start: Date
     var end: Date
     
@@ -39,3 +42,4 @@ class BreakEntry: Codable {
         }
     }
 }
+

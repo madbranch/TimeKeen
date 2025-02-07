@@ -8,7 +8,8 @@ public class TimeEntry: Encodable {
     var notes: String = ""
     @Relationship(deleteRule: .cascade, inverse: \BreakEntry.timeEntry)
     var breaks = [BreakEntry]()
-    init(from start: Date, to end: Date, notes: String = "") {
+    var category: TimeCategory?
+    init(from start: Date, to end: Date, notes: String = "", category: TimeCategory? = nil) {
         self.start = start
         self.end = end
         self.notes = notes
@@ -27,3 +28,5 @@ public class TimeEntry: Encodable {
         try container.encode(breaks, forKey: .breaks)
     }
 }
+
+
