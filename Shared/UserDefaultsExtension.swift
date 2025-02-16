@@ -1,4 +1,5 @@
 import Foundation
+import SwiftData
 
 extension UserDefaults {
     func date(forKey defaultName: String) -> Date? {
@@ -117,6 +118,30 @@ extension UserDefaults {
         }
         set(newHasLaunchedBefore) {
             self.set(newHasLaunchedBefore, forKey: SharedData.Keys.hasLaunchedBefore.rawValue)
+        }
+    }
+    
+    var timeCategoryId: PersistentIdentifier? {
+        get {
+            guard let savedIdData = self.object(forKey: SharedData.Keys.timeCategoryId.rawValue) as? Data else {
+                return nil;
+            }
+            let decoder = JSONDecoder()
+            guard let savedId = try? decoder.decode(PersistentIdentifier.self, from: savedIdData) else {
+                return nil
+            }
+            return savedId
+        }
+        set(newValue) {
+            guard let idToSave = newValue else {
+                self.removeObject(forKey: SharedData.Keys.timeCategoryId.rawValue)
+                return
+            }
+            let encoder = JSONEncoder()
+            guard let encoded = try? encoder.encode(idToSave) else {
+                return
+            }
+            self.set(encoded, forKey: SharedData.Keys.timeCategoryId.rawValue)
         }
     }
 }
