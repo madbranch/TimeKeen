@@ -13,5 +13,6 @@ class SharedData {
         case clockInDate = "ClockInDate"
         case clockInState = "ClockInState"
         case categories = "Categories"
+        case hasLaunchedBefore = "HasLaunchedBefore"
     }
 }

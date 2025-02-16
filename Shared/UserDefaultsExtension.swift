@@ -110,4 +110,13 @@ extension UserDefaults {
             self.set(newClockInState.rawValue, forKey: SharedData.Keys.clockInState.rawValue)
         }
     }
+    
+    var hasLaunchedBefore: Bool {
+        get {
+            return self.bool(forKey: SharedData.Keys.hasLaunchedBefore.rawValue)
+        }
+        set(newHasLaunchedBefore) {
+            self.set(newHasLaunchedBefore, forKey: SharedData.Keys.hasLaunchedBefore.rawValue)
+        }
+    }
 }

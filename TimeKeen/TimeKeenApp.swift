@@ -34,11 +34,15 @@ struct TimeKeenApp: App {
 #else
         dateProvider = RealDateProvider()
 #endif
-        
+        do {
+            try Self.checkFirstLaunch(context: DataModel.shared.modelContainer.mainContext)
+        } catch {
+            fatalError("Failed to prepare model context on first launch")
+        }
         AppDependencyManager.shared.add(dependency: DataModel.shared.modelContainer)
         TimeKeenShortcuts.updateAppShortcutParameters(dateProvider)
     }
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView(quickActionProvider: appDelegate.quickActionProvider)
@@ -92,6 +96,24 @@ struct TimeKeenApp: App {
         case .clockedInTakingABreak:
             [TimeKeenApp.endBreakQuickAction]
         }
+    }
+    
+    private static func checkFirstLaunch(context: ModelContext) throws {
+        guard let userDefaults = SharedData.userDefaults else {
+            return
+        }
+        if userDefaults.hasLaunchedBefore {
+            return
+        }
+        let descriptor = FetchDescriptor<TimeCategory>()
+        let count = (try? context.fetchCount(descriptor)) ?? 0
+        guard count == 0 else {
+            return
+        }
+        let defaultCategory = TimeCategory(named: "Work")
+        context.insert(defaultCategory)
+        try context.save()
+        userDefaults.hasLaunchedBefore = true
     }
 }
 

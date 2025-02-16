@@ -18,7 +18,7 @@ actor DataModel {
 #endif
     
     do {
-        return try ModelContainer(for: TimeEntry.self, BreakEntry.self, configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory))
+        return try ModelContainer(for: TimeEntry.self, BreakEntry.self, TimeCategory.self, configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory))
     } catch {
         fatalError("Failed to configure SwiftData container.")
     }

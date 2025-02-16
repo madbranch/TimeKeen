@@ -3,7 +3,7 @@ import SwiftData
 
 class Previewing {
     static var modelContainer: ModelContainer {
-        try! ModelContainer(for: TimeEntry.self, BreakEntry.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        try! ModelContainer(for: TimeEntry.self, BreakEntry.self, TimeCategory.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     }
     
     static var someTimeEntry: TimeEntry {
