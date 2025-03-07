@@ -17,7 +17,6 @@ struct CurrentTimeEntryView: View {
     @State private var clockInDuration: TimeInterval = .zero
     @State private var sinceClockIn: TimeInterval = .zero
     @State private var payPeriod: ClosedRange<Date> = Date.now...Date.now
-    @State private var roundedNow: Date = .now
     @State private var isClockingIn = false
     @State private var isClockingOut = false
     @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) var clockInDate = Date.now
@@ -49,29 +48,18 @@ struct CurrentTimeEntryView: View {
         VStack {
             switch clockInState {
             case .clockedOut:
-                VStack {
-                    Button {
-                        clockInDate = getRoundedNow()
-                        notes = ""
-                        isClockingIn = true
-                    } label: {
-                        Text("Clock In...")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                            .padding([.bottom], 40)
-                    }
-                    .buttonStyle(TopTimeClockButton())
-                    .accessibilityIdentifier("ClockInButton")
-                    Button {
-                        clockInDate = getRoundedNow()
-                        notes = ""
-                        clockIn(at: clockInDate)
-                    } label: {
-                        Text("At \(Formatting.startEndFormatter.string(from: roundedNow))")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                            .padding([.top], 40)
-                    }
-                    .buttonStyle(BottomTimeClockButton())
+                Button {
+                    clockInDate = getRoundedNow()
+                    notes = ""
+                    isClockingIn = true
+                } label: {
+                    Text("Clock In...")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding()
                 }
+                .buttonStyle(TimeClockButton())
+                .padding(CurrentTimeEntryView.bigButtonPadding)
+                .accessibilityIdentifier("ClockInButton")
             case .clockedInWorking, .clockedInTakingABreak:
                 Text(Formatting.timeIntervalFormatter.string(from: max(clockInDuration, TimeInterval())) ?? "")
                     .contentTransition(.numericText(value: clockInDuration))
@@ -293,7 +281,6 @@ struct CurrentTimeEntryView: View {
     private func updateClockInDuration(input: Date) {
         withAnimation {
             payPeriod = dateProvider.now.getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
-            roundedNow = getRoundedNow()
         }
         switch clockInState {
         case .clockedOut:
@@ -356,7 +343,7 @@ struct CurrentTimeEntryView: View {
     func reloadWidget() {
         WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
     }
-
+    
     func clockIn(at clockInDate: Date) {
         guard clockInState == .clockedOut else {
             return
