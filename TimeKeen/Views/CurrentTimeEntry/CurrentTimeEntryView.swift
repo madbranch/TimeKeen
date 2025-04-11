@@ -122,7 +122,7 @@ struct CurrentTimeEntryView: View {
                     }
             }
             if isOntheClockTimeVisible {
-                TimeSheetOnTheClockView(payPeriod: $payPeriod, clockInDuration: $clockInDuration)
+                TimeSheetOnTheClockView(payPeriod: payPeriod, clockInDuration: clockInDuration)
                     .padding()
                     .onTapGesture {
                         navigate(payPeriod)

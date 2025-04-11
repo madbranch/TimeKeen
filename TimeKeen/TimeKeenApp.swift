@@ -2,6 +2,9 @@ import SwiftUI
 import SwiftData
 import AppIntents
 import WidgetKit
+fileprivate let modelContainer: ModelContainer = {
+    return DataModel.createModelContainer()
+}()
 
 @main
 struct TimeKeenApp: App {
@@ -20,9 +23,9 @@ struct TimeKeenApp: App {
             dateProvider = FakeDateProvider()
             
             do {
-                try DataModel.shared.modelContainer.mainContext.transaction {
+                try modelContainer.mainContext.transaction {
                     for timeEntry in Previewing.someTimeEntries {
-                        DataModel.shared.modelContainer.mainContext.insert(timeEntry)
+                        modelContainer.mainContext.insert(timeEntry)
                     }
                 }
             } catch {
@@ -35,18 +38,21 @@ struct TimeKeenApp: App {
         dateProvider = RealDateProvider()
 #endif
         do {
-            try Self.checkFirstLaunch(context: DataModel.shared.modelContainer.mainContext)
+            try Self.checkFirstLaunch(context: modelContainer.mainContext)
         } catch {
             fatalError("Failed to prepare model context on first launch")
         }
-        AppDependencyManager.shared.add(dependency: DataModel.shared.modelContainer)
+//        let asyncDependency: () async -> (ModelContainer) = { @MainActor in
+//            return modelContainer
+//        }
+        AppDependencyManager.shared.add(dependency: modelContainer)
         TimeKeenShortcuts.updateAppShortcutParameters(dateProvider)
     }
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView(quickActionProvider: appDelegate.quickActionProvider)
-                .modelContainer(DataModel.shared.modelContainer)
+                .modelContainer(modelContainer)
                 .dateProvider(dateProvider)
                 .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {

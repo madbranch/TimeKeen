@@ -6,15 +6,15 @@ class TimeKeenShortcuts: AppShortcutsProvider {
     
     static var appShortcuts: [AppShortcut] {
         AppShortcut(intent: ClockIn(), phrases: [
-            "Clock in",
-            "Start working"
+            "Clock in in ${applicationName}",
+            "Start working in ${applicationName}"
         ],
                     shortTitle: "Clock In",
                     systemImageName: "stopwatch")
         
         AppShortcut(intent: ClockOut(), phrases: [
-            "Clock out",
-            "Stop working"
+            "Clock out in ${applicationName}",
+            "Stop working in ${applicationName}"
         ],
                     shortTitle: "Clock Out",
                     systemImageName: "stopwatch")

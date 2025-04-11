@@ -3,16 +3,14 @@ import SwiftData
 
 struct TimeSheetOnTheClockView: View {
     @Environment(\.colorScheme) var colorScheme
-    @Query var timeEntries: [TimeEntry]
-    @Binding var clockInDuration: TimeInterval
-    @Binding var payPeriod: ClosedRange<Date>
+    @Query private var timeEntries: [TimeEntry]
+    private let clockInDuration: TimeInterval
+    private let payPeriod: ClosedRange<Date>
     
-    init(payPeriod: Binding<ClosedRange<Date>>, clockInDuration: Binding<TimeInterval>) {
-        _clockInDuration = clockInDuration
-        _payPeriod = payPeriod
-        _timeEntries = Query(filter: #Predicate<TimeEntry> { [payPeriod = self.payPeriod] timeEntry in
-            return timeEntry.start >= payPeriod.lowerBound && timeEntry.start <= payPeriod.upperBound
-        })
+    init(payPeriod: ClosedRange<Date>, clockInDuration: TimeInterval) {
+        self.clockInDuration = clockInDuration
+        self.payPeriod = payPeriod
+        _timeEntries = Query(filter: TimeEntry.predicate(start: payPeriod.lowerBound, end: payPeriod.upperBound))
     }
     
     var body: some View {

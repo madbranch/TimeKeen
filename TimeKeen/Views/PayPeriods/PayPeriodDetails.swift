@@ -11,9 +11,7 @@ struct PayPeriodDetails: View {
     
     init(for payPeriod: ClosedRange<Date>) {
         self.payPeriod = payPeriod
-        _timeEntries = Query(filter: #Predicate<TimeEntry> { [payPeriod = self.payPeriod] timeEntry in
-            return timeEntry.start >= payPeriod.lowerBound && timeEntry.start <= payPeriod.upperBound
-        }, sort: \TimeEntry.start, order: .reverse)
+        _timeEntries = Query(filter: TimeEntry.predicate(start: payPeriod.lowerBound, end: payPeriod.upperBound), sort: \TimeEntry.start, order: .reverse)
     }
     
     var body: some View {

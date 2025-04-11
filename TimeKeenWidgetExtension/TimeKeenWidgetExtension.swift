@@ -3,6 +3,12 @@ import SwiftUI
 import SwiftData
 
 struct Provider: TimelineProvider {
+    let modelContainer: ModelContainer
+    
+    init(modelContainer: ModelContainer) {
+        self.modelContainer = modelContainer
+    }
+    
     func placeholder(in context: Context) -> SimpleEntry {
         return SimpleEntry.placeholderEntry
     }
@@ -32,7 +38,7 @@ struct Provider: TimelineProvider {
         let fetchDescriptor = FetchDescriptor(predicate: #Predicate<TimeEntry> { timeEntry in
             return timeEntry.start >= payPeriod.lowerBound && timeEntry.start <= payPeriod.upperBound
         })
-        let modelContext = ModelContext(DataModel.shared.modelContainer)
+        let modelContext = ModelContext(modelContainer)
         let timeEntries = (try? modelContext.fetch(fetchDescriptor)) ?? []
         let payPeriodOnTheClock = timeEntries.reduce(TimeInterval()) { $0 + $1.interval }
         
@@ -140,11 +146,14 @@ struct TimeKeenWidgetExtensionEntryView : View {
 struct TimeKeenWidgetExtension: Widget {
     let kind: String = "TimeKeenWidgetExtension"
     
+    let modelContainer: ModelContainer = DataModel.createModelContainer();
+    
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        StaticConfiguration(kind: kind, provider: Provider(modelContainer: modelContainer)) { entry in
             TimeKeenWidgetExtensionEntryView(entry: entry)
                 .containerBackground(ColorPalette.primary.color.gradient, for: .widget)
                 .foregroundStyle(.white)
+                .modelContainer(modelContainer)
         }
 #if os(watchOS)
         .supportedFamilies([.accessoryCircular, .accessoryRectangular, .accessoryInline])
