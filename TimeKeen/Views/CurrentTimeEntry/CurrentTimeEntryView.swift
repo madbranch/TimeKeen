@@ -371,6 +371,7 @@ struct CurrentTimeEntryView: View {
         guard clockInState == .clockedInTakingABreak else {
             return
         }
+        
         breaks = breaks + [BreakEntry(start: breakStart, end: breakEnd)]
         clockInState = .clockedInWorking
         updateClockInDuration(input: dateProvider.now)
