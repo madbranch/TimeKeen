@@ -1,7 +1,7 @@
 import Foundation
 import AppIntents
 
-class TimeKeenShortcuts: AppShortcutsProvider {
+final class TimeKeenShortcuts: AppShortcutsProvider {
     @MainActor private static var dateProvider: DateProvider = RealDateProvider()
     
     static var appShortcuts: [AppShortcut] {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TimeEntryJsonExport: Transferable {
+struct TimeEntryJsonExport: Transferable, @unchecked Sendable {
     let timeEntries: [TimeEntry]
     
     static var transferRepresentation: some TransferRepresentation {
