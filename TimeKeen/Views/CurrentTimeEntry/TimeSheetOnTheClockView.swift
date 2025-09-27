@@ -29,7 +29,7 @@ struct TimeSheetOnTheClockView: View {
                     .padding()
             }
             .background(
-                RoundedRectangle(cornerRadius: 12)
+                Capsule()
                     .fill(Color(colorScheme == .light ? UIColor.systemBackground : UIColor.secondarySystemBackground))
             )
             .shadow(radius: 10)
