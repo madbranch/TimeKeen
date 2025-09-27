@@ -56,6 +56,7 @@
 		664E89842CB2A3A80061171C /* Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66411CE52C4E6E7D0050FDFB /* Formatting.swift */; };
 		665E7E572C5A76C600E8C43F /* CalendarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E7E562C5A76C600E8C43F /* CalendarExtension.swift */; };
 		665E7E5A2C5EBB8400E8C43F /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E7E592C5EBB8400E8C43F /* SharedData.swift */; };
+		666F8AF32E881685000EA4C6 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 666F8AF22E881685000EA4C6 /* AppIcon.icon */; };
 		667120402C714DCC0017811E /* PayPeriodRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6671203F2C714DCC0017811E /* PayPeriodRow.swift */; };
 		667120422C714EF60017811E /* PayPeriodSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */; };
 		667120442C71FD460017811E /* TimeEntryCsvExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667120432C71FD460017811E /* TimeEntryCsvExport.swift */; };
@@ -170,6 +171,7 @@
 		665E7E562C5A76C600E8C43F /* CalendarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExtension.swift; sourceTree = "<group>"; };
 		665E7E582C5EB95000E8C43F /* TimeKeen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeKeen.entitlements; sourceTree = "<group>"; };
 		665E7E592C5EBB8400E8C43F /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
+		666F8AF22E881685000EA4C6 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		6671203F2C714DCC0017811E /* PayPeriodRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodRow.swift; sourceTree = "<group>"; };
 		667120412C714EF60017811E /* PayPeriodSettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodSettingsSheet.swift; sourceTree = "<group>"; };
 		667120432C71FD460017811E /* TimeEntryCsvExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEntryCsvExport.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 		6693595E29606A3900DEDD35 = {
 			isa = PBXGroup;
 			children = (
+				666F8AF22E881685000EA4C6 /* AppIcon.icon */,
 				6623FA882D242470005BE907 /* Shared */,
 				668248F62CDF97140063EB33 /* TimeKeenWidgetExtensionExtension.entitlements */,
 				66CBF2122C8BFAF0002DB7B9 /* TimeKeenUISnapshots */,
@@ -584,6 +587,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666F8AF32E881685000EA4C6 /* AppIcon.icon in Resources */,
 				6693597229606A3A00DEDD35 /* Preview Assets.xcassets in Resources */,
 				6693596F29606A3A00DEDD35 /* Assets.xcassets in Resources */,
 				66B1D8122C60D0460015BD48 /* PrivacyInfo.xcprivacy in Resources */,
@@ -936,6 +940,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_COMPLETION_HANDLER_MISUSE = YES;
 				CLANG_WARN_FLOAT_CONVERSION = YES_ERROR;
@@ -993,6 +998,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_COMPLETION_HANDLER_MISUSE = YES;
 				CLANG_WARN_FLOAT_CONVERSION = YES_ERROR;
