@@ -6,7 +6,6 @@ struct PayPeriodSettingsSheet: View {
     var body: some View {
         NavigationStack {
             PayPeriodSettingsView()
-                .background(.background.secondary)
                 .navigationTitle("Settings")
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
