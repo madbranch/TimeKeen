@@ -32,7 +32,7 @@ struct TimeSheetOnTheClockView: View {
                 Capsule()
                     .fill(Color(colorScheme == .light ? UIColor.systemBackground : UIColor.secondarySystemBackground))
             )
-            .shadow(radius: 10)
+            .glassEffect()
             .transition(.slide)
         }
     }
