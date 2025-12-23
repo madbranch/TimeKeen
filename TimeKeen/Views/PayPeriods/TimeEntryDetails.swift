@@ -30,9 +30,11 @@ struct TimeEntryDetails: View {
                 if editMode?.wrappedValue.isEditing == true {
                     LabeledContent("Start") {
                         IntervalDatePicker(selection: $timeEntry.start, minuteInterval: minuteInterval, in: ...timeEntry.end, displayedComponents: [.date, .hourAndMinute])
+                            .frame(minHeight: 28)
                     }
                     LabeledContent("End") {
                         IntervalDatePicker(selection: $timeEntry.end, minuteInterval: minuteInterval, in: timeEntry.start..., displayedComponents: [.date, .hourAndMinute])
+                            .frame(minHeight: 28)
                     }
                     TextField("Notes", text: $timeEntry.notes, axis: .vertical)
                         .submitLabel(.done)
