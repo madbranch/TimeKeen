@@ -16,6 +16,19 @@ struct PayPeriodDetails: View {
     @AppStorage(SharedData.Keys.breakStart.rawValue, store: SharedData.userDefaults) private var breakStart = Date.now
     @AppStorage(SharedData.Keys.breaks.rawValue, store: SharedData.userDefaults) private var breaks = [BreakEntry]()
 
+    // Minute interval and notes (used by clock out picker)
+    @AppStorage(SharedData.Keys.minuteInterval.rawValue, store: SharedData.userDefaults) var minuteInterval = 15 {
+        didSet {
+            UIDatePicker.appearance().minuteInterval = minuteInterval
+        }
+    }
+    @AppStorage(SharedData.Keys.notes.rawValue, store: SharedData.userDefaults) private var notes = ""
+
+    // Clock-out sheet state
+    @State private var isClockingOut = false
+    @State private var clockOutDate = Date.now
+    @State private var minClockOutDate = Date.now
+
     @State private var clockInDuration: TimeInterval = .zero
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -44,7 +57,17 @@ struct PayPeriodDetails: View {
                 Section {
                     // If this is the clock-in day and we're currently clocked in, show a running row at the top of the day's section
                     if shouldShowCurrentClockedIn && isClockInDay {
-                        CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
+                        Button {
+                            if startClockingOut() {
+                                isClockingOut = true
+                            }
+                        } label: {
+                            CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
+                                .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+
                     }
 
                     ForEach(dayEntries) { timeEntry in
@@ -72,7 +95,16 @@ struct PayPeriodDetails: View {
             // If the running clock-in belongs to a day that has no existing entries, show it as its own day section and include duration in its header
             if shouldShowCurrentClockedIn && !hasClockInDayInGroups {
                 Section {
-                    CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
+                    Button {
+                        if startClockingOut() {
+                            isClockingOut = true
+                        }
+                    } label: {
+                        CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
+                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
                 } header: {
                     HStack {
                         Text(clockInDate.formatted(date: .complete, time: .omitted))
@@ -85,10 +117,69 @@ struct PayPeriodDetails: View {
         .navigationTitle("\(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.upperBound))")
         .onAppear { updateClockInDuration(input: dateProvider.now) }
         .onReceive(timer) { input in updateClockInDuration(input: input) }
+        // Clock-out sheet (replicated from CurrentTimeEntryView)
+        .sheet(isPresented: $isClockingOut) { [clockOutDate, minClockOutDate, minuteInterval] in
+            NavigationStack {
+                IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+                    .accessibilityIdentifier("ClockOutDatePicker")
+                    .navigationTitle("Clock Out")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Stop") {
+                                clockOut(at: clockOutDate, notes: notes)
+                                isClockingOut = false
+                            }
+                            .accessibilityIdentifier("ClockOutStopButton")
+                        }
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel", role: .cancel) {
+                                isClockingOut = false
+                            }
+                        }
+                    }
+            }
+            .presentationDetents([.medium])
+        }
     }
 
     private var shouldShowCurrentClockedIn: Bool {
         return payPeriod.contains(dateProvider.now) && clockInState != .clockedOut
+    }
+
+    private func getRoundedNow() -> Date {
+        return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now)
+    }
+
+    private func startClockingOut() -> Bool {
+        guard clockInState == .clockedInWorking else {
+            return false
+        }
+
+        guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: clockInDate) else {
+            return false
+        }
+
+        minClockOutDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
+        clockOutDate = max(minClockOutDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now))
+        return true
+    }
+
+    private func clockOut(at end: Date, notes: String) {
+        guard clockInState == .clockedInWorking && clockInDate != end else {
+            return
+        }
+
+        let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
+        timeEntry.breaks.append(contentsOf: breaks)
+        context.insert(timeEntry)
+        clockInState = .clockedOut
+        updateClockInDuration(input: dateProvider.now)
+        reloadWidget()
+    }
+
+    private func reloadWidget() {
+        WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
     }
 
     private func updateClockInDuration(input: Date) {
