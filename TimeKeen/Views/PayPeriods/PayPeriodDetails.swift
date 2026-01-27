@@ -63,10 +63,11 @@ struct PayPeriodDetails: View {
                             }
                         } label: {
                             CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
-                                .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                                .padding(.vertical, 8)
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
 
                     }
 
@@ -101,10 +102,11 @@ struct PayPeriodDetails: View {
                         }
                     } label: {
                         CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
-                            .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                            .padding(.vertical, 8)
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 } header: {
                     HStack {
                         Text(clockInDate.formatted(date: .complete, time: .omitted))
@@ -117,7 +119,7 @@ struct PayPeriodDetails: View {
         .navigationTitle("\(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.upperBound))")
         .onAppear { updateClockInDuration(input: dateProvider.now) }
         .onReceive(timer) { input in updateClockInDuration(input: input) }
-        // Clock-out sheet (replicated from CurrentTimeEntryView)
+        // Clock-out sheet (same UI as in CurrentTimeEntryView)
         .sheet(isPresented: $isClockingOut) { [clockOutDate, minClockOutDate, minuteInterval] in
             NavigationStack {
                 IntervalDatePicker(selection: $clockOutDate, minuteInterval: minuteInterval, in: minClockOutDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
@@ -145,6 +147,22 @@ struct PayPeriodDetails: View {
 
     private var shouldShowCurrentClockedIn: Bool {
         return payPeriod.contains(dateProvider.now) && clockInState != .clockedOut
+    }
+
+    private func updateClockInDuration(input: Date) {
+        switch clockInState {
+        case .clockedOut:
+            clockInDuration = .zero
+        case .clockedInWorking:
+            let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
+            let sinceClockIn = clockInDate.distance(to: dateProvider.now)
+            clockInDuration = sinceClockIn - onBreak
+        case .clockedInTakingABreak:
+            let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
+            let sinceClockIn = clockInDate.distance(to: dateProvider.now)
+            let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: dateProvider.now))
+            clockInDuration = sinceClockIn - onBreak - sinceBreakStart
+        }
     }
 
     private func getRoundedNow() -> Date {
@@ -180,22 +198,6 @@ struct PayPeriodDetails: View {
 
     private func reloadWidget() {
         WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
-    }
-
-    private func updateClockInDuration(input: Date) {
-        switch clockInState {
-        case .clockedOut:
-            clockInDuration = .zero
-        case .clockedInWorking:
-            let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
-            let sinceClockIn = clockInDate.distance(to: dateProvider.now)
-            clockInDuration = sinceClockIn - onBreak
-        case .clockedInTakingABreak:
-            let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
-            let sinceClockIn = clockInDate.distance(to: dateProvider.now)
-            let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: dateProvider.now))
-            clockInDuration = sinceClockIn - onBreak - sinceBreakStart
-        }
     }
 }
 
