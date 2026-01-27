@@ -63,6 +63,9 @@
         }
       }
     },
+    "%@ - Now" : {
+
+    },
     "%lld entries" : {
       "localizations" : {
         "fr" : {

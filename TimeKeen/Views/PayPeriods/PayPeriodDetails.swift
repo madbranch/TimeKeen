@@ -10,7 +10,7 @@ struct PayPeriodDetails: View {
     @Query var timeEntries: [TimeEntry]
     private let payPeriod: ClosedRange<Date>
 
-    // Show current running clock-in if present
+    // App storage values used for the current running clock-in
     @AppStorage(SharedData.Keys.clockInState.rawValue, store: SharedData.userDefaults) private var clockInState = ClockInState.clockedOut
     @AppStorage(SharedData.Keys.clockInDate.rawValue, store: SharedData.userDefaults) private var clockInDate = Date.now
     @AppStorage(SharedData.Keys.breakStart.rawValue, store: SharedData.userDefaults) private var breakStart = Date.now
@@ -26,30 +26,30 @@ struct PayPeriodDetails: View {
 
     var body: some View {
         List {
-            // If the current pay period includes now and the user is clocked in, show a running row at the top
-            if shouldShowCurrentClockedIn {
-                Section {
-                    HStack {
-                        Text("\(Formatting.startEndFormatter.string(from: clockInDate)) - Now")
-                        Spacer()
-                        Text(Formatting.timeIntervalFormatter.string(from: clockInDuration) ?? "")
-                            .foregroundStyle(clockInState == .clockedInTakingABreak ? .secondary : .secondary)
-                    }
-                    .accessibilityIdentifier("CurrentClockedInRow")
-                } header: {
-                    Text("Now")
-                }
+            // Group entries by day
+            let grouped = timeEntries.filter { payPeriod.contains($0.start) }.groupByDay()
+
+            // If the clock-in day doesn't exist in grouped days but should be shown, create a synthetic section later
+            let clockInDayOnly = Calendar.current.dateOnly(from: clockInDate)
+            let hasClockInDayInGroups = grouped.contains { group in
+                guard let first = group.first else { return false }
+                return Calendar.current.dateOnly(from: first.start) == clockInDayOnly
             }
 
-            ForEach(timeEntries.filter { payPeriod.contains( $0.start ) }.groupByDay()) { timeEntries in
+            // Iterate groups and inject the running entry into its matching day
+            ForEach(grouped) { dayEntries in
                 Section {
-                    ForEach(timeEntries) { timeEntry in
+                    if shouldShowCurrentClockedIn && isSameDay(dayEntries.first?.start, clockInDate) {
+                        CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
+                    }
+
+                    ForEach(dayEntries) { timeEntry in
                         NavigationLink(value: timeEntry) {
                             TimeEntryRow(timeEntry: timeEntry)
                         }
                     }
                 } header: {
-                    DailyTimeEntryListSectionHeader(timeEntries: timeEntries)
+                    DailyTimeEntryListSectionHeader(timeEntries: dayEntries)
                 }
             }
             .onDelete { offsets in
@@ -64,6 +64,15 @@ struct PayPeriodDetails: View {
                     dismiss()
                 }
             }
+
+            // If the running clock-in belongs to a day that has no existing entries, show it as its own day section
+            if shouldShowCurrentClockedIn && !hasClockInDayInGroups {
+                Section {
+                    CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
+                } header: {
+                    Text(clockInDate.formatted(date: .complete, time: .omitted))
+                }
+            }
         }
         .navigationTitle("\(Formatting.yearlessDateformatter.string(from: payPeriod.lowerBound)) - \(Formatting.yearlessDateformatter.string(from: payPeriod.upperBound))")
         .onAppear { updateClockInDuration(input: dateProvider.now) }
@@ -72,6 +81,11 @@ struct PayPeriodDetails: View {
 
     private var shouldShowCurrentClockedIn: Bool {
         return payPeriod.contains(dateProvider.now) && clockInState != .clockedOut
+    }
+
+    private func isSameDay(_ a: Date?, _ b: Date) -> Bool {
+        guard let a = a else { return false }
+        return Calendar.current.dateOnly(from: a) == Calendar.current.dateOnly(from: b)
     }
 
     private func updateClockInDuration(input: Date) {
@@ -88,6 +102,22 @@ struct PayPeriodDetails: View {
             let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: dateProvider.now))
             clockInDuration = sinceClockIn - onBreak - sinceBreakStart
         }
+    }
+}
+
+private struct CurrentRunningRow: View {
+    let start: Date
+    let duration: TimeInterval
+    let isOnBreak: Bool
+
+    var body: some View {
+        HStack {
+            Text("\(Formatting.startEndFormatter.string(from: start)) - Now")
+            Spacer()
+            Text(Formatting.timeIntervalFormatter.string(from: duration) ?? "")
+                .foregroundStyle(isOnBreak ? .secondary : .secondary)
+        }
+        .accessibilityIdentifier("CurrentClockedInRow")
     }
 }
 
