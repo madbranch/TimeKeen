@@ -40,7 +40,11 @@ struct PayPeriodDetails: View {
     var body: some View {
         List {
             // Group entries by day
-            let grouped = timeEntries.filter { payPeriod.contains($0.start) }.groupByDay()
+            // Build grouped days from the query, then reverse to show most-recent days first.
+            let grouped = Array(timeEntries.filter { payPeriod.contains($0.start) }
+                .sorted { $0.start < $1.start }
+                .groupByDay()
+                .reversed())
 
             // Determine if the clock-in day already exists in the grouped days
             let clockInDayOnly = Calendar.current.dateOnly(from: clockInDate)
