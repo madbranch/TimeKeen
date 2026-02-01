@@ -40,7 +40,7 @@ struct PayPeriodDetails: View {
     var body: some View {
         List {
             // Group entries by day
-            // Build grouped days from the query, then reverse to show most-recent days first.
+            // Build grouped days from the query, which is already sorted to show most-recent days first.
             let grouped = timeEntries.filter { payPeriod.contains($0.start) }
                 .groupByDay()
 
