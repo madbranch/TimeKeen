@@ -1,13 +1,8 @@
 import SwiftUI
 
 struct DailyTimeEntryListSectionHeader: View {
-    @State var timeEntries: [TimeEntry]
+    var timeEntries: [TimeEntry]
     var extraDuration: TimeInterval = .zero
-
-    init(timeEntries: [TimeEntry], extraDuration: TimeInterval = .zero) {
-        self.timeEntries = timeEntries
-        self.extraDuration = extraDuration
-    }
 
     var body: some View {
         HStack {
