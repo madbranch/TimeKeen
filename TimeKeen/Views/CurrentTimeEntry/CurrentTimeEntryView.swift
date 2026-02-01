@@ -387,6 +387,7 @@ struct CurrentTimeEntryView: View {
         timeEntry.breaks.append(contentsOf: breaks)
         context.insert(timeEntry)
         clockInState = .clockedOut
+        breaks = []
         updateClockInDuration(input: dateProvider.now)
         reloadWidget()
     }
