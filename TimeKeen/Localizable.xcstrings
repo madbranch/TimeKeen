@@ -64,7 +64,14 @@
       }
     },
     "%@ - Now" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ - Maintenant"
+          }
+        }
+      }
     },
     "%lld entries" : {
       "localizations" : {
