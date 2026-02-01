@@ -29,6 +29,11 @@ struct PayPeriodDetails: View {
     @State private var clockOutDate = Date.now
     @State private var minClockOutDate = Date.now
 
+    // End break sheet state
+    @State private var isEndingBreak = false
+    @State private var breakEnd = Date.now
+    @State private var minBreakEndDate = Date.now
+
     @State private var clockInDuration: TimeInterval = .zero
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -52,7 +57,11 @@ struct PayPeriodDetails: View {
             if shouldShowCurrentClockedIn && !hasClockInDayInGroups {
                 Section {
                     Button {
-                        if startClockingOut() {
+                        if clockInState == .clockedInTakingABreak {
+                            if startEndingBreak() {
+                                isEndingBreak = true
+                            }
+                        } else if startClockingOut() {
                             isClockingOut = true
                         }
                     } label: {
@@ -80,7 +89,11 @@ struct PayPeriodDetails: View {
                     // If this is the clock-in day and we're currently clocked in, show a running row at the top of the day's section
                     if shouldShowCurrentClockedIn && isClockInDay {
                         Button {
-                            if startClockingOut() {
+                            if clockInState == .clockedInTakingABreak {
+                                if startEndingBreak() {
+                                    isEndingBreak = true
+                                }
+                            } else if startClockingOut() {
                                 isClockingOut = true
                             }
                         } label: {
@@ -136,6 +149,29 @@ struct PayPeriodDetails: View {
             }
             .presentationDetents([.medium])
         }
+        .sheet(isPresented: $isEndingBreak) { [minBreakEndDate, breakEnd, minuteInterval] in
+            NavigationStack {
+                IntervalDatePicker(selection: $breakEnd, minuteInterval: minuteInterval, in: minBreakEndDate..., displayedComponents: [.date, .hourAndMinute], style: .wheels)
+                    .accessibilityIdentifier("EndBreakDatePicker")
+                    .navigationTitle("Go back to work")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Resume") {
+                                endBreak(at: breakEnd)
+                                isEndingBreak = false
+                            }
+                            .accessibilityIdentifier("EndBreakStopButton")
+                        }
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel", role: .cancel) {
+                                isEndingBreak = false
+                            }
+                        }
+                    }
+            }
+            .presentationDetents([.medium])
+        }
     }
 
     private var shouldShowCurrentClockedIn: Bool {
@@ -185,6 +221,31 @@ struct PayPeriodDetails: View {
         timeEntry.breaks.append(contentsOf: breaks)
         context.insert(timeEntry)
         clockInState = .clockedOut
+        updateClockInDuration(input: dateProvider.now)
+        reloadWidget()
+    }
+
+    private func startEndingBreak() -> Bool {
+        guard clockInState == .clockedInTakingABreak else {
+            return false
+        }
+
+        guard let newDate = Calendar.current.date(byAdding: .minute, value: minuteInterval, to: breakStart) else {
+            return false
+        }
+
+        minBreakEndDate = Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: newDate)
+        breakEnd = max(minBreakEndDate, Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now))
+        return true
+    }
+
+    private func endBreak(at breakEnd: Date) {
+        guard clockInState == .clockedInTakingABreak else {
+            return
+        }
+
+        breaks = breaks + [BreakEntry(start: breakStart, end: breakEnd)]
+        clockInState = .clockedInWorking
         updateClockInDuration(input: dateProvider.now)
         reloadWidget()
     }
