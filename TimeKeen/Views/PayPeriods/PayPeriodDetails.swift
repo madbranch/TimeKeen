@@ -101,20 +101,14 @@ struct PayPeriodDetails: View {
                             TimeEntryRow(timeEntry: timeEntry)
                         }
                     }
+                    .onDelete { offsets in
+                        for index in offsets {
+                            context.delete(dayEntries[index])
+                        }
+                        WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
+                    }
                 } header: {
                     DailyTimeEntryListSectionHeader(timeEntries: dayEntries, extraDuration: extraForHeader)
-                }
-            }
-            .onDelete { offsets in
-                for index in offsets {
-                    context.delete(timeEntries[index])
-                }
-
-                _timeEntries.update()
-                WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
-
-                if timeEntries.isEmpty {
-                    dismiss()
                 }
             }
         }
