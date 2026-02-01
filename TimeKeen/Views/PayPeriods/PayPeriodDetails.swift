@@ -46,10 +46,7 @@ struct PayPeriodDetails: View {
 
             // Determine if the clock-in day already exists in the grouped days
             let clockInDayOnly = Calendar.current.dateOnly(from: clockInDate)
-            let hasClockInDayInGroups = grouped.contains { group in
-                guard let first = group.first else { return false }
-                return Calendar.current.dateOnly(from: first.start) == clockInDayOnly
-            }
+            let hasClockInDayInGroups = grouped.contains { $0.id == clockInDayOnly }
             
             // If the running clock-in belongs to a day that has no existing entries, show it as its own day section and include duration in its header
             if shouldShowCurrentClockedIn && !hasClockInDayInGroups {
@@ -75,8 +72,8 @@ struct PayPeriodDetails: View {
             }
 
             // Iterate groups and inject the running entry into its matching day (and include its duration in the header totals)
-            ForEach(grouped) { dayEntries in
-                let isClockInDay = Calendar.current.dateOnly(from: dayEntries.first?.start ?? Date.distantPast) == clockInDayOnly
+            ForEach(grouped) { dayGroup in
+                let isClockInDay = dayGroup.id == clockInDayOnly
                 let extraForHeader: TimeInterval = (shouldShowCurrentClockedIn && isClockInDay) ? clockInDuration : .zero
 
                 Section {
@@ -96,19 +93,19 @@ struct PayPeriodDetails: View {
 
                     }
 
-                    ForEach(dayEntries) { timeEntry in
+                    ForEach(dayGroup.entries) { timeEntry in
                         NavigationLink(value: timeEntry) {
                             TimeEntryRow(timeEntry: timeEntry)
                         }
                     }
                     .onDelete { offsets in
                         for index in offsets {
-                            context.delete(dayEntries[index])
+                            context.delete(dayGroup.entries[index])
                         }
                         WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
                     }
                 } header: {
-                    DailyTimeEntryListSectionHeader(timeEntries: dayEntries, extraDuration: extraForHeader)
+                    DailyTimeEntryListSectionHeader(timeEntries: dayGroup.entries, extraDuration: extraForHeader)
                 }
             }
         }

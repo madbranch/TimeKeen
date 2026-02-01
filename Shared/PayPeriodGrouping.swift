@@ -1,30 +1,40 @@
 import Foundation
 
+struct DayGroup: Identifiable {
+    let id: Date // The date-only component representing the day
+    let entries: [TimeEntry]
+    
+    var first: TimeEntry? { entries.first }
+}
+
 extension Array where Element == TimeEntry {
-    func groupByDay() -> [[TimeEntry]] {
-        guard let first = self.first else {
-            return [[TimeEntry]]()
+    func groupByDay() -> [DayGroup] {
+        guard let first = self.first,
+              let firstDay = Calendar.current.dateOnly(from: first.start) else {
+            return []
         }
         
-        var result = [[TimeEntry]]()
+        var result = [DayGroup]()
         let calendar = Calendar.current
-        var day = calendar.dateOnly(from: first.start)
+        var day = firstDay
         var dailyTimeEntries = [TimeEntry]()
         
         for timeEntry in self {
-            let currentDay = calendar.dateOnly(from: timeEntry.start)
+            guard let currentDay = calendar.dateOnly(from: timeEntry.start) else {
+                continue
+            }
             
             if day == currentDay {
                 dailyTimeEntries.append(timeEntry)
             } else {
-                result.append(dailyTimeEntries)
+                result.append(DayGroup(id: day, entries: dailyTimeEntries))
                 day = currentDay
                 dailyTimeEntries = [timeEntry]
             }
         }
         
-        result.append(dailyTimeEntries)
-        return result;
+        result.append(DayGroup(id: day, entries: dailyTimeEntries))
+        return result
     }
     
     func group(by schedule: PayPeriodSchedule, ending periodEnd: Date) -> [PayPeriod] {
