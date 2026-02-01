@@ -213,7 +213,7 @@ private struct CurrentRunningRow: View {
             Text("\(Formatting.startEndFormatter.string(from: start)) - Now")
             Spacer()
             Text(Formatting.timeIntervalFormatter.string(from: duration) ?? "")
-                .foregroundStyle(isOnBreak ? .secondary : .secondary)
+                .foregroundStyle(isOnBreak ? .tertiary : .secondary)
         }
         .accessibilityIdentifier("CurrentClockedInRow")
     }
