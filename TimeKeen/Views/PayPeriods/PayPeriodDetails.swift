@@ -149,12 +149,12 @@ struct PayPeriodDetails: View {
         case .clockedInWorking:
             let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
             let sinceClockIn = clockInDate.distance(to: dateProvider.now)
-            clockInDuration = sinceClockIn - onBreak
+            clockInDuration = max(.zero, sinceClockIn - onBreak)
         case .clockedInTakingABreak:
             let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
             let sinceClockIn = clockInDate.distance(to: dateProvider.now)
             let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: dateProvider.now))
-            clockInDuration = sinceClockIn - onBreak - sinceBreakStart
+            clockInDuration = max(.zero, sinceClockIn - onBreak - sinceBreakStart)
         }
     }
 
