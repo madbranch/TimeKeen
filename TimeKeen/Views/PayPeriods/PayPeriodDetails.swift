@@ -50,6 +50,29 @@ struct PayPeriodDetails: View {
                 guard let first = group.first else { return false }
                 return Calendar.current.dateOnly(from: first.start) == clockInDayOnly
             }
+            
+            // If the running clock-in belongs to a day that has no existing entries, show it as its own day section and include duration in its header
+            if shouldShowCurrentClockedIn && !hasClockInDayInGroups {
+                Section {
+                    Button {
+                        if startClockingOut() {
+                            isClockingOut = true
+                        }
+                    } label: {
+                        CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
+                            .padding(.vertical, 8)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                } header: {
+                    HStack {
+                        Text(clockInDate.formatted(date: .complete, time: .omitted))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(Formatting.timeIntervalFormatter.string(from: clockInDuration) ?? "")
+                    }
+                }
+            }
 
             // Iterate groups and inject the running entry into its matching day (and include its duration in the header totals)
             ForEach(grouped) { dayEntries in
@@ -92,29 +115,6 @@ struct PayPeriodDetails: View {
 
                 if timeEntries.isEmpty {
                     dismiss()
-                }
-            }
-
-            // If the running clock-in belongs to a day that has no existing entries, show it as its own day section and include duration in its header
-            if shouldShowCurrentClockedIn && !hasClockInDayInGroups {
-                Section {
-                    Button {
-                        if startClockingOut() {
-                            isClockingOut = true
-                        }
-                    } label: {
-                        CurrentRunningRow(start: clockInDate, duration: clockInDuration, isOnBreak: clockInState == .clockedInTakingABreak)
-                            .padding(.vertical, 8)
-                            .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                } header: {
-                    HStack {
-                        Text(clockInDate.formatted(date: .complete, time: .omitted))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(Formatting.timeIntervalFormatter.string(from: clockInDuration) ?? "")
-                    }
                 }
             }
         }
