@@ -139,7 +139,7 @@ struct PayPeriodDetails: View {
     }
 
     private var shouldShowCurrentClockedIn: Bool {
-        return payPeriod.contains(dateProvider.now) && clockInState != .clockedOut
+        return payPeriod.contains(clockInDate) && clockInState != .clockedOut
     }
 
     private func updateClockInDuration(input: Date) {
