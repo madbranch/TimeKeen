@@ -135,8 +135,6 @@ struct CurrentTimeEntryView: View {
         .onReceive(timer) { _ in
             withAnimation {
                 updatePayPeriod()
-            }
-            withAnimation {
                 timeClockManager.updateClockInDuration()
             }
         }
