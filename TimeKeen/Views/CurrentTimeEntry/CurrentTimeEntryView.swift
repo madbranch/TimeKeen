@@ -128,11 +128,13 @@ struct CurrentTimeEntryView: View {
             timeClockManager.dateProvider = dateProvider
             timeClockManager.modelContextInsert = { context.insert($0) }
             timeClockManager.updateClockInDuration()
+            // We make sure not to rely on waiting for the first time tick.
+            updatePayPeriod()
             handleQuickAction()
         }
         .onReceive(timer) { _ in
             withAnimation {
-                payPeriod = dateProvider.now.getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
+                updatePayPeriod()
             }
             withAnimation {
                 timeClockManager.updateClockInDuration()
@@ -239,5 +241,9 @@ struct CurrentTimeEntryView: View {
         
         timeClockManager.handle(quickAction)
         quickActionProvider.quickAction = nil
+    }
+    
+    private func updatePayPeriod() {
+        payPeriod = dateProvider.now.getPayPeriod(schedule: payPeriodSchedule, periodEnd: endOfLastPayPeriod)
     }
 }
