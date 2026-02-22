@@ -118,7 +118,6 @@ struct CurrentTimeEntryView: View {
         .onChange(of: quickActionProvider.quickAction) { _, _ in
             handleQuickAction()
         }
-        .onAppear(perform: handleQuickAction)
         .sensoryFeedback(trigger: timeClockManager.clockInState) { old, new in
             return switch new {
             case .clockedOut: .success
@@ -129,6 +128,7 @@ struct CurrentTimeEntryView: View {
             timeClockManager.dateProvider = dateProvider
             timeClockManager.modelContextInsert = { context.insert($0) }
             timeClockManager.updateClockInDuration()
+            handleQuickAction()
         }
         .onReceive(timer) { _ in
             withAnimation {
