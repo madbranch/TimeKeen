@@ -232,7 +232,7 @@ struct CurrentTimeEntryView: View {
         }
     }
     
-    func handleQuickAction() {
+    private func handleQuickAction() {
         guard let quickAction = quickActionProvider.quickAction else {
             return
         }
