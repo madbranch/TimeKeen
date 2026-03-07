@@ -40,7 +40,7 @@ struct Provider: TimelineProvider {
         })
         let modelContext = ModelContext(modelContainer)
         let timeEntries = (try? modelContext.fetch(fetchDescriptor)) ?? []
-        let payPeriodOnTheClock = timeEntries.reduce(TimeInterval()) { $0 + $1.interval }
+        let payPeriodOnTheClock = timeEntries.reduce(TimeInterval()) { $0 + $1.onTheClock }
         
         let entry = SimpleEntry(date: .now, clockInState: clockInState, clockInDate: clockInDate, breakStart: breakStart, onBreak: onBreak, payPeriod: payPeriod, payPeriodOnTheClock: payPeriodOnTheClock)
         var entries = [entry]
