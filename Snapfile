@@ -1,12 +1,13 @@
 # Uncomment the lines below you want to change by removing the # in the beginning
 
 # A list of devices you want to take the screenshots from
-devices([
-  # 6.9" Display 
-  "iPhone 16 Plus",
-])
+devices(
+  (ENV["SNAPSHOT_DEVICES"] || "iPhone 17 Pro Max").split(",").map(&:strip)
+)
 
-ios_version("18.0")
+if ENV["SNAPSHOT_IOS_VERSION"] && !ENV["SNAPSHOT_IOS_VERSION"].empty?
+  ios_version(ENV["SNAPSHOT_IOS_VERSION"])
+end
 
 languages([
   "en",

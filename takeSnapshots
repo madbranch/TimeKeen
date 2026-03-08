@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_PATH="$ROOT_DIR/TimeKeen.xcodeproj"
+SCHEME_NAME="TimeKeenUISnapshots"
+
+STATUS_BAR_ARGS=(
+  --time 9:41
+  --dataNetwork wifi
+  --wifiMode active
+  --wifiBars 3
+  --cellularMode active
+  --cellularBars 4
+  --batteryState charged
+  --batteryLevel 100
+)
+
+PREFERRED_DEVICES=(
+  "iPhone 16e"
+)
+
+fastlane_cmd() {
+  if [[ -f "$ROOT_DIR/Gemfile" ]]; then
+    echo "bundle exec fastlane"
+  else
+    echo "fastlane"
+  fi
+}
+
+resolve_destinations() {
+  local destinations
+  destinations="$(xcodebuild -project "$PROJECT_PATH" -scheme "$SCHEME_NAME" -showdestinations 2>&1)"
+
+  DESTINATIONS="$destinations" ruby <<'RUBY'
+require "rubygems"
+
+requested = ENV.fetch("REQUESTED_DEVICES", "").lines.map(&:strip).reject(&:empty?)
+entries = ENV.fetch("DESTINATIONS").lines.each_with_object([]) do |line, acc|
+  match = line.match(/\{ platform:iOS Simulator, arch:[^,]+, id:([^,]+), OS:([^,]+), name:(.+) \}/)
+  next unless match
+
+  acc << {
+    id: match[1],
+    os: Gem::Version.new(match[2]),
+    os_string: match[2],
+    name: match[3].strip
+  }
+end
+
+iphone_entries = entries.select { |entry| entry[:name].start_with?("iPhone ") }
+abort("No iPhone simulator destinations are available for #{ENV.fetch("SCHEME_NAME")}.") if iphone_entries.empty?
+
+requested = iphone_entries.map { |entry| entry[:name] }.uniq if requested.empty?
+
+selected = []
+requested.each do |name|
+  match = iphone_entries
+    .select { |entry| entry[:name] == name }
+    .max_by { |entry| entry[:os] }
+
+  next unless match
+
+  selected << match
+  break unless ENV["SELECT_ALL_MATCHES"] == "1"
+end
+
+if selected.empty?
+  fallback = iphone_entries.max_by { |entry| [entry[:os], entry[:name]] }
+  selected = [fallback]
+end
+
+common_versions = selected
+  .map { |entry| iphone_entries.select { |candidate| candidate[:name] == entry[:name] }.map { |candidate| candidate[:os_string] } }
+  .reduce { |intersection, versions| intersection & versions }
+
+abort("No common iOS simulator runtime found for #{selected.map { |entry| entry[:name] }.join(", ")}.") if common_versions.nil? || common_versions.empty?
+
+runtime = common_versions.max_by { |version| Gem::Version.new(version) }
+selected = selected.map do |entry|
+  iphone_entries.find { |candidate| candidate[:name] == entry[:name] && candidate[:os_string] == runtime }
+end
+
+selected.each do |entry|
+  puts [entry[:name], entry[:id], entry[:os_string]].join("\t")
+end
+RUBY
+}
+
+main() {
+  local requested_devices=()
+  local resolved=()
+  local line
+  local select_all_matches="0"
+
+  if [[ $# -gt 0 ]]; then
+    select_all_matches="1"
+    requested_devices=("$@")
+  elif [[ -n "${SNAPSHOT_DEVICES:-}" ]]; then
+    select_all_matches="1"
+    IFS=',' read -r -a requested_devices <<<"$SNAPSHOT_DEVICES"
+  else
+    requested_devices=("${PREFERRED_DEVICES[@]}")
+  fi
+
+  while IFS= read -r line; do
+    resolved+=("$line")
+  done < <(REQUESTED_DEVICES="$(printf '%s\n' "${requested_devices[@]}")" SCHEME_NAME="$SCHEME_NAME" SELECT_ALL_MATCHES="$select_all_matches" resolve_destinations)
+
+  if [[ ${#resolved[@]} -eq 0 ]]; then
+    echo "Failed to resolve any simulator destinations." >&2
+    exit 1
+  fi
+
+  local ios_version=""
+  local selected_names=()
+  local selected_ids=()
+
+  for line in "${resolved[@]}"; do
+    IFS=$'\t' read -r name id os <<<"$line"
+    selected_names+=("$name")
+    selected_ids+=("$id")
+    ios_version="$os"
+  done
+
+  export SNAPSHOT_DEVICES
+  SNAPSHOT_DEVICES="$(IFS=,; echo "${selected_names[*]}")"
+  export SNAPSHOT_IOS_VERSION="$ios_version"
+
+  echo "Using simulators: $SNAPSHOT_DEVICES (iOS $SNAPSHOT_IOS_VERSION)"
+
+  for id in "${selected_ids[@]}"; do
+    xcrun simctl boot "$id" >/dev/null 2>&1 || true
+    xcrun simctl bootstatus "$id" -b
+    xcrun simctl status_bar "$id" override "${STATUS_BAR_ARGS[@]}" || true
+  done
+
+  local fastlane
+  fastlane="$(fastlane_cmd)"
+  (cd "$ROOT_DIR" && eval "$fastlane snapshot")
+
+  if [[ -d "$ROOT_DIR/screenshots" ]]; then
+    (cd "$ROOT_DIR/screenshots" && eval "$fastlane frameit")
+  fi
+
+  for id in "${selected_ids[@]}"; do
+    xcrun simctl status_bar "$id" clear >/dev/null 2>&1 || true
+  done
+}
+
+main "$@"
