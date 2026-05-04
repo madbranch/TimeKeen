@@ -42,11 +42,10 @@ struct TimeKeenApp: App {
         } catch {
             fatalError("Failed to prepare model context on first launch")
         }
-//        let asyncDependency: () async -> (ModelContainer) = { @MainActor in
-//            return modelContainer
-//        }
         AppDependencyManager.shared.add(dependency: modelContainer)
         TimeKeenShortcuts.updateAppShortcutParameters(dateProvider)
+        PhoneWatchConnectivityManager.shared.configure(modelContainer: modelContainer)
+        PhoneWatchConnectivityManager.shared.activate()
     }
     
     var body: some Scene {

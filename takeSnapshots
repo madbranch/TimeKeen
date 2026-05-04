@@ -21,6 +21,10 @@ PREFERRED_DEVICES=(
   "iPhone 16e"
 )
 
+FRAMEIT_SUPPORTED_DEVICES=(
+  "iPhone 16e"
+)
+
 fastlane_cmd() {
   if [[ -f "$ROOT_DIR/Gemfile" ]]; then
     echo "bundle exec fastlane"
@@ -128,6 +132,32 @@ main() {
   SNAPSHOT_DEVICES="$(IFS=,; echo "${selected_names[*]}")"
   export SNAPSHOT_IOS_VERSION="$ios_version"
 
+  local enable_frameit="${ENABLE_FRAMEIT:-1}"
+  if [[ "$enable_frameit" == "1" ]]; then
+    local unsupported_devices=()
+    local supported="0"
+
+    for name in "${selected_names[@]}"; do
+      supported="0"
+      for supported_name in "${FRAMEIT_SUPPORTED_DEVICES[@]}"; do
+        if [[ "$name" == "$supported_name" ]]; then
+          supported="1"
+          break
+        fi
+      done
+
+      if [[ "$supported" != "1" ]]; then
+        unsupported_devices+=("$name")
+      fi
+    done
+
+    if [[ ${#unsupported_devices[@]} -gt 0 ]]; then
+      echo "frameit is enabled, but the current fastlane device frames do not support: ${unsupported_devices[*]}" >&2
+      echo "Use a supported device (${FRAMEIT_SUPPORTED_DEVICES[*]}) or run with ENABLE_FRAMEIT=0." >&2
+      exit 1
+    fi
+  fi
+
   echo "Using simulators: $SNAPSHOT_DEVICES (iOS $SNAPSHOT_IOS_VERSION)"
 
   for id in "${selected_ids[@]}"; do
@@ -140,7 +170,7 @@ main() {
   fastlane="$(fastlane_cmd)"
   (cd "$ROOT_DIR" && eval "$fastlane snapshot")
 
-  if [[ -d "$ROOT_DIR/screenshots" ]]; then
+  if [[ "$enable_frameit" == "1" && -d "$ROOT_DIR/screenshots" ]]; then
     (cd "$ROOT_DIR/screenshots" && eval "$fastlane frameit")
   fi
 

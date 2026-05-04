@@ -482,16 +482,6 @@
         }
       }
     },
-    "Failed to clock out." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Échéc d'ârrêter de travailler."
-          }
-        }
-      }
-    },
     "Format" : {
       "localizations" : {
         "fr" : {
@@ -771,6 +761,132 @@
         }
       }
     },
+    "timeclock.error.alreadyClockedIn" : {
+      "comment" : "User is already clocked in.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You're already clocked in."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu travails déjà."
+          }
+        }
+      }
+    },
+    "timeclock.error.invalidClockOutDate" : {
+      "comment" : "Invalid clock-out date.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clock out time must be after clock in time."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’heure d’arrêt doit être après l’heure de début."
+          }
+        }
+      }
+    },
+    "timeclock.error.missingClockInDate" : {
+      "comment" : "Missing clock-in date.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You're not properly clocked in."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu n’as pas commencé correctement à travailler."
+          }
+        }
+      }
+    },
+    "timeclock.error.notClockedIn" : {
+      "comment" : "User is not clocked in.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You're not clocked in."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu n’as pas commencé à travailler"
+          }
+        }
+      }
+    },
+    "timeclock.error.notWorking" : {
+      "comment" : "User is not currently working.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You're not working."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu ne travails pas."
+          }
+        }
+      }
+    },
+    "timeclock.error.persistenceUnavailable" : {
+      "comment" : "Persistence unavailable.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Clock out isn't available on this device right now."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu ne peux pas arrêter de travailler sur cet appareil présentement."
+          }
+        }
+      }
+    },
+    "timeclock.error.unavailable" : {
+      "comment" : "Time clock data is unavailable.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Time clock data is unavailable."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les données de temps ne sont pas disponibles."
+          }
+        }
+      }
+    },
     "Tip Jar" : {
       "localizations" : {
         "fr" : {
@@ -883,36 +999,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Travaillé **%1$@** depuis %2$@"
-          }
-        }
-      }
-    },
-    "You're already clocked in." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous travaillez déjà."
-          }
-        }
-      }
-    },
-    "You're not properly clocked in." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Votre arrivée n'est pas correctement entrée."
-          }
-        }
-      }
-    },
-    "You're not working." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous ne travaillez pas."
           }
         }
       }

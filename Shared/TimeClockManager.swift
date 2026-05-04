@@ -6,6 +6,8 @@ import WidgetKit
 /// used by both CurrentTimeEntryView and PayPeriodDetails to avoid code duplication.
 @Observable
 final class TimeClockManager {
+    private static let widgetKind = "TimeKeenWidgetExtension"
+
     // MARK: - Dependencies
     
     var dateProvider: DateProvider = RealDateProvider()
@@ -53,46 +55,41 @@ final class TimeClockManager {
     // MARK: - Initialization
     
     init() {}
+
+    private func makeActionService() -> TimeClockActionService {
+        TimeClockActionService(
+            persistClockOut: { [modelContextInsert] timeEntry in
+                modelContextInsert?(timeEntry)
+            },
+            reloadWidgets: Self.reloadWidgets
+        )
+    }
+
+    private func sync(from snapshot: TimeClockSnapshot) {
+        sinceClockIn = snapshot.sinceClockIn
+        clockInDuration = snapshot.clockInDuration
+    }
     
     // MARK: - Clock Duration Calculation
     
     func updateClockInDuration() {
-        let now = dateProvider.now
-        switch clockInState {
-        case .clockedOut:
-            sinceClockIn = .zero
-            clockInDuration = .zero
-        case .clockedInWorking:
-            let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
-            let since = clockInDate.distance(to: now)
-            sinceClockIn = since
-            clockInDuration = since - onBreak
-        case .clockedInTakingABreak:
-            let onBreak = breaks.reduce(TimeInterval()) { $0 + $1.interval }
-            sinceClockIn = clockInDate.distance(to: now)
-            let sinceBreakStart = max(TimeInterval(), breakStart.distance(to: now))
-            clockInDuration = sinceClockIn - onBreak - sinceBreakStart
-        }
+        sync(from: makeActionService().loadSnapshot(now: dateProvider.now))
     }
     
     // MARK: - Time Rounding
     
     func getRoundedNow() -> Date {
-        return Calendar.current.getRoundedDate(minuteInterval: minuteInterval, from: dateProvider.now)
+        makeActionService().roundedDate(for: dateProvider.now)
     }
     
     // MARK: - Clock In
     
     func clockIn(at date: Date) {
-        guard clockInState == .clockedOut else {
+        guard case let .success(result) = makeActionService().clockIn(at: date) else {
             return
         }
-        clockInDate = date
-        breaks = [BreakEntry]()
-        notes = ""
-        clockInState = .clockedInWorking
-        updateClockInDuration()
-        reloadWidget()
+
+        sync(from: result.snapshot)
     }
     
     // MARK: - Clock Out
@@ -113,17 +110,11 @@ final class TimeClockManager {
     }
     
     func clockOut(at end: Date, notes: String) {
-        guard clockInState == .clockedInWorking && clockInDate != end else {
+        guard case let .success(result) = makeActionService().clockOut(at: end, notes: notes) else {
             return
         }
-        
-        let timeEntry = TimeEntry(from: clockInDate, to: end, notes: notes)
-        timeEntry.breaks.append(contentsOf: breaks)
-        modelContextInsert?(timeEntry)
-        clockInState = .clockedOut
-        breaks = []
-        updateClockInDuration()
-        reloadWidget()
+
+        sync(from: result.snapshot)
     }
     
     // MARK: - Break Management
@@ -144,14 +135,11 @@ final class TimeClockManager {
     }
     
     func startBreak(at date: Date) {
-        guard clockInState == .clockedInWorking else {
+        guard case let .success(result) = makeActionService().startBreak(at: date) else {
             return
         }
-        
-        breakStart = date
-        clockInState = .clockedInTakingABreak
-        updateClockInDuration()
-        reloadWidget()
+
+        sync(from: result.snapshot)
     }
     
     /// Prepares state for ending a break. Returns true if break-end sheet should be shown.
@@ -170,14 +158,11 @@ final class TimeClockManager {
     }
     
     func endBreak(at date: Date) {
-        guard clockInState == .clockedInTakingABreak else {
+        guard case let .success(result) = makeActionService().endBreak(at: date) else {
             return
         }
-        
-        breaks = breaks + [BreakEntry(start: breakStart, end: date)]
-        clockInState = .clockedInWorking
-        updateClockInDuration()
-        reloadWidget()
+
+        sync(from: result.snapshot)
     }
     
     // MARK: - Quick Actions
@@ -203,7 +188,11 @@ final class TimeClockManager {
     
     // MARK: - Widget
     
+    static func reloadWidgets() {
+        WidgetCenter.shared.reloadTimelines(ofKind: widgetKind)
+    }
+
     func reloadWidget() {
-        WidgetCenter.shared.reloadTimelines(ofKind: "TimeKeenWidgetExtension")
+        Self.reloadWidgets()
     }
 }
